@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Tests for the home page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class FirstPageTestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Home page',
+      'description' => 'Tests home page elements',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  /**
+   * Test that the links are added to the page (no JS testing).
+   */
+  function testHomePageContent() {
+    module_enable(array('contact'));
+    $this->resetAll();
+
+    // Anonymous users should not see the menu.
+    $this->drupalGet('');
+    $this->assertElementByXPath('//h1[@id="page-title"]', array(), t('Page title found.'));
+
+    
+
+    // Check that the field appears in the overview form.
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'Welcome to iWheat.org!', 'Page title string found...');
+    
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//article[@id="node-page-1"]//div[@class="content clearfix"]//div[@class="field field-name-body field-type-text-with-summary field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//';
+    
+    // Check that the intro paragraph appears
+    $this->assertFieldByXPath($base_path . 'p', 'Watch a 2 minute video to learn how to use this site:', '1st paragraph found');
+    
+    // Check that the intro video appears
+    $this->assertElementByXPath($base_path . 'p//iframe[@src="http://www.youtube.com/embed/OmneHmwHLyE"]', array(), 'Video found');
+    
+    // Check that the 2nd paragraph appears
+    $this->assertFieldByXPath($base_path . 'p', 'We will provide you with news and progress on desktop modules, smartphone apps, and other developments as soon as information is available. Please be patient with us, this is a work in progress!', '2nd paragraph found');
+    
+    // Check that the 3rd paragraph, part 1 appears
+    // @note
+    // Do not add trailing blank as this is not a blank in the html (at least
+    // for this string; need to see how the html is generated; the blank may be
+    // a &nbsp; character).
+    // For assertFieldByXPath() you would need to match everything inside the
+    // 'field' specified. In the next assert, the field is the <p> tag and its
+    // contents includes the node/10 link tested below.
+     //$this->assertFieldByXPath($base_path . 'p', 'To learn more about iWheat and how you can get involved, visit the&nbsp;<a href="/node/10">Project Overview</a>&nbsp;sections of the site.', '3rd paragraph part 1 found');
+     //$this->assertFieldByXPath($base_path . 'p', 'To learn more about iWheat and how you can get involved, visit the', '3rd paragraph part 1 found');
+    $this->assertText('To learn more about iWheat and how you can get involved, visit the', '3rd paragraph part 1 found');
+    
+    // Check that the Project Overview link in the 3rd paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/node/10"]', 'Project Overview', 'Project Overview link found');
+    
+    // Check that the 3rd paragraph, part 2 appears
+    $this->assertText('sections of the site.', '3rd paragraph part 2 found');
+
+    
+return;
+
+/*
+    // Create a user who
+    // - can access content overview
+    // - cannot access drupal.org links
+    // - cannot administer Contact module
+    $permissions = $this->basePermissions + array(
+      'access content overview',
+    );
+    $admin_user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($admin_user);
+
+    // Check that the user can see the admin links, but not the drupal links.
+    $this->assertElementByXPath('//div[@id="admin-menu"]', array(), 'Administration menu found.');
+    $this->assertElementByXPath('//div[@id="admin-menu"]//a[contains(@href, :path)]', array(':path' => 'admin/content'), 'Content link found.');
+    $this->assertNoElementByXPath('//div[@id="admin-menu"]//a[@href=:path]', array(':path' => 'http://drupal.org'), 'Icon » Drupal.org link not found.');
+    $this->assertNoElementByXPath('//div[@id="admin-menu"]//a[contains(@href, :path)]', array(':path' => 'admin/structure/contact'), 'Structure » Contact link not found.');
+
+    // Create a user "reversed" to the above; i.e., who
+    // - cannot access content overview
+    // - can access drupal.org links
+    // - can administer Contact module
+    $permissions = $this->basePermissions + array(
+      'display drupal links',
+      'administer contact forms',
+    );
+    $admin_user2 = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($admin_user2);
+    $this->assertElementByXPath('//div[@id="admin-menu"]', array(), 'Administration menu found.');
+    $this->assertNoElementByXPath('//div[@id="admin-menu"]//a[contains(@href, :path)]', array(':path' => 'admin/content'), 'Content link not found.');
+    $this->assertElementByXPath('//div[@id="admin-menu"]//a[@href=:path]', array(':path' => 'http://drupal.org'), 'Icon » Drupal.org link found.');
+    $this->assertElementByXPath('//div[@id="admin-menu"]//a[contains(@href, :path)]', array(':path' => 'admin/structure/contact'), 'Structure » Contact link found.');
+*/
+  }
+}
