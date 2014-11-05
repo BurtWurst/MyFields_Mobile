@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file
+ * Tests for the project page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class ProjectPageTest extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Project Page',
+      'description' => 'Tests Project Page Elements',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  function testProjectContent() {
+    module_enable(array('contact'));
+    $this->resetAll();
+
+    // Anonymous users should not see the menu.
+    $this->drupalGet('');
+    $this->assertElementByXPath('//h1[@id="page-title"]', array(), t('Page title found.'));
+
+    // Check that the field appears in the overview form.
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'Resources', 'Page title string found...');
+
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//article     [@id="node-page-69"]//div[@class="content clearfix"]//div[@class="field field-name-body field-type-text-with-summary field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//';
+
+    // Check the first Paragraph
+    $this->assertFieldByXPath($base_path . '//p//span//strong//', 'Area Wide Wheat Production Guide', '1st paragraph found');
+
+    // Check that the Wheat Production Guide loads properly
+    $this->assertElementByXPath('//p//a[@href="/node/2"]//img[@src="/sites/default/files/styles/medium/public/Wheat-Production-Guide.gif"]', array(), 'Area Wheat Production and Pest Management Guide gif found.');
+
+    // Check that the View Online link in the 1st paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/node/2"]', 'View online', 'Online Wheat Production Guide found');
+
+    // Check that the 1st paragraph, part 1 appears
+    $this->assertText('or download a ', '1st paragraph part 1 found');
+
+    // Check that the PDF version link in the 1st paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/sites/default/files/Wheat%20Production%20and%20Pest%20Management%20-%20Print.pdf"]', 'PDF version', 'PDF Wheat Production Guide found');
+    
+    // Check that the 1st paragraph, part 2 appears
+    $this->assertText('(9 MB).', '1st paragraph part 2 found');
+
+    // Check the second Paragraph
+    $this->assertFieldByXPath($base_path . '//p//span//strong//', 'iWheat Video Library', '2nd paragraph found');
+
+    // Check that the Wheat Production Guide loads properly
+    $this->assertElementByXPath('//p//a[@href="/project/resources/wheat-videos"]//img[@src="/sites/default/files/styles/medium/public/images/page/Slide1.jpg"]', array(), 'iWheat video series and library img found.');
+
+    // Check that the 2nd paragraph, part 1 appears
+    $this->assertText('Search ', '2nd paragraph part 1 found');
+
+    // Check that the View Online link in the 2nd paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/project/resources/wheat-videos"]', 'our library', 'iWheat video library found');
+
+    // Check that the 2nd paragraph, part 2 appears
+    $this->assertText('or check out', '2nd paragraph part 2 found');
+
+    // Check that the View Online link in the 2nd paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="http://www.youtube.com/user/iwheatvideos"]', ' our YouTube channel', 'iWheat YouTube channel found');
+
+    // Check that the 2nd paragraph, part 3 appears
+    $this->assertText('.', '2nd paragraph part 3 found');
+
+    // Check the third Paragraph
+    $this->assertFieldByXPath($base_path . '//p//span//strong//', 'IWheat Fact Sheet Database', '3rd paragraph found');
+
+    // Check that the iWheat fact sheet database loads properly
+    $this->assertElementByXPath('//p//a[@href="/fact-sheet-database"]//img[@src="/sites/default/files/styles/medium/public/images/page/factsheet.png"]', array(), 'iWheat fact sheet database img found.');
+
+    // Check that the 3rd paragraph, part 1 appears
+    $this->assertText('Search ', '3rd paragraph part 1 found');
+
+    // Check that the our database link in the 3rd paragraph appears correctly
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/fact-sheet-database"]', 'our database', 'iWheat fact sheet database found');
+
+    // Check that the 3rd paragraph, part 2 appears
+    $this->assertText('.', '3rd paragraph part 2 found');
+
+return;
+  }
+}
+
+
+    

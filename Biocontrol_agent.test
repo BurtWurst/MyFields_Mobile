@@ -1,0 +1,66 @@
+<?php
+/**
+Tests for the Biocontrol Agent
+*/
+
+class Biocontrolagent extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Field and Disease change test',
+      'description' => 'Tests page overlay when not logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp()
+  {
+    parent::setUp(array('node'));
+  }
+  function testDiseaseLinks()
+  {
+    module_enable(array('contact'));
+    $this->resetAll();
+
+    $this->drupalGet('');
+    $this->BioControl_agent_list();
+  }
+  function BioControl_agent_list()
+  {
+    //checks for biocontrol agent tab
+    $this->assertElementByXPath('//ul[@class="tabs primary clearfix"]//li[@class="active"]//a[@href="/pests/biocontrol-agents"]', array(), 'Variety Support System found.');
+
+    //checks for tachinid flies TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Tachinid flies found.');
+
+    //checks for damsel bug TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Damsel Bug found.');
+
+    //checks for greenbug parasite TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Greenbug Parasite found.');
+
+    //checks for Convergent Lady Beetle TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Convergent Lady Beetle found.');
+
+    //checks for Green Lacewing TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Green Lacewing found.');
+
+    // Check that the Tachinid fly image is found
+        $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="/sites/default/files/styles/medium/public/images/page/factsheet.png"]', array(), 'Tachinid fly img found');
+
+    // Check that the Damsel Bug image is found
+        $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="http://iwheat.org/sites/default/files/styles/medium/public/DamselBug.png?itok=P_c7re2g"]', array(), 'Damsel Bug img found');
+
+    // Check that the Greenbug Parasite image is found
+        $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="http://iwheat.org/sites/default/files/styles/medium/public/GreenbugParsite.png?itok=H_rprIm7"]', array(), 'Greenbug Parasite img found');
+
+    // Check that the Convergent Lady Beetle image is found
+        $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="http://iwheat.org/sites/default/files/styles/medium/public/ConvergentLadybeetle.png?itok=5HSOtPib"]', array(), 'Convergent Lady Beetle img found');
+
+    // Check that the Green Lacewing image is found
+        $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="http://iwheat.org/sites/default/files/styles/medium/public/AdultLacewing.png?itok=i1KOkq5L"]', array(), 'Green Lacewing img found');
+  }
+}
+
+
+
+
