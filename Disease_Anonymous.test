@@ -6,8 +6,8 @@ As a developer, I want a regression test to prove that the fields and diseases p
 class DiseaseAnonymous extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Field and Disease change test',
-      'description' => 'Tests page overlay when not logged in',
+      'name' => 'Diseasestest',
+      'description' => 'Tests diseases when not logged in',
       'group' => 'iWheat',
     );
   }
@@ -16,23 +16,26 @@ class DiseaseAnonymous extends FirstRemoteTestCase {
   {
     parent::setUp(array('node'));
   }
-  function testDiseaseLinks()
+  function testDiseases()
   {
     module_enable(array('contact'));
     $this->resetAll();
 
-    $this->drupalGet('');
+    $this->drupalGet('/toolshed/selector');
+    $this->DiseaseMenus();
+    $this->drupalGet('/toolshed/selector/diseases');
     $this->DiseaseListCheck();
   }
-  function DiseaseListCheck()
+  function DiseaseMenus()
   {
-
     //checks for variety support system at the top
     $this->assertElementByXPath('//ul[@class="menu links inline"]//li[@class="expanded active-trail active menu-mlid-1120"]//a[@href="/toolshed/selector"]', array(), 'Variety Support System found.');
 
     //checks for Diseases link below variety support system
     $this->assertElementByXPath('//ul[@class="tabs primary clearfix"]//li[@class="active"]//a[@href="/toolshed/selector/diseases"]', array(), 'Diseases found.');
-
+  }
+  function DiseaseListCheck()
+  {
     //checks for Barley yellow dwarf
     $this->assertElementByXPath('//tr[@class="odd views-row-first"]//td[@class="views-field views-field-title active views-align-center"]//a[@href="/disease/barley-yellow-dwarf"]', array(), 'Barley yellow dwarf found.');
 

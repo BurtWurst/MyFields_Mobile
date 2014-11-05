@@ -6,8 +6,8 @@ As a developer, I want a regression test to prove that the fields and diseases p
 class fieldsregistered extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Field and Disease change test',
-      'description' => 'Tests page overlay when logged in',
+      'name' => 'Fieldschange test',
+      'description' => 'Tests fields page when logged in',
       'group' => 'iWheat',
     );
   }
@@ -16,7 +16,8 @@ class fieldsregistered extends FirstRemoteTestCase {
   {
     parent::setUp(array('node'));
   }
-  function testRegisteredMenus() {
+  function RegisteredMenus() 
+  {
     module_enable(array('contact'));
     $this->resetAll();
     
@@ -37,17 +38,18 @@ class fieldsregistered extends FirstRemoteTestCase {
     
     //$username = kmurph27;
     //$password = dmjx53aw;
-
-  function testDiseaseLinks()
+  }
+  function testFields()
   {
     module_enable(array('contact'));
     $this->resetAll();
 
-    $this->drupalGet('');
-    $this->testRegisteredMenus();
+    $this->RegisteredMenus();
+    $this->drupalGet('/toolshed/maps/fieldsites');
+    $this->testFields();
     
   }
-  function testFields()
+  function MyFields()
   {
      //tests the my fields property 
      $this->assertElementByXPath('//ul[@class="menu links inline"]//li[@class="leaf active-trail active menu-mlid-1766"]//a[@href="/toolshed/maps/fieldsites"]', array(), 'My fields link found.');

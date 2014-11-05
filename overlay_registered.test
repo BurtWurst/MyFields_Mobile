@@ -33,8 +33,8 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
     }
 
     $edit = array(
-      'name' => '----',
-      'pass' => '----'
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
     );
     
     $this->drupalPost('user', $edit, 'Log in');
@@ -80,7 +80,7 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
   function checkHomeAndTopMenu() {
   
     //Check that the header section exists
-    $this->assertElementByXPath('//header[@id="section-header"]', array(), t('Section Header found.'));
+    $this->assertElementByXPath('//header[@id="section-header"]', array(), 'Section Header found.');
     
     //Check that the home image exists
     $this->assertElementByXPath('//div[@class="logo-img"]//a[@rel="home"]//img[@src="http://iwheat.org/sites/default/files/iwheat_logo_sm_1.png"]', array(), 'Home page logo found.');

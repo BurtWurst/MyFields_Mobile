@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Tests for the home page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class UserHomePageTestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'User home page',
+      'description' => 'Tests user information page',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  /**
+   * Test that the links are added to the page (no JS testing).
+   */
+  function testHomePageContent() {
+    module_enable(array('contact'));
+    $this->resetAll();
+        
+    // Test the user page when not logged in    
+    $this->drupalGet('/user');
+    
+    // Test that the page title displays 'My Account'
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'My Account', 'My Account title found.');
+    
+    // Test that the Create Account, Log in, and Request password links exist
+    $this->assertLink('Create new account', 0, 'Create Account link found', 'Other');
+    $this->assertLink('Login', 0, 'Login link found', 'Other');
+    $this->assertLink('Request new password', 0, 'New password link found', 'Other');
+    
+    // Test that the Username block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-name"]', 'Username ', 'Username text found');
+    $this->assertFieldByXPath('//label[@for="edit-name"]//span[@class="form-required"]', '*', 'Username asterisk text found');
+    $this->assertFieldByXPath('//div[@class="description"]', 'Enter your iWheat.org username.', 'Username description text found');
+    $this->assertFieldByXPath('//input[@id="edit-name"]', '', 'Username input box found');
+    
+    // Test that the Password block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-pass"]', 'Password ', 'Password text found');
+    $this->assertFieldByXPath('//label[@for="edit-pass"]//span[@class="form-required"]', '*', 'Password asterisk text found');
+    $this->assertFieldByXPath('//div[@class="description"]', 'Enter the password that accompanies your username.', 'Password description text found');
+    $this->assertFieldByXPath('//input[@id="edit-pass"]', '', 'Password input box found');
+    
+    // Test that the Login button
+    $this->assertFieldByXPath('//input[@value="Log in"]', '', 'Login button found.');
+  }
+}
