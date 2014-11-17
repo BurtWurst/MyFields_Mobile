@@ -16,7 +16,8 @@ class fieldsregistered extends FirstRemoteTestCase {
   {
     parent::setUp(array('node'));
   }
-  function RegisteredMenus() 
+
+  function testFields()
   {
     module_enable(array('contact'));
     $this->resetAll();
@@ -26,8 +27,8 @@ class fieldsregistered extends FirstRemoteTestCase {
     }
 
     $edit = array(
-      'name' => 'kmurph27',
-      'pass' => 'dmjx53aw'
+      'name' => '----',
+      'pass' => '----'
     );
     
     $this->drupalPost('user', $edit, 'Log in');
@@ -35,30 +36,20 @@ class fieldsregistered extends FirstRemoteTestCase {
     // If a "log out" link appears on the page, it is almost certainly because
     // the login was successful.
     $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
-    
-    //$username = kmurph27;
-    //$password = dmjx53aw;
-  }
-  function testFields()
-  {
-    module_enable(array('contact'));
-    $this->resetAll();
 
-    $this->RegisteredMenus();
     $this->drupalGet('/toolshed/maps/fieldsites');
-    $this->testFields();
+//     $this->testFields(); // Infinite loop
     
-  }
-  function MyFields()
-  {
-     //tests the my fields property 
-     $this->assertElementByXPath('//ul[@class="menu links inline"]//li[@class="leaf active-trail active menu-mlid-1766"]//a[@href="/toolshed/maps/fieldsites"]', array(), 'My fields link found.');
+    //tests the my fields property 
+     $this->assertFieldByXPath('//ul[@class="menu links inline"]//li[@class="leaf active-trail active menu-mlid-1766"]//a[@href="/toolshed/maps/fieldsites"]', "My Fields", 'My fields link found.');
 
      //checks for the add a what field site link
-     $this->assertElementByXPath('//div[@class="view view-my-field-sites view-id-my_field_sites view-display-id-page view-dom-id-c651d41fd6c044d93493aed94a2f74d9"]//div[@class="view-header"]//a[@href="/node/add/field-site"]', array(), 'Add a What Field Site found.');
+     $this->assertFieldByXPath('//div[@class="view-header"]//a[@href="/node/add/field-site"]', " + Add a Wheat Field Site ", 'Add a Wheat Field Site found.');
 
      //tests linux field property 
-     $this->assertElementByXPath('//tr[@class="odd views-row-first views-row-last"]//td[@class="views-field views-field-title views-align-center"]//a[@href="/fieldsite/linux"]', array(), 'Linux found.');
+     $this->assertFieldByXPath('//tr[@class="odd views-row-first views-row-last"]//td[@class="views-field views-field-title views-align-center"]//a[@href="/fieldsite/linux"]', "Linux", 'Linux found.');
+    
   }
+
 }
 

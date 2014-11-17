@@ -9,6 +9,8 @@
  * Base class for all administration menu web test cases.
  */
 class FirstRemoteTestCase extends DrupalRemoteTestCase {
+  public $blank = ' '; // DO NOT EDIT this character!!!
+
   protected $profile = 'testing';
 
   protected $basePermissions = array(
@@ -47,6 +49,9 @@ class FirstRemoteTestCase extends DrupalRemoteTestCase {
    */
   protected function assertElementByXPath($xpath, array $arguments = array(), $message = '', $group = 'Other') {
     $elements = $this->xpath($xpath, $arguments);
+if (empty($elements[0])) {
+  $this->pass($message, 'assertElementByXPath');
+}
     return $this->assertTrue(!empty($elements[0]), $message, $group);
   }
 
@@ -107,5 +112,32 @@ class FirstRemoteTestCase extends DrupalRemoteTestCase {
     }
     $xpath = '//div[@id="admin-menu"]/div/ul' . implode('/parent::li/ul', $xpath);
     $this->assertNoElementByXPath($xpath, $args, $message . ' link not found.');
+  }
+
+  /**
+   * Pass if image tag is found with the specified source (other than token).
+   *
+   * @param $xpath
+   *   An XPath expression.
+   * @param $label
+   *   Source string in the image tags.
+   * @param $index
+   *   Image tag position counting from zero.
+   * @param $message
+   *   Message to display.
+   * @param $group
+   *   The group this message belongs to, defaults to 'Other'.
+   *
+   * @return
+   *   TRUE if the assertion succeeded, FALSE otherwise.
+   */
+  protected function assertImage($xpath, $label, $index = 0, $message = '', $group = 'Other') {
+//     $links = $this->xpath($xpath . '//img[starts-with(@src,:label)]', array(':label' => $label));
+//     $this->verbose(print_r($links, 1) . "\nisset links index = " . isset($links[$index]));
+    $links = $this->xpath($xpath . '//img[contains(@src,:label)]', array(':label' => $label));
+//     $this->verbose(print_r($links, 1) . "\nisset links index = " . isset($links[$index]));
+//     $this->verbose(print_r($links, 1));
+    $message = ($message ?  $message : t('Image found with source: %label.', array('%label' => $label)));
+    return $this->assert(isset($links[$index]), $message, $group);
   }
 }
