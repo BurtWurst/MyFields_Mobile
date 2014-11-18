@@ -1,6 +1,6 @@
 <?php
 /**
-Tests for the Biocontrol Agent
+As a developer, I want a regression test to prove that the fields and diseases pages of iWheat.org are not affected by a change.
 */
 
 class Biocontrolagent extends FirstRemoteTestCase {
@@ -16,6 +16,7 @@ class Biocontrolagent extends FirstRemoteTestCase {
   {
     parent::setUp(array('node'));
   }
+
   function testDiseaseLinks()
   {
     module_enable(array('contact'));
@@ -24,6 +25,7 @@ class Biocontrolagent extends FirstRemoteTestCase {
     $this->drupalGet('');
     $this->BioControl_agent_list();
   }
+
   function BioControl_agent_list()
   {
     //checks for biocontrol agent tab
@@ -58,6 +60,7 @@ class Biocontrolagent extends FirstRemoteTestCase {
 
     // Check that the Green Lacewing image is found
         $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//img[@src="http://iwheat.org/sites/default/files/styles/medium/public/AdultLacewing.png?itok=i1KOkq5L"]', array(), 'Green Lacewing img found');
+
   }
 }
 
