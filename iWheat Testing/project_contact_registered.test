@@ -23,7 +23,23 @@ class ProjectContactPageTest extends FirstRemoteTestCase {
   function testProjectContactContent() {
     module_enable(array('contact'));
     $this->resetAll();
-    $this->drupalGet('');
+
+    if ($this->loggedInUser) {
+    $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => '----',
+      'pass' => '----'
+    );
+    
+    $this->drupalPost('user', $edit, 'Log in');
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
+    
+    $this->drupalGet('/project/contact');
 
     // Check that the field appears in the overview form.
     $this->assertFieldByXPath('//h1[@id="page-title"]', 'Contact', 'Page title string found...');
@@ -31,7 +47,7 @@ class ProjectContactPageTest extends FirstRemoteTestCase {
     $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//article     [@id="node-page-69"]//div[@class="content clearfix"]//div[@class="field field-name-body field-type-text-with-summary field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//';
 
     // Test that the first name block of code exists and displays correctly
-    $this->assertFieldByXPath('//label[@for="edit-name"]', 'Your Name ', 'First Name text found');
+    $this->assertFieldByXPath('//label[@for="edit-name"]', 'Your name ', 'First Name text found');
     $this->assertFieldByXPath('//label[@for="edit-name"]//span[@class="form-required"]', '*', 'Username asterisk text found');
     $this->assertFieldByXPath('//input[@id="edit-name"]', '', 'First name input box found');
 
@@ -48,11 +64,11 @@ class ProjectContactPageTest extends FirstRemoteTestCase {
     // Test that the Message block of code exists and displays correctly
     $this->assertFieldByXPath('//label[@for="edit-message"]', 'Message ', 'Message text found');
     $this->assertFieldByXPath('//label[@for="edit-message"]//span[@class="form-required"]', '*', 'Message asterisk text found');
-    $this->assertFieldByXPath('//input[@id="edit-message"]', '', 'Message input box found');
+    $this->assertFieldByXPath('//textarea[@id="edit-message"]', '', 'Message input box found');
 
     // Test that the Copy block of code exists and displays correctly
-    $this->assertFieldByXPath('//label[@for="edit-copy"]', 'Send yourself a copy', 'Copy text found');
     $this->assertFieldByXPath('//input[@id="edit-copy"]', '', 'Copy check box found');
+    $this->assertFieldByXPath('//label[@for="edit-copy"]', 'Send yourself a copy. ', 'Copy text found');
 
     // Test that the Captcha block of code exists and displays correctly
     $this->assertFieldByXPath('//span[@class="fieldset-legend"]', 'CAPTCHA', 'Captcha title found');

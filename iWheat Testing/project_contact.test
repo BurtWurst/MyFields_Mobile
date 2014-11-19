@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * Tests for the blocks on project contact page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class ProjectContactPageTest extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Project Contact Page',
+      'description' => 'Tests Project Contact Page Elements',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  function testProjectContactContent() {
+    module_enable(array('contact'));
+    $this->resetAll();
+    $this->drupalGet('/project/contact');
+
+    // Check that the field appears in the overview form.
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'Contact', 'Page title string found...');
+
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//article     [@id="node-page-69"]//div[@class="content clearfix"]//div[@class="field field-name-body field-type-text-with-summary field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]//';
+
+    // Test that the first name block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-name"]', 'Your name ', 'First Name text found');
+    $this->assertFieldByXPath('//label[@for="edit-name"]//span[@class="form-required"]', '*', 'Username asterisk text found');
+    $this->assertFieldByXPath('//input[@id="edit-name"]', '', 'First name input box found');
+
+    // Test that the Email Address block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-mail"]', 'Your e-mail address ', 'Email Address text found');
+    $this->assertFieldByXPath('//label[@for="edit-mail"]//span[@class="form-required"]', '*', 'Email asterisk text found');
+    $this->assertFieldByXPath('//input[@id="edit-mail"]', '', 'Email address input box found');
+
+    // Test that the Subject block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-subject"]', 'Subject ', 'Subject text found');
+    $this->assertFieldByXPath('//label[@for="edit-subject"]//span[@class="form-required"]', '*', 'Subject asterisk text found');
+    $this->assertFieldByXPath('//input[@id="edit-subject"]', '', 'Subject input box found');
+
+    // Test that the Message block of code exists and displays correctly
+    $this->assertFieldByXPath('//label[@for="edit-message"]', 'Message ', 'Message text found');
+    $this->assertFieldByXPath('//label[@for="edit-message"]//span[@class="form-required"]', '*', 'Message asterisk text found');
+    $this->assertFieldByXPath('//textarea[@id="edit-message"]', '', 'Message input box found');
+
+    // Test that the Copy block of code exists and displays correctly
+    //$this->assertFieldByXPath('//input[@id="edit-copy"]', '', 'Copy check box found');
+    //$this->assertFieldByXPath('//label[@for="edit-copy"]', 'Send yourself a copy', 'Copy text found');
+
+    // Test that the Captcha block of code exists and displays correctly
+    $this->assertFieldByXPath('//span[@class="fieldset-legend"]', 'CAPTCHA', 'Captcha title found');
+    $this->assertFieldByXPath('//div[@class="fieldset-description"]', 'This question is for testing whether you are a human visitor and to prevent automated spam submissions.', 'Captcha description text found');
+    $this->assertFieldByXPath('//img[@title="Image CAPTCHA"]', '', 'Captcha img found');
+    
+    $this->assertFieldByXPath('//label[@for="edit-captcha-response"]', 'What code is in the image? ', 'Captcha input text found');
+    $this->assertFieldByXPath('//label[@for="edit-captcha-response"]//span[@class="form-required"]', '*', 'Captcha input asterisk text found');
+    $this->assertFieldByXPath('//div[@class="description"]', 'Enter the characters shown in the image.', 'Captcha input description text found');
+    $this->assertFieldByXPath('//input[@id="edit-captcha-response"]', '', 'Captcha input input box found');
+    
+    // Test that the Send message button
+    $this->assertFieldByXPath('//input[@value="Send message"]', '', 'Send message button found.');
+
+  }
+}
+
+
+

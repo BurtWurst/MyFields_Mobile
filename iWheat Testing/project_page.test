@@ -23,7 +23,14 @@ class ProjectPageTest extends FirstRemoteTestCase {
   function testProjectResourceContent() {
     module_enable(array('contact'));
     $this->resetAll();
+<<<<<<< HEAD:project_page.test
     $this->drupalGet('');
+=======
+
+    // Anonymous users should not see the menu.
+    $this->drupalGet('/project/resources');
+    $this->assertElementByXPath('//h1[@id="page-title"]', array(), t('Page title found.'));
+>>>>>>> 2f8e884bdce676960af575180644f7c2d520d5d0:iWheat Testing/project_page.test
 
     // Check that the field appears in the overview form.
     $this->assertFieldByXPath('//h1[@id="page-title"]', 'Resources', 'Page title string found...');
@@ -37,7 +44,7 @@ class ProjectPageTest extends FirstRemoteTestCase {
     $this->assertElementByXPath('p//a[@href="/node/2"]//img[@src="/sites/default/files/styles/medium/public/Wheat-Production-Guide.gif"]', array(), 'Area Wheat Production and Pest Management Guide gif found.');
 
     // Check that the View Online link in the 1st paragraph appears correctly
-    $this->assertFieldByXPath($base_path . 'p//a[@href="/node/2"]', 'View online', 'Online Wheat Production Guide found');
+    $this->assertFieldByXPath($base_path . 'p//a[@href="/node/2"]', 'View online ', 'Online Wheat Production Guide found');
 
     // Check that the 1st paragraph, part 1 appears
     $this->assertText('or download a ', '1st paragraph part 1 found');
@@ -49,7 +56,11 @@ class ProjectPageTest extends FirstRemoteTestCase {
     $this->assertText('(9 MB).', '1st paragraph part 2 found');
 
     // Check the second Paragraph
+<<<<<<< HEAD:project_page.test
     $this->assertFieldByXPath($base_path . 'p//span//strong', 'iWheat Video Library', '2nd paragraph found');
+=======
+    $this->assertText('iWheat Video Library', '2nd paragraph found');
+>>>>>>> 2f8e884bdce676960af575180644f7c2d520d5d0:iWheat Testing/project_page.test
 
     // Check that the Wheat Production Guide loads properly
     $this->assertElementByXPath('p//a[@href="/project/resources/wheat-videos"]//img[@src="/sites/default/files/styles/medium/public/images/page/Slide1.jpg"]', array(), 'iWheat video series and library img found.');
@@ -64,13 +75,17 @@ class ProjectPageTest extends FirstRemoteTestCase {
     $this->assertText('or check out', '2nd paragraph part 2 found');
 
     // Check that the View Online link in the 2nd paragraph appears correctly
-    $this->assertFieldByXPath($base_path . 'p//a[@href="http://www.youtube.com/user/iwheatvideos"]', ' our YouTube channel', 'iWheat YouTube channel found');
+    $this->assertFieldByXPath($base_path . 'p//a[@href="http://www.youtube.com/user/iwheatvideos"]', $this->blank . 'our YouTube channel', 'iWheat YouTube channel found');
 
     // Check that the 2nd paragraph, part 3 appears
     $this->assertText('.', '2nd paragraph part 3 found');
 
     // Check the third Paragraph
+<<<<<<< HEAD:project_page.test
     $this->assertFieldByXPath($base_path . 'p//span//strong', 'IWheat Fact Sheet Database', '3rd paragraph found');
+=======
+    $this->assertText('iWheat Fact Sheet Database', '3rd paragraph found');
+>>>>>>> 2f8e884bdce676960af575180644f7c2d520d5d0:iWheat Testing/project_page.test
 
     // Check that the iWheat fact sheet database loads properly
     $this->assertElementByXPath('p//a[@href="/fact-sheet-database"]//img[@src="/sites/default/files/styles/medium/public/images/page/factsheet.png"]', array(), 'iWheat fact sheet database img found.');
@@ -83,10 +98,10 @@ class ProjectPageTest extends FirstRemoteTestCase {
 
     // Check that the 3rd paragraph, part 2 appears
     $this->assertText('.', '3rd paragraph part 2 found');
+<<<<<<< HEAD:project_page.test
 
     return;
+=======
+>>>>>>> 2f8e884bdce676960af575180644f7c2d520d5d0:iWheat Testing/project_page.test
   }
 }
-
-
-    

@@ -1,0 +1,55 @@
+<?php
+/**
+As a developer, I want a regression test to prove that the fields and diseases pages of iWheat.org are not affected by a change.
+*/
+
+class fieldsregistered extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Fieldschange test',
+      'description' => 'Tests fields page when logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp()
+  {
+    parent::setUp(array('node'));
+  }
+
+  function testFields()
+  {
+    module_enable(array('contact'));
+    $this->resetAll();
+    
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => '----',
+      'pass' => '----'
+    );
+    
+    $this->drupalPost('user', $edit, 'Log in');
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
+
+    $this->drupalGet('/toolshed/maps/fieldsites');
+//     $this->testFields(); // Infinite loop
+    
+    //tests the my fields property 
+     $this->assertFieldByXPath('//ul[@class="menu links inline"]//li[@class="leaf active-trail active menu-mlid-1766"]//a[@href="/toolshed/maps/fieldsites"]', "My Fields", 'My fields link found.');
+
+     //checks for the add a what field site link
+     $this->assertFieldByXPath('//div[@class="view-header"]//a[@href="/node/add/field-site"]', " + Add a Wheat Field Site ", 'Add a Wheat Field Site found.');
+
+     //tests linux field property 
+     $this->assertFieldByXPath('//tr[@class="odd views-row-first views-row-last"]//td[@class="views-field views-field-title views-align-center"]//a[@href="/fieldsite/linux"]', "Linux", 'Linux found.');
+    
+  }
+
+}
+
