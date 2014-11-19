@@ -7,11 +7,11 @@
 /**
  * Tests menu links depending on user permissions.
  */
-class ProjectContactPageTest extends FirstRemoteTestCase {
+class Project_Contact_Registered_TestCase extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Project Contact Page',
-      'description' => 'Tests Project Contact Page Elements',
+      'name' => 'Project Contact Registered Test',
+      'description' => 'Tests Project Contact page when logged in',
       'group' => 'iWheat',
     );
   }
@@ -29,8 +29,8 @@ class ProjectContactPageTest extends FirstRemoteTestCase {
     }
 
     $edit = array(
-      'name' => '----',
-      'pass' => '----'
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
     );
     
     $this->drupalPost('user', $edit, 'Log in');

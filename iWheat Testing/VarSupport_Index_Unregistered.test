@@ -1,0 +1,36 @@
+<?php
+/**
+As a developer, I want a regression test to prove that the fields and diseases pages of iWheat.org are not affected by a change.
+*/
+
+class VarSupport_Index_Unregistered_TestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Variety Support System Index Unregistered Test',
+      'description' => 'Tests Variety Support System Index page when not logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp()
+  {
+    parent::setUp(array('node'));
+  }
+  function testDiseases()
+  {
+    module_enable(array('contact'));
+    $this->resetAll();
+
+    $this->drupalGet('/toolshed/selector');
+    $this->DiseaseMenus();
+  }
+  function DiseaseMenus()
+  {
+    //checks for variety support system at the top
+    $this->assertFieldByXPath('//ul[@class="menu links inline"]//li[@class="expanded active-trail active menu-mlid-1120"]//a[@href="/toolshed/selector"]', "Variety Support System", 'Variety Support System found.');
+
+    //checks for Diseases link below variety support system
+    $this->assertFieldByXPath('//ul[@class="tabs primary clearfix"]//a[@href="/toolshed/selector/diseases"]', 'Diseases', 'Diseases found.');
+  }
+}
+

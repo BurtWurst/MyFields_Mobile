@@ -8,11 +8,11 @@
 /**
  * Tests menu links depending on user permissions.
  */
-class AnonymousOverlayTest extends FirstRemoteTestCase {
+class Home_Overlay_Unregistered_TestCase extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Overlay test for anonymous user',
-      'description' => 'Tests page overlay when not logged in',
+      'name' => 'Home Page Overlay Unregistered Test',
+      'description' => 'Tests Home page overlay when not logged in',
       'group' => 'iWheat',
     );
   }
@@ -64,10 +64,10 @@ class AnonymousOverlayTest extends FirstRemoteTestCase {
   function checkHomeAndTopMenu() {
   
     //Check that the header section exists
-    $this->assertElementByXPath('//header[@id="section-header"]', array(), t('Section Header found.'));
+    $this->assertElementByXPath('//header[@id="section-header"]', array(), 'Section Header found.');
     
     //Check that the home image exists
-    $this->assertElementByXPath('//div[@class="logo-img"]//a[@rel="home"]//img[@src="http://iwheat.org/sites/default/files/iwheat_logo_sm_1.png"]', array(), 'Home page logo found.');
+    $this->assertElementByXPath('//div[@class="logo-img"]//a[@rel="home"]//img[@id="logo"]', array(), 'Home page logo found.');
     
     //Check that the top menu section exists
     $this->assertElementByXPath('//div[@id="block-system-user-menu"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//ul[@class="menu"]', array(), 'Top Menu found.');
@@ -122,13 +122,13 @@ class AnonymousOverlayTest extends FirstRemoteTestCase {
     $base_path = '//div[@class="region-inner region-sidebar-second-inner"]//section[@id="block-system-navigation"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//ul[@class="menu"]';
     
     // Check that each element in the Toolshed appears correctly: Variety Support System
-    $this->assertFieldByXPath($base_path . '//li[@class="first leaf"]//a[@href="/toolshed/selector"]', 'Variety Support System', 'Side Menu: Toolshed Variety Support System display correct.');
+    $this->assertFieldByXPath($base_path . '//li//a[@href="/toolshed/selector"]', 'Variety Support System', 'Side Menu: Toolshed Variety Support System display correct.');
     
     // Check that each element in the Toolshed appears correctly: My Variety List
-    $this->assertFieldByXPath($base_path . '//li[@class="leaf"]//a[@href="/seedsavers"]', 'My Variety List', 'Side Menu: Toolshed My Variety List display correct.');
+    $this->assertFieldByXPath($base_path . '//li//a[@href="/seedsavers"]', 'My Variety List', 'Side Menu: Toolshed My Variety List display correct.');
     
     // Check that each element in the Toolshed appears correctly: Diagnostic Key 
-    $this->assertFieldByXPath($base_path . '//li[@class="last leaf"]//a[@href="/pests"]', 'Diagnostic Key', 'Side Menu: Toolshed Diagnostic Key display correct.');
+    $this->assertFieldByXPath($base_path . '//li//a[@href="/pests"]', 'Diagnostic Key', 'Side Menu: Toolshed Diagnostic Key display correct.');
     
     $base_path = '//div[@class="region-inner region-sidebar-second-inner"]//section[@id="block-block-14"]//div[@class="block-inner clearfix"]';
     

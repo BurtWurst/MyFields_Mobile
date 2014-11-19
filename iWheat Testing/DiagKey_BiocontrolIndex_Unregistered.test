@@ -1,0 +1,90 @@
+<?php
+/**
+Tests for the Biocontrol Agent
+*/
+
+class DiagKey_BiocontrolIndex_Unregistered_TestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Biocontrol Agent Unregistered Test',
+      'description' => 'Tests Biocontrol Agent page when not logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp()
+  {
+    parent::setUp(array('node'));
+  }
+  function testDiseaseLinks()
+  {
+    module_enable(array('contact'));
+    $this->resetAll();
+
+    $this->drupalGet('/pests/biocontrol-agents');
+    $this->BioControl_agent_list();
+  }
+  function BioControl_agent_list()
+  {
+    //checks for biocontrol agent tab
+    $this->assertElementByXPath('//ul[@class="tabs primary clearfix"]//li[@class="active"]//a[@href="/pests/biocontrol-agents"]', array(), 'Variety Support System found.');
+
+    //checks for tachinid flies TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Tachinid flies found.');
+
+    //checks for damsel bug TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Damsel Bug found.');
+
+    //checks for greenbug parasite TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Greenbug Parasite found.');
+
+    //checks for Convergent Lady Beetle TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Convergent Lady Beetle found.');
+
+    //checks for Green Lacewing TEXT
+    $this->assertElementByXPath('//div[@class="field field-name-field-bc-common field-type-text field-label-hidden"]//div[@class="field-items"]//div[@class="field-item even"]', array(), 'Green Lacewing found.');
+
+    $base_url = variable_get('simpletest_remote_url', '');
+    $base_url = $base_url ? $base_url : 'iwheat.org';
+    $this->pass($base_url, 'base_url');
+
+    // Check that the Tachinid fly image is found
+    $url = "http://$base_url/sites/default/files/styles/medium/public/tachinid%20fly.jpeg";
+    $xpath = '//div[contains(@class,"field field-name-field-bc-image")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'tachinid%20fly.jpeg';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
+
+    // Check that the Damsel Bug image is found
+    $url = "http://$base_url/sites/default/files/styles/medium/public/DamselBug.png";
+    $xpath = '//div[contains(@class,"field field-name-field-bc-image")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'DamselBug.png';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
+
+    // Check that the Greenbug Parasite image is found
+    $url = "http://$base_url/sites/default/files/styles/medium/public/GreenbugParsite.png";
+    $xpath = '//div[contains(@class,"field field-name-field-bc-image")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'GreenbugParsite.png';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
+
+    // Check that the Convergent Lady Beetle image is found
+    $url = "http://$base_url/sites/default/files/styles/medium/public/ConvergentLadybeetle.png";
+    $xpath = '//div[contains(@class,"field field-name-field-bc-image")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'ConvergentLadybeetle.png';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
+
+    // Check that the Green Lacewing image is found
+    $url = "http://$base_url/sites/default/files/styles/medium/public/AdultLacewing.png";
+    $xpath = '//div[contains(@class,"field field-name-field-bc-image")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'AdultLacewing.png';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
+  }
+}
+
+
+
+

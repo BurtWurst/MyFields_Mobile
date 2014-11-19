@@ -8,11 +8,11 @@
 /**
  * Tests menu links depending on user permissions.
  */
-class RegisteredOverlayTest extends FirstRemoteTestCase {
+class Home_Overlay_Registered_TestCase extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'Overlay test for registered user',
-      'description' => 'Tests page overlay when logged in',
+      'name' => 'Home Page Overlay Registered Test',
+      'description' => 'Tests Home page overlay when not logged in',
       'group' => 'iWheat',
     );
   }
@@ -33,8 +33,8 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
     }
 
     $edit = array(
-      'name' => '----',
-      'pass' => '----'
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
     );
     
     $this->drupalPost('user', $edit, 'Log in');
@@ -71,19 +71,22 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
    * For each selected test class, simpletest will automatically invoke each
    * public method in that class whose name begins with 'test'. Thus, use that
    * prefix accordingly. Names of helper methods should not begin with 'test'.
-   *
-   * A 'return' statement is unnecessary to end each method; it is implied.
-   *
-   * Do not wrap the message string with the t() function. This practice has
-   * been deprecated.
    */
   function checkHomeAndTopMenu() {
   
     //Check that the header section exists
     $this->assertElementByXPath('//header[@id="section-header"]', array(), 'Section Header found.');
     
+    $base_url = variable_get('simpletest_remote_url', '');
+    $base_url = $base_url ? $base_url : 'iwheat.org';
+    $this->pass($base_url, 'base_url');
+
     //Check that the home image exists
-    $this->assertElementByXPath('//div[@class="logo-img"]//a[@rel="home"]//img[@src="http://iwheat.org/sites/default/files/iwheat_logo_sm_1.png"]', array(), 'Home page logo found.');
+    $url = "http://$base_url/sites/default/files/iwheat_logo_sm_1.png";
+    $xpath = '//div[contains(@class,"logo-img")]';
+    $this->assertImage($xpath, $url, 0, 'Found image with full URL', $group = 'Special');
+    $url = 'iwheat_logo_sm_1.png';
+    $this->assertImage($xpath, $url, 0, 'Found image with file name', $group = 'Special');
     
     $base_path = '//div[@id="block-system-user-menu"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//ul[@class="menu"]';
     
@@ -98,8 +101,6 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
     
     // Check the Reset Password menu item in the top left to ensure it is correct
     $this->assertFieldByXPath($base_path . '//li[@class="last leaf"]//a[@href="/user/password"]', 'Reset Password', 'Menu: Reset Password display correct.');
-    
-//     return;
   }
   
   /**
@@ -189,7 +190,5 @@ class RegisteredOverlayTest extends FirstRemoteTestCase {
     
     //Check that the Need Help: Creating an Account block exists and appears correctly 
     $this->assertFieldByXPath($base_path . '//div[@class="views-row views-row-4 views-row-even views-row-last"]//div[@class="views-field views-field-title"]//span[@class="field-content"]//a[@href="/creating-account"]', 'Creating an Account', 'Side Menu: Need Help: Creating an Account text display correct.');
-    
-//     return;
   }
 }

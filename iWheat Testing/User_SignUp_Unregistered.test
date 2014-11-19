@@ -8,11 +8,11 @@
 /**
  * Tests menu links depending on user permissions.
  */
-class UserRegisterPageTestCase extends FirstRemoteTestCase {
+class User_SignUp_Unregistered_TestCase extends FirstRemoteTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'User register page',
-      'description' => 'Tests user register page',
+      'name' => 'User Sign Up Unregistered Test',
+      'description' => 'Tests User Register page when not logged in',
       'group' => 'iWheat',
     );
   }

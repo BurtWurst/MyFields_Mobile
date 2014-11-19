@@ -1,0 +1,64 @@
+<?php
+/**
+As a developer, I want a regression test to prove that the fields and diseases pages of iWheat.org are not affected by a change.
+*/
+
+class Fields_Index_Registered_TestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Fields Index Registered Test',
+      'description' => 'Tests Fields Index page when logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp()
+  {
+    parent::setUp(array('node'));
+  }
+
+  function testFields()
+  {
+    module_enable(array('contact'));
+    $this->resetAll();
+    
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
+    );
+    
+    $this->drupalPost('user', $edit, 'Log in');
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
+
+    $this->drupalGet('/toolshed/maps/fieldsites');
+    
+    //tests the my fields property 
+     $this->assertFieldByXPath('//h1[@id="page-title"]', "My Field Sites", 'My Fields Sites Title found');
+
+     //checks for the add a what field site link
+     $this->assertFieldByXPath('//div[@class="view-header"]//a[contains(@href,"/node/add/field-site")]', " + Add a Wheat Field Site ", 'Add a Wheat Field Site found.');
+
+     //tests field table header
+     $this->assertFieldByXPath('//table[@class="views-table cols-2"]//thead//tr//th[@class="views-field views-field-field-site-point"]//h2', 'Field map', 'Field Map column title found.');
+     $this->assertFieldByXPath('//table[@class="views-table cols-2"]//thead//tr//th[@class="views-field views-field-title views-align-center"]//h2//a[@href="/toolshed/maps/fieldsites?order=title&sort=asc"]', 'Field name', 'Field name column title found.');
+     
+     //tests field table items
+     // @todo Classes that include "-processed" in their name usually represent
+     // classes added by JS that runs on the returned HTML. If you look at the
+     // HTML file in verbose directory, you will see that this class is absent
+     // in the raw HTML.
+//       $this->assertElementByXPath('//table[@class="views-table cols-2"]//tbody//tr//td[@class="views-field views-field-field-site-point"]//div[@class="geofieldMap geofield-processed-processed"]', array(), 'Field Position image found.');
+      $this->assertElementByXPath('//table[@class="views-table cols-2"]//tbody//tr//td[@class="views-field views-field-field-site-point"]//div[@class="geofieldMap"]', array(), 'Field Position image found.');
+      $this->assertElementByXPath('//table[@class="views-table cols-2"]//tbody//tr//td[@class="views-field views-field-title views-align-center"]//h3//a[contains(@href, "/fieldsite/")]', array(), 'Field name item found.');
+    
+  }
+
+}
+
