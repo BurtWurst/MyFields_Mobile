@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * @file
+ * Tests for the blocks on home page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class PestSampler_Costs_Registered_TestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Pest Sampler Costs Registered Test',
+      'description' => 'Tests control and crop costs page of the Pest Sampler wizard when logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  /**
+   * Test that the links are added to the page (no JS testing).
+   */
+  function testSamplerCostPage() {
+    module_enable(array('contact'));
+    $this->resetAll();
+    
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
+    );
+    
+    $this->drupalPost('user', $edit, 'Log in');
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
+
+    // Check section header and home page link to ensure they are correct
+    $this->drupalGet('http://dev.iwheat.org/pest_sampler/nojs');
+    
+    $this->setUpSampler();
+    
+    $this->checkPageFields();
+  }
+  
+  function setUpSampler()
+  {
+    $edit = array('field_samples_method[und]' => t('5114'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertElementByXPath('//div[@id="edit-field-samples-location"]', array(), 'The map was displayed after first page');
+    
+    $edit = array('field_samples_location[und][0][geom]' => t('POINT (-96.572573 39.198664)'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Add field site');
+    
+    $edit = array('field_samples_field_site[und]' => t('12212'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Control Cost');
+  }
+   
+  function checkPageFields() {
+  
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div';
+  
+    //Check that the wizard "trail" section displays correctly
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Method', 'Wizard Trail 1st Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Location', 'Wizard Trail 2nd Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Site', 'Wizard Trail 3rd Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Costs', 'Wizard Trail 4th Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Samples', 'Wizard Trail 5th Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Notes', 'Wizard Trail 6th Step display correct.');
+    $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Finish', 'Wizard Trail 7th Step display correct.');
+    
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div//fieldset[@id="edit-step"]//div[@class="fieldset-wrapper"]';
+    
+    // Check that the help dropdown and help text display correctly
+    $this->assertFieldByXPath($base_path . '//fieldset[@id="edit-step-help"]//legend//span', 'Help', 'Help dropdown display correct');
+    $this->assertFieldByXPath($base_path . '//fieldset[@id="edit-step-help"]//div[@class="fieldset-wrapper"]//p', 'The economic threshold for the field sampled is determined based on the user inputs of control costs (cost to treat aphids per acre) and the market value of the grain (in $/bushel). Once the appropriate economic threshold is determined by iWheat, the field is then sampled to determine if the economic threshold has been exceeded. Both greenbug and the presence of mummies are accounted for.', 'Help text display correct');
+    
+    // Check that the control cost dropdown displays correctly
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "control-cost")]//label[@for="edit-step-control-cost"]', 'Control Cost ', 'Control Cost dropdown header display correct');
+    $this->assertElementByXPath($base_path . '//div[contains(@class, "control-cost")]//select[@id="edit-step-control-cost"]', array(), 'Control Cost dropdown found');
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "control-cost")]//select[@id="edit-step-control-cost"]//option', '- None - ', 'Control Cost dropdown header display correct');
+    for ($i = 4; $i <= 12; $i++) {
+      $this->assertFieldByXPath($base_path . '//div[contains(@class, "control-cost")]//select[@id="edit-step-control-cost"]//option', number_format((float)$i, 2, '.', ''), 'Control Cost options display correct');
+    }
+    
+    // Check that the Crop Value dropdown displays correctly
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "crop-value")]//label[@for="edit-step-crop-value"]', 'Crop Value ', 'Crop Value dropdown header display correct');
+    $this->assertElementByXPath($base_path . '//div[contains(@class, "crop-value")]//select[@id="edit-step-crop-value"]', array(), 'Crop Value dropdown found');
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "crop-value")]//select[@id="edit-step-crop-value"]//option', '- None - ', 'Crop Value dropdown header display correct');
+    for ($i = 2.5; $i <= 7.0; $i+=0.5) {
+      $this->assertFieldByXPath($base_path . '//div[contains(@class, "crop-value")]//select[@id="edit-step-crop-value"]//option', number_format($i, 2, '.', ''), 'Crop Value options display correct');
+    }
+    
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div';
+    
+    //Check that the Continue, Cancel, and Back buttons appear
+    $this->assertElementByXPath($base_path . '//div//input[@value="Continue"]', array(), 'Continue button displays correctly.');
+    $this->assertElementByXPath($base_path . '//div//input[@value="Cancel"]', array(), 'Cancel button displays correctly.');
+    $this->assertElementByXPath($base_path . '//div//input[@value="Back"]', array(), 'Back button displays correctly.');
+    
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div//fieldset[@id="edit-step"]//div[@class="fieldset-wrapper"]';
+    
+    // Select the Continue button and verify that the Samples page appears
+    $edit = array('step[control_cost]' => t('4.00'), 'step[crop_value]' => t('2.50'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Stop 1 of 5');
+    
+    // Return to the Costs page
+    $edit = array();
+    $this->drupalPost(NULL, $edit, t('Back'));
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "control-cost")]//label[@for="edit-step-control-cost"]', 'Control Cost ', 'Control Cost dropdown header display correct after Samples page');
+    
+    // Select the Back button and verify that the Site page appears
+    $edit = array('step[control_cost]' => t('4.00'), 'step[crop_value]' => t('2.50'));
+    $this->drupalPost(NULL, $edit, t('Back'));
+    $this->assertText('Add field site');
+    
+    // Return to the Costs page
+    $edit = array('field_samples_field_site[und]' => t('12212'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertFieldByXPath($base_path . '//div[contains(@class, "control-cost")]//label[@for="edit-step-control-cost"]', 'Control Cost ', 'Control Cost dropdown header display correct after Samples page');
+    
+    // Click the Cancel button and check that you are redirected to the home page.
+    $edit = array('step[control_cost]' => t('4.00'), 'step[crop_value]' => t('2.50'));
+    $this->drupalPost(NULL, $edit, t('Cancel'));
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'Welcome to iWheat.org!', 'Home page title was displayed after clicking Cancel.');
+  }
+  
+}

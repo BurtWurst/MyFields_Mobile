@@ -1,0 +1,168 @@
+<?php
+
+/**
+ * @file
+ * Tests for the blocks on home page.
+ */
+
+/**
+ * Tests menu links depending on user permissions.
+ */
+class PestSampler_Samples_Registered_TestCase extends FirstRemoteTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Pest Sampler Samples Registered Test',
+      'description' => 'Tests sample stop pages of the Pest Sampler wizard when logged in',
+      'group' => 'iWheat',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('node'));
+  }
+
+  /**
+   * Test that the links are added to the page (no JS testing).
+   */
+  function testSamplerSamplesPage() {
+    module_enable(array('contact'));
+    $this->resetAll();
+    
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => 'dgk2010',
+      'pass' => 'thisIsATestPassword'
+    );
+    
+    $this->drupalPost('user', $edit, 'Log in');
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink('Log Out', 0, 'User successfully logged in.', 'Other');
+
+    // Check section header and home page link to ensure they are correct
+    $this->drupalGet('http://dev.iwheat.org/pest_sampler/nojs');
+    
+    $this->setUpSampler();
+    
+    $this->checkPageFields();
+  }
+  
+  function setUpSampler()
+  {
+    $edit = array('field_samples_method[und]' => t('5114'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertElementByXPath('//div[@id="edit-field-samples-location"]', array(), 'The map was displayed after first page');
+    
+    $edit = array('field_samples_location[und][0][geom]' => t('POINT (-96.572573 39.198664)'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Add field site');
+    
+    $edit = array('field_samples_field_site[und]' => t('12212'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Control Cost');
+    
+    $edit = array('step[control_cost]' => t('4.00'), 'step[crop_value]' => t('2.50'));
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Stop 1 of 5');
+  }
+   
+  function checkPageFields() {
+  
+    for($i = 1; $i <= 5; $i++) { 
+    
+      $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div';
+    
+      //Check that the wizard "trail" section displays correctly
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Method', 'Wizard Trail 1st Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Location', 'Wizard Trail 2nd Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Site', 'Wizard Trail 3rd Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Costs', 'Wizard Trail 4th Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Samples', 'Wizard Trail 5th Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Notes', 'Wizard Trail 6th Step display correct.');
+      $this->assertFieldByXPath($base_path . '//div[@class="wizard-trail"]//span', 'Finish', 'Wizard Trail 7th Step display correct.');
+      
+      $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div//fieldset[@id="edit-step"]//div[@class="fieldset-wrapper"]';
+      
+      // Check that the help dropdown and help text display correctly
+      $this->assertFieldByXPath($base_path . '//fieldset[@id="edit-step-help"]//legend/Aphid/span', 'Help', 'Help dropdown display correct');
+      $this->assertFieldByXPath($base_path . '//fieldset[@id="edit-step-help"]//div[@class="fieldset-wrapper"]//p', 'Walk in a zig-zag pattern through your field, and stop at a random location (this is Stop 1). Then, randomly pick a tiller in front of you, to your side, and to your back. For each of the three tillers, if greenbug and/or mummies are observed, mark the appropriate box on your mobile device. If none are observed, leave boxes unmarked. After filling out the Stop 1 screen, push the Continue button to repeat these steps at another random stop (at least 15 steps between stops). At least 5 stops are needed to result in a treatment recommendation. In some cases, the sampler will require more stops to make an accurate recommendation.', 'Help text display correct');
+      
+	    
+      
+      // Check that the Stops header displays correctly
+      $this->assertFieldByXPath($base_path . '//span', 'Stop ' . $i . ' of 5', 'Stops header display correct');
+      
+      // Check that the table header (Tiller 1 2 and 3 display)
+      $this->assertFieldByXPath($base_path . '//table//thead//tr//th', 'Tiller 1', 'Table header display correct');
+      $this->assertFieldByXPath($base_path . '//table//thead//tr//th', 'Tiller 2', 'Table header display correct');
+      $this->assertFieldByXPath($base_path . '//table//thead//tr//th', 'Tiller 3', 'Table header display correct');
+      
+      // Check that the table body (Aphid and Mummy buttons) displays correctly
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//input[@id="edit-step-' . $i . '-1-green"]', array(), 'Table body, Aphid box 1, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//label[@for="edit-step-' . $i . '-1-green"]', 'Aphid ', 'Table header display correct');
+      
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//input[@id="edit-step-' . $i . '-2-green"]', array(), 'Table body, Aphid box 2, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//label[@for="edit-step-' . $i . '-2-green"]', 'Aphid ', 'Table header display correct');
+      
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//input[@id="edit-step-' . $i . '-3-green"]', array(), 'Table body, Aphid box 3, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="odd"]//td//div//label[@for="edit-step-' . $i . '-3-green"]', 'Aphid ', 'Table header display correct');
+      
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//input[@id="edit-step-' . $i . '-1-mummy"]', array(), 'Table body, Mummy box 1, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//label[@for="edit-step-' . $i . '-1-mummy"]', 'Mummy ', 'Table header display correct');
+      
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//input[@id="edit-step-' . $i . '-2-mummy"]', array(), 'Table body, Mummy box 2, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//label[@for="edit-step-' . $i . '-2-mummy"]', 'Mummy ', 'Table header display correct');
+      
+      $this->assertElementByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//input[@id="edit-step-' . $i . '-3-mummy"]', array(), 'Table body, Mummy box 3, input found');
+      $this->assertFieldByXPath($base_path . '//table//tbody//tr[@class="even"]//td//div//label[@for="edit-step-' . $i . '-3-mummy"]', 'Mummy ', 'Table header display correct');
+      
+      
+      $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div';
+      
+      //Check that the Continue, Cancel, and Back buttons appear
+      $this->assertElementByXPath($base_path . '//div//input[@value="Continue"]', array(), 'Continue button displays correctly.');
+      $this->assertElementByXPath($base_path . '//div//input[@value="Cancel"]', array(), 'Cancel button displays correctly.');
+      $this->assertElementByXPath($base_path . '//div//input[@value="Back"]', array(), 'Back button displays correctly.');  
+      
+      
+      if($i < 5)
+      {
+	$edit = array('step[' . $i . '][1][green]' => true, 'step[' . $i . '][2][mummy]' => true, 'step[' . $i . '][3][mummy]' => true);
+	$this->drupalPost(NULL, $edit, t('Continue'));
+	$this->assertText('Stop ' . $i . ' of 5');
+      }
+    }
+    
+    $base_path = '//div[@id="block-system-main"]//div[@class="block-inner clearfix"]//div[@class="content clearfix"]//div[@id="wizard-form-wrapper"]//form[@id="pest-sampler-wizard-step-form"]//div//fieldset[@id="edit-step"]//div[@class="fieldset-wrapper"]';
+    
+    // Select the Continue button and verify that the Notes page appears
+    $edit = array('step[5][1][green]' => true, 'step[5][2][mummy]' => true, 'step[5][3][mummy]' => true);
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Show notes');
+    
+    // Return to the Samples page
+    $edit = array();
+    $this->drupalPost(NULL, $edit, t('Back'));
+    $this->assertText('Stop 5 of 5');
+    
+    // Select the Back button and verify that the Samples 4 of 4 page appears
+    $edit = array();
+    $this->drupalPost(NULL, $edit, t('Back'));
+    $this->assertText('Stop 4 of 5');
+    
+    // Return to the Samples 5 of 5 page
+    $edit = array('step[5][1][green]' => true, 'step[5][2][mummy]' => true, 'step[5][3][mummy]' => true);
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    $this->assertText('Stop 5 of 5');
+    
+    // Click the Cancel button and check that you are redirected to the home page.
+    $edit = array('step[5][1][green]' => true, 'step[5][2][mummy]' => true, 'step[5][3][mummy]' => true);
+    $this->drupalPost(NULL, $edit, t('Cancel'));
+    $this->assertFieldByXPath('//h1[@id="page-title"]', 'Welcome to iWheat.org!', 'Home page title was displayed after clicking Cancel.');
+  }
+  
+}
