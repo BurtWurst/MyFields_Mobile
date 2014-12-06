@@ -15,7 +15,7 @@
 	      android:layout_alignParentTop="true"
 	      android:layout_centerHorizontal="true"
 	      android:layout_marginTop="20dp"
-	      android:text=""
+	      android:text="Enter username and password."
 	      android:textAppearance="?android:attr/textAppearanceLarge" />
      
       <TextView
@@ -36,7 +36,7 @@
 	      android:layout_alignBottom="@+id/textView2"
 	      android:layout_marginLeft="35dp"
 	      android:layout_toRightOf="@+id/textView2"
-	      android:hint="User_name123" >
+	      android:hint="User_name" >
       	  <requestFocus />
    	  </EditText>
    	  
@@ -57,7 +57,7 @@
           android:layout_alignBottom="@+id/textView3"
           android:layout_alignLeft="@+id/usernameET"
           android:layout_alignRight="@+id/usernameET"
-          android:hint="Password123"
+          android:hint="Password"
           android:inputType="textPassword" />
       
        <TextView
