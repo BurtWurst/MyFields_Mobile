@@ -1,4 +1,0 @@
-ssh-keygen -t rsa -C "Linux Key"
-
-Access server through Dolphin:
-fish://revieworg@reviewdriven.org/home/revieworg/public_html/
