@@ -1,0 +1,27 @@
+https://www.youtube.com/watch?v=-lt1o_k9jUw - scroll view
+
+https://www.youtube.com/watch?v=4_0Ao11zrtM - login screen
+
+http://stackoverflow.com/questions/8348109/how-can-i-manually-switch-between-uiviewcontrollers-in-storyboard - view controller switch
+
+https://www.youtube.com/watch?v=gzvOk1H0wQ8 - moving between view controllers
+
+http://stackoverflow.com/questions/10104605/switching-between-viewcontrollers-in-xcode - switching between view controllers
+
+http://stackoverflow.com/questions/14352817/xcode-redirecting-to-a-viewcontroller-with-uinavigation-from-login - redirecting to a view controller with a uinavigation controller
+
+http://stackoverflow.com/questions/21394391/xcode-5-connecting-button-to-action-w-out-file-owner - connecting button to action in iOS
+
+https://www.youtube.com/watch?v=KsxWCMMtRdo - iOS login
+
+https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewControllerCatalog/Chapters/CombiningViewControllers.html#//apple_ref/doc/uid/TP40011313-CH6-SW1 - view controller catalog in iOS 
+
+http://stackoverflow.com/questions/13049668/segue-between-two-view-controllers - segue between view controllers
+
+https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/Navigation.html#//apple_ref/doc/uid/TP40006556-CH53-SW1 - apple human interface guide
+
+http://stackoverflow.com/questions/12451036/how-to-create-a-password-field-in-xcode - how to create a password field in xcode
+
+http://www.appcoda.com/introduction-auto-layout/ - auto layout
+
+https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/SecondTutorial.html#//apple_ref/doc/uid/TP40011343-CH8-SW1 - introduction to developing in iOS 
