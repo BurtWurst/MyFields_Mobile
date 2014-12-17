@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
 		String uxUserName = "admin";
 		if (username.getText().toString().equals(uxUserName) && 
 				password.getText().toString().equals(uxUserName)) {
-			Toast.makeText(getApplicationContext(), "Hello" + uxUserName, 
+			Toast.makeText(getApplicationContext(), "Hello " + uxUserName, 
 			Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(getApplicationContext(), "Invalid username and/or password.", 
