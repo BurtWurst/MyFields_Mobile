@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FieldInfoList" >
+            android:name=".FieldGrid" >
             <intent-filter>
                 <action android:name="android.intent.action.FIELD" />
                 <category android:name="android.intent.category.LAUNCHER" />

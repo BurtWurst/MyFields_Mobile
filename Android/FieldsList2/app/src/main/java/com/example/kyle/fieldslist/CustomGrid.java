@@ -51,14 +51,14 @@ public class CustomGrid extends BaseAdapter{
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), FieldInfoList.class);
+                    Intent intent = new Intent(v.getContext(), FieldGrid.class);
                     v.getContext().startActivity(intent);
                 }
             });
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             imageView.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), FieldInfoList.class);
+                    Intent intent = new Intent(v.getContext(), FieldGrid.class);
                     v.getContext().startActivity(intent);
                 }
             });

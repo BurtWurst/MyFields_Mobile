@@ -2,10 +2,9 @@ package com.example.kyle.fieldslist;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.widget.ListView;
 
 public class FieldInfoList extends Activity{
-    String[] info1 = {
+    String[] info = {
             "Irrigation Type: Ditch",
             "Size (acres): 1000",
             "Tillage System: Flow"
@@ -16,5 +15,6 @@ public class FieldInfoList extends Activity{
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_list);
+        FieldGrid grid = new FieldGrid();
     }
 }
