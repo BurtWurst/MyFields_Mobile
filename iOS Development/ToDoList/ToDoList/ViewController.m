@@ -28,12 +28,14 @@
     {
         SecondViewController *second = [self.storyboard instantiateViewControllerWithIdentifier:@"SecondIdentifier"];
         [self.navigationController pushViewController:second animated:YES];
+        username.text = @"";
+        password.text = @"";
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect Password" message:@"This password is incorrect." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect Username or Password" message:@"The username or password is incorrect." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
-
+        password.text = @"";
     }
 }
 

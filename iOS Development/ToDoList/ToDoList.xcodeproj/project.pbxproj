@@ -12,6 +12,11 @@
 		0C10174D1A3FFCFD006B765A /* file3511281923880.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0C10174C1A3FFCFD006B765A /* file3511281923880.jpg */; };
 		0C1017561A400676006B765A /* FirstFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1017551A400676006B765A /* FirstFieldViewController.m */; };
 		0C1017591A400689006B765A /* SecondFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1017581A400689006B765A /* SecondFieldViewController.m */; };
+		0C10175E1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.13 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C10175A1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.13 AM.png */; };
+		0C10175F1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.41 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C10175B1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.41 AM.png */; };
+		0C1017601A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.10 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C10175C1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.10 AM.png */; };
+		0C1017611A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.31 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C10175D1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.31 AM.png */; };
+		0C1017631A40AABF006B765A /* Screen Shot 2014-12-16 at 12.00.01 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1017621A40AABF006B765A /* Screen Shot 2014-12-16 at 12.00.01 PM.png */; };
 		0CEC01FB1A3939B400BF5CA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC01FA1A3939B400BF5CA4 /* main.m */; };
 		0CEC01FE1A3939B400BF5CA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC01FD1A3939B400BF5CA4 /* AppDelegate.m */; };
 		0CEC02011A3939B400BF5CA4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC02001A3939B400BF5CA4 /* ViewController.m */; };
@@ -39,6 +44,11 @@
 		0C1017551A400676006B765A /* FirstFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstFieldViewController.m; sourceTree = "<group>"; };
 		0C1017571A400689006B765A /* SecondFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondFieldViewController.h; sourceTree = "<group>"; };
 		0C1017581A400689006B765A /* SecondFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondFieldViewController.m; sourceTree = "<group>"; };
+		0C10175A1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.13 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-12-16 at 11.46.13 AM.png"; path = "Images.xcassets/Screen Shot 2014-12-16 at 11.46.13 AM.png"; sourceTree = "<group>"; };
+		0C10175B1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.41 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-12-16 at 11.46.41 AM.png"; path = "Images.xcassets/Screen Shot 2014-12-16 at 11.46.41 AM.png"; sourceTree = "<group>"; };
+		0C10175C1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.10 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-12-16 at 11.48.10 AM.png"; path = "Images.xcassets/Screen Shot 2014-12-16 at 11.48.10 AM.png"; sourceTree = "<group>"; };
+		0C10175D1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.31 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-12-16 at 11.48.31 AM.png"; path = "Images.xcassets/Screen Shot 2014-12-16 at 11.48.31 AM.png"; sourceTree = "<group>"; };
+		0C1017621A40AABF006B765A /* Screen Shot 2014-12-16 at 12.00.01 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-12-16 at 12.00.01 PM.png"; path = "Images.xcassets/Screen Shot 2014-12-16 at 12.00.01 PM.png"; sourceTree = "<group>"; };
 		0CEC01F51A3939B400BF5CA4 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CEC01F91A3939B400BF5CA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CEC01FA1A3939B400BF5CA4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,6 +117,11 @@
 				0C1017481A3FE891006B765A /* file1721269013523.jpg */,
 				0C1017461A3FE886006B765A /* Corn field.jpg */,
 				0CEC021C1A39607800BF5CA4 /* Main.storyboard */,
+				0C1017621A40AABF006B765A /* Screen Shot 2014-12-16 at 12.00.01 PM.png */,
+				0C10175A1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.13 AM.png */,
+				0C10175B1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.41 AM.png */,
+				0C10175C1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.10 AM.png */,
+				0C10175D1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.31 AM.png */,
 				0C10174C1A3FFCFD006B765A /* file3511281923880.jpg */,
 				0CEC02071A3939B400BF5CA4 /* LaunchScreen.xib */,
 				0CEC01F81A3939B400BF5CA4 /* Supporting Files */,
@@ -222,9 +237,14 @@
 			files = (
 				0C10174D1A3FFCFD006B765A /* file3511281923880.jpg in Resources */,
 				0CEC021E1A39607800BF5CA4 /* Main.storyboard in Resources */,
+				0C10175F1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.41 AM.png in Resources */,
+				0C1017601A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.10 AM.png in Resources */,
 				0CEC02091A3939B400BF5CA4 /* LaunchScreen.xib in Resources */,
 				0C1017491A3FE891006B765A /* file1721269013523.jpg in Resources */,
+				0C1017611A40AA38006B765A /* Screen Shot 2014-12-16 at 11.48.31 AM.png in Resources */,
+				0C10175E1A40AA38006B765A /* Screen Shot 2014-12-16 at 11.46.13 AM.png in Resources */,
 				0C1017471A3FE886006B765A /* Corn field.jpg in Resources */,
+				0C1017631A40AABF006B765A /* Screen Shot 2014-12-16 at 12.00.01 PM.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
