@@ -1,0 +1,1 @@
+12/10 - Wendy put together a focus group so we can get opinions on our design so far, and find out more about what real people would be using our apps for, and more importantly, how they would be using them. We got some excellent feedback and this is all the information we got from that meeting.

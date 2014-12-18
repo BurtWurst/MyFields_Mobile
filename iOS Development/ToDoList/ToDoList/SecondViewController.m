@@ -38,6 +38,12 @@
     
 }
 
+- (IBAction)enterFieldTwo{
+    FirstFieldViewController *secondField = [self.storyboard instantiateViewControllerWithIdentifier:@"SecondField"];
+    [self.navigationController pushViewController:secondField animated:YES];
+    
+}
+
 //- (void)tapAction:(UITapGestureRecognizer *)tapGesture {
     //UIImageView *imageTapped = (UIImageView *)tapGesture.view;
     //delete it using removeFromSuperView or do whatever you need with tapped label
