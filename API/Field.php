@@ -1,43 +1,83 @@
 <?php
 
 class Field 
-{
-	
-	private static $FieldNameNumber = 1;
-	
-	$ValidCropTypes = { "Wheat", "Corn", "Soybean" };
-	$ValidSoilTypes = { "Clay", "Clay Loam", "Loam", "Silty Clay", "Silty Clay Loam", "Silt Loam",
-						"Silt", "Sandy Clay", "Sandy Clay Loam", "Sandy Loam", "Loamy Sand", "Sand"};
-	$ValidTillageTypes = { "Conventional Tillage", "Reduced Tillage", "No-till", "Strip-till", "Mulch-Till", 
-						"Rotational Tillage", "Ridge-Till"};
-						
-	$ValidIrrigationTypes = { "Dry Land (no irrigation)", "Surface", "Localized", "Drip", "Sprinkler",
-								"Center Pivot", "Lateral Move", "Sub-Irrigation"};					
-	
+{	
+	private $ID;
 	private $FieldName;
-	private $TypeOfCrop;
 	private $Location;
 	private $Size;
 	private $TypeOfSoil;
 	private $TillageSystem;
 	private $IrrigationSystem;
 	
-	public function __construct()
+	private $PlantingList;
+	private $PestSamples;
+	
+	public function __construct($FieldID, $Name, $Latitude, $Longitude, $Acres, 
+								$SoilType, $MethodOfTill, $Irrigation, $Plantings,
+								$PestReports)
 	{
-		$FieldName = "Field" . $FieldNameNumber;
-		$FieldNameNumber = $FieldNameNumber + 1;
-		$TypeOfCrop = $ValidCropTypes[rand(0, sizeof($ValidCropTypes))];
-		$Location =  = new GPSLocation();
-		$Size = rand(1, 20);
-		$TypeOfSoil = $ValidSoilTypes[rand(0, sizeof($ValidSoilTypes))];
-		$TillageSystem = $ValidTillageTypes[rand(0, sizeof($ValidTillageTypes))];
-		$IrrigationSystem = $ValidIrrigationTypes[rand(0, sizeof($ValidIrrigationTypes))];
+		$ID = $FieldID;
+		$FieldName = $Name;
+		$Location =  = new GPSLocation($Latitude, $Longitude);
+		$Size = $Acres;
+		$TypeOfSoil = $SoilType;
+		$TillageSystem = $MethodOfTill;
+		$IrrigationSystem = $Irrigation;
+		
+		$PlantingList = $Plantings;
+		$PestSamples = $PestReports;
 		
 	}
 	
 	public function JSONize()
 	{
-		return json_encode(get_object_vars($this));
+		echo '{';
+		echo '\t"ID" : ' . $ID . ',\n';
+		echo '\t"FieldName" : "' . $FieldName . '",\n';
+		echo '\t"Location" : \n' . $Location->JSONize() . ',\n';
+		echo '\t"Size" : ' . $Size . ',\n';
+		echo '\t"TypeOfSoil" : "' . $TypeOfSoil . '",\n';
+		echo '\t"TillageSystem" : "' . $TillageSystem . '",\n';
+		echo '\t"IrrigationSystem" : "' . $IrrigationSystem . '",\n';
+		
+		echo '\t"PlantingList" : [\n';
+		
+		for($i = 0; $i < count($PlantingList); $i++)
+		{
+			echo $PlantingList[i]->JSONize();
+			
+			if($i < count($PlantingList) - 1)
+			{
+				echo ',\n';
+			}
+			else
+			{
+				echo '\n';
+			}
+		}
+		
+		echo '\t],\n';
+		
+		echo '\t"PestSamples" : [\n';
+		
+		for($i = 0; $i < count($PestSamples); $i++)
+		{
+			echo $PestSamples[i]->JSONize();
+			
+			if($i < count($PestSamples) - 1)
+			{
+				echo ',\n';
+			}
+			else
+			{
+				echo '\n';
+			}
+		}
+		
+		echo '\t],\n';
+		
+		echo '}';
 	}
 }
 
@@ -45,18 +85,48 @@ class GPSLocation
 {
 	private $Latitude;
 	private $Longitude;
-	
-	
-	
-	public function __construct()
+
+	public function __construct($Lat = 39.240867, $Lon = -96.536004)
 	{
-		$Latitude = 39.240867 + GPSLocation::randomFloat();
-		$Longitude = -96.536004 + GPSLocation::randomFloat();
+		$Latitude =  $Lat;
+		$Longitude =  $Lon;
 	}
 	
-	public static function randomFloat($min = -1, $max = 1) 
+	public function JSONize()
 	{
-		return $min + mt_rand() / mt_getrandmax() * ($max - $min);
+		echo '\t{';
+		echo '\t\t"Latitude" : ' . $Latitude . ',\n';
+		echo '\t\t"Longitude" : ' . $Longitude . '\n';
+		echo '\t}';
+	}
+}
+
+class Planting
+{
+	private $ID;
+	private $CropType;
+	private $CropVariety;
+	private $CropDensity;
+	private $Notes;
+	
+	public function __construct($PlantID, $Crop, $Variety, $Density, $NoteSection)
+	{
+		$ID = $PlantID;
+		$CropType = $Crop;
+		$CropVariety = $Variety;
+		$CropDensity = $Density;
+		$Notes = $NoteSection;
+	}
+	
+	public function JSONize()
+	{
+		echo '\t{';
+		echo '\t\t"ID" : ' . $ID . ',\n';
+		echo '\t\t"CropType" : "' . $CropType . '",\n';
+		echo '\t\t"CropVariety" : "' . $CropVariety . '",\n';
+		echo '\t\t"CropDensity" : "' . $CropDensity . '",\n';
+		echo '\t\t"Notes" : "' . $Notes . '"\n';
+		echo '\t}';
 	}
 }
 
