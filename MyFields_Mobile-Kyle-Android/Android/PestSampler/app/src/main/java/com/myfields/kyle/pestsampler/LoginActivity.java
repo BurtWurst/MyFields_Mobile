@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.Intent;
 
 
 /**
@@ -79,6 +80,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                Intent myIntent = new Intent(LoginActivity.this, SelectionScreen.class);
+                LoginActivity.this.startActivity(myIntent);
             }
         });
 
