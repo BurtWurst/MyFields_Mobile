@@ -1,8 +1,6 @@
 package com.myfields.kyle.pestsampler;
 
-
 import android.app.Activity;
-import android.content.Intent;
 import android.widget.ListView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -12,9 +10,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.view.View;
 
 /**
-  Represents the activity that lets you choose either My Fields or Pest Sampler
+ Represents the fields & names along with the type of field it is (corn, wheat, etc...)
  */
-public class SelectionScreen extends Activity{
+public class FieldsList extends Activity {
     ListView listView ;
 
     @Override
@@ -24,23 +22,24 @@ public class SelectionScreen extends Activity{
 
         listView = (ListView) findViewById(R.id.selection_list);
 
-        String[] selectionList = new String[]
+        final String[] selectionList = new String[]
                 {
-                "My Fields",
-                "Pest Sampler",
-        };
+                        "Field 1                               Corn",
+                        "Field 2                               Wheat",
+                        "Field 3                               Sorghum"
+                };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(SelectionScreen.this, FieldsList.class);
-                SelectionScreen.this.startActivity(myIntent);
+                Toast.makeText(getApplicationContext(), "You click on a field!",
+                      Toast.LENGTH_LONG).show();
             }
         });
     }
