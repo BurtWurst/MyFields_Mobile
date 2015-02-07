@@ -80,8 +80,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                Intent myIntent = new Intent(LoginActivity.this, SelectionScreen.class);
-                LoginActivity.this.startActivity(myIntent);
             }
         });
 
@@ -114,9 +112,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         boolean cancel = false;
         View focusView = null;
-        //String username = "kylemurphy52589@gmail.com";
-       // String password = "password";
-
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
@@ -152,6 +147,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+            //starts new activity that goes to selection screen
+            Intent myIntent = new Intent(LoginActivity.this, SelectionScreen.class);
+            LoginActivity.this.startActivity(myIntent);
         }
     }
 
