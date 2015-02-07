@@ -35,6 +35,3 @@
 		echo 'Problem connecting to database: ' . $problem;
 	}
 ?>
-
-{ 'id' = 1;
-'name' = 'Field5' }
