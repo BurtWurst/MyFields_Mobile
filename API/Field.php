@@ -1,135 +1,91 @@
 <?php
 
+include_once "PestSample.php";
+include_once "GPSLocation.php";
+include_once "Planting.php";
+
 class Field 
 {	
-	private $ID;
-	private $FieldName;
-	private $Location;
-	private $Size;
-	private $TypeOfSoil;
-	private $TillageSystem;
-	private $IrrigationSystem;
+	protected $ID;
+	protected $FieldName;
+	protected $Location;
+	protected $Size;
+	protected $TypeOfSoil;
+	protected $TillageSystem;
+	protected $IrrigationSystem;
 	
-	private $PlantingList;
-	private $PestSamples;
+	protected $PlantingList;
+	protected $PestSamples;
 	
 	public function __construct($FieldID, $Name, $Latitude, $Longitude, $Acres, 
 								$SoilType, $MethodOfTill, $Irrigation, $Plantings,
 								$PestReports)
 	{
-		$ID = $FieldID;
-		$FieldName = $Name;
-		$Location =  = new GPSLocation($Latitude, $Longitude);
-		$Size = $Acres;
-		$TypeOfSoil = $SoilType;
-		$TillageSystem = $MethodOfTill;
-		$IrrigationSystem = $Irrigation;
+		$this->ID = $FieldID;
+		$this->FieldName = $Name;
+		$this->Location = new GPSLocation($Latitude, $Longitude);
+		$this->Size = $Acres;
+		$this->TypeOfSoil = $SoilType;
+		$this->TillageSystem = $MethodOfTill;
+		$this->IrrigationSystem = $Irrigation;
 		
-		$PlantingList = $Plantings;
-		$PestSamples = $PestReports;
+		$this->PlantingList = $Plantings;
+		$this->PestSamples = $PestReports;
 		
 	}
 	
-	public function JSONize()
+	public function JSONize($Tabs)
 	{
-		echo '{';
-		echo '\t"ID" : ' . $ID . ',\n';
-		echo '\t"FieldName" : "' . $FieldName . '",\n';
-		echo '\t"Location" : \n' . $Location->JSONize() . ',\n';
-		echo '\t"Size" : ' . $Size . ',\n';
-		echo '\t"TypeOfSoil" : "' . $TypeOfSoil . '",\n';
-		echo '\t"TillageSystem" : "' . $TillageSystem . '",\n';
-		echo '\t"IrrigationSystem" : "' . $IrrigationSystem . '",\n';
+		echo $Tabs . "{\n";
+		$TabsPlusOne = $Tabs . "\t";
+		echo $TabsPlusOne . "\"ID\" : " . $this->ID . ",\n";
+		echo $TabsPlusOne . "\"FieldName\" : \"" . $this->FieldName . "\",\n";
+		echo $TabsPlusOne . "\"Location\" : \n";
+		echo $this->Location->JSONize($TabsPlusOne);
+		echo ",\n";
+		echo $TabsPlusOne . "\"Size\" : " . $this->Size . ",\n";
+		echo $TabsPlusOne . "\"TypeOfSoil\" : \"" . $this->TypeOfSoil . "\",\n";
+		echo $TabsPlusOne . "\"TillageSystem\" : \"" . $this->TillageSystem . "\",\n";
+		echo $TabsPlusOne . "\"IrrigationSystem\" : \"" . $this->IrrigationSystem . "\",\n";
 		
-		echo '\t"PlantingList" : [\n';
+		echo $TabsPlusOne . "\"PlantingList\" : [\n";
 		
-		for($i = 0; $i < count($PlantingList); $i++)
+		for($i = 0; $i < count($this->PlantingList); $i++)
 		{
-			echo $PlantingList[i]->JSONize();
+			echo $this->PlantingList[$i]->JSONize($TabsPlusOne);
 			
-			if($i < count($PlantingList) - 1)
+			if($i < count($this->PlantingList) - 1)
 			{
-				echo ',\n';
+				echo ",\n";
 			}
 			else
 			{
-				echo '\n';
+				echo "\n";
 			}
 		}
 		
-		echo '\t],\n';
+		echo $TabsPlusOne . "],\n";
 		
-		echo '\t"PestSamples" : [\n';
+		echo $TabsPlusOne . "\"PestSamples\" : [\n";
 		
-		for($i = 0; $i < count($PestSamples); $i++)
+		for($i = 0; $i < count($this->PestSamples); $i++)
 		{
-			echo $PestSamples[i]->JSONize();
+			echo $this->PestSamples[$i]->JSONize($TabsPlusOne);
 			
-			if($i < count($PestSamples) - 1)
+			if($i < count($this->PestSamples) - 1)
 			{
-				echo ',\n';
+				echo ",\n";
 			}
 			else
 			{
-				echo '\n';
+				echo "\n";
 			}
 		}
 		
-		echo '\t],\n';
+		echo $TabsPlusOne . "],\n";
 		
-		echo '}';
-	}
-}
-
-class GPSLocation
-{
-	private $Latitude;
-	private $Longitude;
-
-	public function __construct($Lat = 39.240867, $Lon = -96.536004)
-	{
-		$Latitude =  $Lat;
-		$Longitude =  $Lon;
-	}
-	
-	public function JSONize()
-	{
-		echo '\t{';
-		echo '\t\t"Latitude" : ' . $Latitude . ',\n';
-		echo '\t\t"Longitude" : ' . $Longitude . '\n';
-		echo '\t}';
-	}
-}
-
-class Planting
-{
-	private $ID;
-	private $CropType;
-	private $CropVariety;
-	private $CropDensity;
-	private $Notes;
-	
-	public function __construct($PlantID, $Crop, $Variety, $Density, $NoteSection)
-	{
-		$ID = $PlantID;
-		$CropType = $Crop;
-		$CropVariety = $Variety;
-		$CropDensity = $Density;
-		$Notes = $NoteSection;
-	}
-	
-	public function JSONize()
-	{
-		echo '\t{';
-		echo '\t\t"ID" : ' . $ID . ',\n';
-		echo '\t\t"CropType" : "' . $CropType . '",\n';
-		echo '\t\t"CropVariety" : "' . $CropVariety . '",\n';
-		echo '\t\t"CropDensity" : "' . $CropDensity . '",\n';
-		echo '\t\t"Notes" : "' . $Notes . '"\n';
-		echo '\t}';
+		echo "}";
 	}
 }
 
 ?>
-
-

@@ -1,5 +1,7 @@
 <?php
 
+include_once "GPSLocation.php";
+
 class PestSample 
 {
 	
@@ -16,14 +18,14 @@ class PestSample
 	
 	public function __construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests)
 	{
-		$Id = $Identifier;
-		$Location = new GPSLocation($Latitude, $Longitude);
-		$Field = $Site;
-		$ControlCost = $TreatmentCost;
-		$CropValue = $CropCost;
+		$this->Id = $Identifier;
+		$this->Location = new GPSLocation($Latitude, $Longitude);
+		$this->Field = $Site;
+		$this->ControlCost = $TreatmentCost;
+		$this->CropValue = $CropCost;
 		
-		$Notes = $NoteSection;
-		$OtherPests = $Pests;
+		$this->Notes = $NoteSection;
+		$this->OtherPests = $Pests;
 		
 	}
 	
@@ -35,45 +37,52 @@ class PestSample
 
 class GreenbugSample extends PestSample
 {
+	protected $TreatmentRecommendation;
 	protected $AphidCount;
 	protected $MummyCount;
 	
-	public function __construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys)
+	public function __construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys, $Treatment)
 	{
 		parent::__construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests);
 		
-		$AphidCount = $Aphids;
-		$MummyCount = $Mummys;
+		$this->TreatmentRecommendation = $Treatment;
+		$this->AphidCount = $Aphids;
+		$this->MummyCount = $Mummys;
 	}
 	
-	public function JSONize()
+	public function JSONize($Tabs)
 	{
-		echo '\t{';
-		echo '\t\t"ID" : ' . $ID . ',\n';
-		echo '\t\t"Location" : \n' . $Location->JSONize() . ',\n';
-		echo '\t\t"Field" : ' . $Field->ID . ',\n';
-		echo '\t\t"ControlCost" : ' . $ControlCost . ',\n';
-		echo '\t\t"CropValue" : ' . $CropValue . ',\n';
-		echo '\t\t"AphidCount" : ' . $AphidCount . ',\n';
-		echo '\t\t"MummyCount" : ' . $MummyCount . ',\n';
-		echo '\t\t"Notes" : "' . $Notes . '",\n';
-		echo '\t\t"OtherPests" : [\n';
-		for($i = 0; $i < count($OtherPests); $i++)
+		echo $Tabs . "{\n";
+		$TabsPlusOne = $Tabs . "\t";
+		echo $TabsPlusOne . "\"ID\" : " . $this->Id . ",\n";
+		echo $TabsPlusOne . "\"Location\" : \n";
+		echo $this->Location->JSONize($TabsPlusOne);
+		echo ",\n";
+		echo $TabsPlusOne . "\"Field\" : " . $this->Field . ",\n";
+		echo $TabsPlusOne . "\"ControlCost\" : " . $this->ControlCost . ",\n";
+		echo $TabsPlusOne . "\"CropValue\" : " . $this->CropValue . ",\n";
+		$TreatmentRecommendationString = $this->TreatmentRecommendation ? "True" : "False";
+		echo $TabsPlusOne . "\"TreatmentRecommendation\" : " . $TreatmentRecommendationString . ",\n";
+		echo $TabsPlusOne . "\"AphidCount\" : " . $this->AphidCount . ",\n";
+		echo $TabsPlusOne . "\"MummyCount\" : " . $this->MummyCount . ",\n";
+		echo $TabsPlusOne . "\"Notes\" : \"" . $this->Notes . "\",\n";
+		echo $TabsPlusOne . "\"OtherPests\" : [\n";
+		for($i = 0; $i < count($this->OtherPests); $i++)
 		{
-			echo '\t\t\t"' . $OtherPests[i] . '"';
+			echo $TabsPlusOne . "\t\"" . $this->OtherPests[$i] . "\"";
 			
-			if($i < count($OtherPests) - 1)
+			if($i < count($this->OtherPests) - 1)
 			{
-				echo ',\n';
+				echo ",\n";
 			}
 			else
 			{
-				echo '\n';
+				echo "\n";
 			}
 		}
 		
-		echo '\t\t]\n';
-		echo '\t}';
+		echo $TabsPlusOne . "]\n";
+		echo $Tabs . "}";
 	}
 }
 
