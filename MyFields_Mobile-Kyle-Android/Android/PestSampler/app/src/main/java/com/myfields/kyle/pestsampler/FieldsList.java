@@ -1,6 +1,7 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.ListView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -38,8 +39,8 @@ public class FieldsList extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "You click on a field!",
-                      Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
+                FieldsList.this.startActivity(myIntent);
             }
         });
     }
