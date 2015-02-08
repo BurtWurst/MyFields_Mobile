@@ -18,8 +18,8 @@ class Field
 	protected $PestSamples;
 	
 	public function __construct($FieldID, $Name, $Latitude, $Longitude, $Acres, 
-								$SoilType, $MethodOfTill, $Irrigation, $Plantings,
-								$PestReports)
+								$SoilType, $MethodOfTill, $Irrigation)
+								//$Plantings, $PestReports)
 	{
 		$this->ID = $FieldID;
 		$this->FieldName = $Name;
@@ -29,9 +29,26 @@ class Field
 		$this->TillageSystem = $MethodOfTill;
 		$this->IrrigationSystem = $Irrigation;
 		
-		$this->PlantingList = $Plantings;
-		$this->PestSamples = $PestReports;
+		$this->PlantingList = array();
+		$this->PestSamples = array();
 		
+	}
+	
+	public function addPestSample($Sample)
+	{
+		array_push($this->PestSamples, $Sample);
+		//$this->PestSamples[$Sample->Id => $Sample];
+	}
+	
+	public function addPlanting($Planting)
+	{
+		array_push($this->PlantingList, $Planting);
+		//$this->PestSamples[$Planting->Id => $Planting];
+	}
+	
+	public function getId()
+	{
+		return $this->ID;
 	}
 	
 	public function JSONize($Tabs)
