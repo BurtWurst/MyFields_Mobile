@@ -19,7 +19,7 @@
         android:layout_below="@id/field_image"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:textColor="#000000"
+        android:textColor="#ff000000"
         android:textSize="30sp"
         android:text="@string/specific_field_info_TV_text" />
 </RelativeLayout>
