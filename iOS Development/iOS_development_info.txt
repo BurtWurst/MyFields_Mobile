@@ -46,6 +46,35 @@ I found out after hours of work that the way that I was trying to create a click
 
 
 
+Spring Semester Sr. Project
+
+http://stackoverflow.com/questions/6972092/ios-how-to-store-username-password-within-an-app - How to store a username/password within an app.
+
+https://developer.apple.com/library/ios/samplecode/GenericKeychain/Listings/main_m.html - using a generic keychain
+
+https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ViewControllerPGforiOS.pdf - using view controllers more advanced
+
+http://dipinkrishna.com/blog/2013/12/ios-login-screen-tutorial-xcode-5-ios-7-storyboard-json/5/ - json tutorial for iOS
+
+http://stackoverflow.com/questions/630453/put-vs-post-in-rest - put vs post using rest
+
+https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewAndDataModel/TableViewAndDataModel.html - navigation within apps
+
+https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/TableViewAndDataModel/TableViewAndDataModel.html - using table views correctly
+
+https://www.youtube.com/watch?v=3dUeEhdeLyM - tutorial on login using json
+
+http://www.appcoda.com/introduction-auto-layout/ - using auto-layout in Xcode
+
+http://useyourloaf.com/blog/2012/06/07/prototype-table-cells-and-storyboards.html - creating prototype table cells
+
+http://www.appcoda.com/how-to-handle-row-selection-in-uitableview/ - how to handle row selection in a table view 
+
+http://stackoverflow.com/questions/3491724/detecting-button-click-with-uialertview - detecting a button click in an alert window
+
+
+
+
 
 
 
