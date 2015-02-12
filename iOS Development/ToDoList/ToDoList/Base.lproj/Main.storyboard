@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DgB-ZH-N9n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -26,8 +25,8 @@
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3ra-ZW-OQ8"/>
-                        <viewControllerLayoutGuide type="bottom" id="GXc-on-HT8"/>
+                        <viewControllerLayoutGuide type="top" id="N3I-GE-ono"/>
+                        <viewControllerLayoutGuide type="bottom" id="eHc-sc-ggO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -78,7 +77,7 @@
                     <navigationItem key="navigationItem" id="m7E-Xa-iiV"/>
                     <connections>
                         <outlet property="password" destination="kyC-lq-av3" id="zAf-rK-Hy5"/>
-                        <outlet property="username" destination="Qel-ac-N78" id="CQT-VO-EPK"/>
+                        <outlet property="username" destination="Qel-ac-N78" id="oWf-zY-h1o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -90,14 +89,14 @@
             <objects>
                 <viewController storyboardIdentifier="SecondIdentifier" id="ZY8-y8-F04" customClass="SecondViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8ao-JJ-mKV"/>
-                        <viewControllerLayoutGuide type="bottom" id="h1o-LN-h40"/>
+                        <viewControllerLayoutGuide type="top" id="KLz-oK-dBx"/>
+                        <viewControllerLayoutGuide type="bottom" id="UuQ-ha-P9f"/>
                     </layoutGuides>
                     <view key="view" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="Dm6-ix-sYq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="od0-TM-5EZ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="od0-TM-5EZ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Corn Field 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNO-Pi-UuY">
@@ -163,12 +162,6 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.88063269060000005" blue="0.70691948790000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="od0-TM-5EZ" firstAttribute="bottom" secondItem="h1o-LN-h40" secondAttribute="top" id="0SZ-5D-Y2r"/>
-                            <constraint firstAttribute="trailing" secondItem="od0-TM-5EZ" secondAttribute="trailing" id="BFr-C8-K4l"/>
-                            <constraint firstItem="od0-TM-5EZ" firstAttribute="leading" secondItem="Dm6-ix-sYq" secondAttribute="leading" id="cc9-01-4p7"/>
-                            <constraint firstAttribute="width" secondItem="od0-TM-5EZ" secondAttribute="height" multiplier="8:17" id="fuc-M3-WC9"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qbj-u2-iDw"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -186,8 +179,8 @@
             <objects>
                 <viewController storyboardIdentifier="FirstField" id="8Ey-jc-8CI" customClass="FirstFieldViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vOA-0k-Bxj"/>
-                        <viewControllerLayoutGuide type="bottom" id="USh-cA-CYX"/>
+                        <viewControllerLayoutGuide type="top" id="af3-4d-3Nf"/>
+                        <viewControllerLayoutGuide type="bottom" id="8vB-Ps-Qjv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kjt-QS-J8a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -223,8 +216,8 @@
             <objects>
                 <viewController storyboardIdentifier="SecondField" id="D5M-Lq-Jw2" customClass="SecondFieldViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="V5O-hG-CMQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="MWd-8V-jE9"/>
+                        <viewControllerLayoutGuide type="top" id="i35-pp-CW3"/>
+                        <viewControllerLayoutGuide type="bottom" id="6bs-Vi-7yd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oeS-Pj-sok">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

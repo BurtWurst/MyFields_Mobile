@@ -16,7 +16,6 @@
     NSDictionary *loginDictionary;
     
 }
-
 - (IBAction)enterLogin;
 
 @end
