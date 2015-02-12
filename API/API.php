@@ -5,11 +5,29 @@
 	include_once "GPSLocation.php";
 	include_once "Planting.php";
 	
+	// Database access information
 	$dbHost = "mysql.cis.ksu.edu";
-	$dbName = "proj_myfields";
-	
+	$dbName = "proj_myfields";	
 	$userName = "proj_myfields";
-	$password = "----";
+	$password = "insecurepassword";
+	
+	// Username provided by requestor to access fields within DB
+	$FieldUser;
+	$FieldPassword;
+	
+	if(isset($_GET['user']) && isset($_GET['pass']))
+	{
+		$FieldUser = $_GET['user'];
+		$FieldPassword = $_GET['pass'];
+	}
+	else
+	{
+		http_response_code(401);
+		echo "Username or Password not provided!";
+		return;
+	}
+	
+	
 	
 	$db = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', 
 				   $userName, 
@@ -22,9 +40,27 @@
 	try
 	{
 		$field;
-		$uid = 1;
+		$uid;
 		$count = 0;
 		
+		// Requestor should provide username and password
+		$userQuery = $db->query("select * from users 
+												where name = '" . $FieldUser . 
+												"' and pass = '" . $FieldPassword . "'");
+		
+		if($userQuery->rowCount() == 0)
+		{
+			http_response_code(401);
+			echo "Username or password is incorrect!";
+			return;
+		}
+		else
+		{
+			// get the userId to associate to the Fields
+			$uid = $userQuery->fetch()["uid"];
+		}
+		
+		// Get Fields associated with a user's ID
 		$statement = $db->query("select * from Fields where Owner = '" . $uid . "'");
 		
 		foreach($statement as $row)
