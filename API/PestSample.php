@@ -2,7 +2,7 @@
 
 include_once "GPSLocation.php";
 
-class PestSample 
+class PestSample implements JsonSerializable
 {
 	
 	protected $Id;			
@@ -29,7 +29,7 @@ class PestSample
 		
 	}
 	
-	public function JSONize()
+	public function jsonSerialize()
 	{
 		throw new Exception("Not Implemented!");
 	}
@@ -50,39 +50,21 @@ class GreenbugSample extends PestSample
 		$this->MummyCount = $Mummys;
 	}
 	
-	public function JSONize($Tabs)
+	public function jsonSerialize()
 	{
-		echo $Tabs . "{\n";
-		$TabsPlusOne = $Tabs . "\t";
-		echo $TabsPlusOne . "\"ID\" : " . $this->Id . ",\n";
-		echo $TabsPlusOne . "\"Location\" : \n";
-		echo $this->Location->JSONize($TabsPlusOne);
-		echo ",\n";
-		echo $TabsPlusOne . "\"Field\" : " . $this->Field . ",\n";
-		echo $TabsPlusOne . "\"ControlCost\" : " . $this->ControlCost . ",\n";
-		echo $TabsPlusOne . "\"CropValue\" : " . $this->CropValue . ",\n";
-		$TreatmentRecommendationString = $this->TreatmentRecommendation ? "True" : "False";
-		echo $TabsPlusOne . "\"TreatmentRecommendation\" : " . $TreatmentRecommendationString . ",\n";
-		echo $TabsPlusOne . "\"AphidCount\" : " . $this->AphidCount . ",\n";
-		echo $TabsPlusOne . "\"MummyCount\" : " . $this->MummyCount . ",\n";
-		echo $TabsPlusOne . "\"Notes\" : \"" . $this->Notes . "\",\n";
-		echo $TabsPlusOne . "\"OtherPests\" : [\n";
-		for($i = 0; $i < count($this->OtherPests); $i++)
-		{
-			echo $TabsPlusOne . "\t\"" . $this->OtherPests[$i] . "\"";
-			
-			if($i < count($this->OtherPests) - 1)
-			{
-				echo ",\n";
-			}
-			else
-			{
-				echo "\n";
-			}
-		}
 		
-		echo $TabsPlusOne . "]\n";
-		echo $Tabs . "}";
+		return [
+					'ID' 						=> $this->Id,
+					'Location' 					=> $this->Location->jsonSerialize(),
+					'Field' 					=> $this->Field,
+					'ControlCost' 				=> $this->ControlCost,
+					'CropValue' 				=> $this->CropValue,
+					'TreatmentRecommendation' 	=> $this->TreatmentRecommendation,
+					'AphidCount' 				=> $this->AphidCount,
+					'MummyCount' 				=> $this->MummyCount,
+					'Notes' 					=> $this->Notes,
+					'OtherPests' 				=> $this->OtherPests
+				];
 	}
 }
 
