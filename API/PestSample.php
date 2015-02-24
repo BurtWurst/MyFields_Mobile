@@ -31,20 +31,30 @@ class PestSample implements JsonSerializable
 	
 	public function jsonSerialize()
 	{
-		throw new Exception("Not Implemented!");
+		return [
+					'ID' 						=> $this->Id,
+					'Location' 					=> $this->Location->jsonSerialize(),
+					'Field' 					=> $this->Field,
+					'ControlCost' 				=> $this->ControlCost,
+					'CropValue' 				=> $this->CropValue,
+					'Notes' 					=> $this->Notes,
+					'OtherPests' 				=> $this->OtherPests
+				];
 	}
 }
 
 class GreenbugSample extends PestSample
 {
+	protected $SpecificID;
 	protected $TreatmentRecommendation;
 	protected $AphidCount;
 	protected $MummyCount;
 	
-	public function __construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys, $Treatment)
+	public function __construct($Specific_Identifier, $Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys, $Treatment)
 	{
 		parent::__construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests);
 		
+		$this->SpecificID = $Specific_Identifier;
 		$this->TreatmentRecommendation = $Treatment;
 		$this->AphidCount = $Aphids;
 		$this->MummyCount = $Mummys;
@@ -54,16 +64,11 @@ class GreenbugSample extends PestSample
 	{
 		
 		return [
-					'ID' 						=> $this->Id,
-					'Location' 					=> $this->Location->jsonSerialize(),
-					'Field' 					=> $this->Field,
-					'ControlCost' 				=> $this->ControlCost,
-					'CropValue' 				=> $this->CropValue,
+					'SpecificID'				=> $this->SpecificID,
 					'TreatmentRecommendation' 	=> $this->TreatmentRecommendation,
 					'AphidCount' 				=> $this->AphidCount,
 					'MummyCount' 				=> $this->MummyCount,
-					'Notes' 					=> $this->Notes,
-					'OtherPests' 				=> $this->OtherPests
+					'GenericSample'				=> parent::jsonSerialize()
 				];
 	}
 }

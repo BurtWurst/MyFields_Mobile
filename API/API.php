@@ -42,7 +42,7 @@
 												where name = '" . $FieldUser . 
 												"' and pass = '" . $FieldPassword . "'");
 		
-		if($userQuery->rowCount() == 0)
+		if($userQuery->rowCount() === 0)
 		{
 			http_response_code(401);
 			echo "Username or password is incorrect!";
@@ -54,7 +54,7 @@
 			$uid = $userQuery->fetch()["uid"];
 		}
 	
-		if ($_SERVER['REQUEST_METHOD'] == 'GET')
+		if ($_SERVER['REQUEST_METHOD'] === 'GET')
 		{
 				$fields = array();
 				$uid;
@@ -62,8 +62,6 @@
 				
 				// Get Fields associated with a user's ID
 				$statement = $db->query("select * from Fields where Owner = '" . $uid . "'");
-				
-				//echo "{\n[\n";
 				
 				foreach($statement as $row)
 				{
@@ -83,7 +81,7 @@
 						// This should be a 1-to-1 relationship
 						foreach($db->query("select * from GreenbugSamples where GenericSampleId = '" . $sample["Id"] . "'") as $specificSample)
 						{
-							$field->addPestSample(new GreenbugSample($specificSample["Id"], $sample["Latitude"], $sample["Longitude"], 
+							$field->addPestSample(new GreenbugSample($specificSample["Id"], $specificSample['GenericSampleID'], $sample["Latitude"], $sample["Longitude"], 
 																$sample["FieldID"], $sample["ControlCost"], $sample["CropValue"],
 																$sample["Notes"], explode(",", $sample["OtherPests"]),
 																$specificSample["AphidCount"], $specificSample["MummyCount"], $specificSample["TreatmentRecommendation"]));
@@ -92,23 +90,117 @@
 					}
 					
 					array_push($fields, $field);
-					
-					
-					
-					/*echo $field->JSONize("\t");
-					
-					if($count < ($statement->rowCount() - 1))
-					{
-						echo ",\n";
-					}
-					
-					$count++;*/
 				}
 				echo json_encode($fields, JSON_PRETTY_PRINT);
-				//echo "\n]\n}";
 		}
-		else if($_SERVER['REQUEST_METHOD'] == 'POST')
+		else if($_SERVER['REQUEST_METHOD'] === 'POST')
 		{
+			// POSTING is incomplete.
+			$Updates_Fields = array(8); // Number of columns to update
+			$News_Fields = array(); //God this is easier than an update.
+			
+			$Updates_Plantings = array();
+			$News_Plantings = array();
+			
+			$Updates_Samples = array();
+			$News_Samples = array();
+			
+			$Updates_Samples_Greenbug = array();
+			$News_Samples_Greenbug = array();
+			
+			$data = json_decode($_POST('data'));
+
+			$rowCount;
+			
+			$Updates_Fields[0] = "SET Name = CASE Id ";
+			$Updates_Fields[1] = "SET Latitude = CASE Id ";
+			$Updates_Fields[2] = "SET Longitude = CASE Id ";
+			$Updates_Fields[3] = "SET Size = CASE Id ";
+			$Updates_Fields[4] = "SET Soil = CASE Id ";
+			$Updates_Fields[5] = "SET Tillage = CASE Id ";
+			$Updates_Fields[6] = "SET Irrigation = CASE Id ";
+			$Updates_Fields[7] = "SET Owner = CASE Id ";
+			
+			foreach($data as $field)
+			{
+				
+				$rowCount = $db->query("select count(*) as x from Fields where Index = '" . $field['ID'] . "'");
+				
+				if($rowCount['x'] > 0)
+				{
+					
+					array_push($Updates_Fields, "(" . $field['ID'] . ", " . $field['FieldName'] . ", " . $field['Location']['Latitude'] . ", " . 
+											$field['Location']['Longitude'] . ", " . $field['Size'] . ", " . $field['TypeOfSoil'] . ", " . 
+											$field['TillageSystem'] . ", " . $field['IrrigationSystem'] . ")");
+				}
+				else
+				{
+					array_push($News_Fields, "(" . $field['ID'] . ", " . $field['FieldName'] . ", " . $field['Location']['Latitude'] . ", " . 
+											$field['Location']['Longitude'] . ", " . $field['Size'] . ", " . $field['TypeOfSoil'] . ", " . 
+											$field['TillageSystem'] . ", " . $field['IrrigationSystem'] . ", " . $uid . ")");
+				}
+				
+				foreach($field['PlantingList'] as $planting)
+				{
+					$rowCount = $db->query("select count(*) as x from Plantings where Id = '" . $planting['ID'] . "'");
+					
+					if ($rowCount['x'] > 0)
+					{
+						array_push($Updates_Plantings, "(" . $planting['ID'] . ", " . $planting['CropType'] . ", " . $planting['CropVariety'] . ", " .
+															$planting['CropDensity'] . ", " . $planting['Notes'] . ", " . 
+															date('Y-m-d H:i:s', strtotime($planting['Date'])) . ")");
+					}
+					else
+					{
+						array_push($News_Plantings, "(" . $planting['ID'] . ", " . $planting['CropType'] . ", " . $planting['CropVariety'] . ", " .
+															$planting['CropDensity'] . ", " . $planting['Notes'] . ", " . 
+															date('Y-m-d H:i:s', strtotime($planting['Date'])) . ", " . 
+															$field['ID'] . ")");
+					}
+				}
+				
+				foreach($field['PestSamples'] as $sample)
+				{
+					$rowCount = $db->query("select count(*) as x from PestSamples where Id = '" . $sample['GenericSample']['ID'] . "'");
+					
+					if ($rowCount['x'] > 0)
+					{
+						array_push($Updates_Samples, "(" . $sample['GenericSample']['ID'] . ", " . $sample['GenericSample']['Location']['Latitude'] . ", " . 
+														$sample['GenericSample']['Location']['Longitude'] . ", " . $sample['GenericSample']['ControlCost'] . ", " . 
+														$sample['GenericSample']['CropValue'] . ", " . $sample['GenericSample']['Notes'] . ", " . 
+														implode(", ", $sample['GenericSample']['OtherPests']) . ")");
+					}
+					else
+					{
+						array_push($News_Samples, "(" . $sample['GenericSample']['ID'] . ", " . $sample['GenericSample']['Location']['Latitude'] . ", " . 
+														$sample['GenericSample']['Location']['Longitude'] . ", " . $sample['GenericSample']['ControlCost'] . ", " . 
+														$sample['GenericSample']['CropValue'] . ", " . $sample['GenericSample']['Notes'] . ", " . 
+														implode(", ", $sample['GenericSample']['OtherPests']) . ", " . $field['ID'] . ")");
+					}
+					
+					// Need an if-elseif structure for each type of sample, checking for a unique piece of data to that type.
+					if(isset($sample['MummyCount']))
+					{
+						$rowCount = $db->query("select count(*) as x from GreenbugSamples where Id = '" . $sample['SpecificID'] . "'");
+						
+						if($rowCount['x'] > 0)
+						{
+							array_push($Updates_Samples_Greenbug, "(" . $sample['SpecificID'] . ", " . $sample['GenericSample']['ID'] . ", " .
+																$sample['TreatmentRecommendation'] . ", " . $sample['AphidCount'] . ", " . 
+																$sample['MummyCount'] . ")");
+						}
+						else
+						{
+							array_push($News_Samples_Greenbug, "(" . $sample['SpecificID'] . ", " . $sample['GenericSample']['ID'] . ", " .
+																$sample['TreatmentRecommendation'] . ", " . $sample['AphidCount'] . ", " . 
+																$sample['MummyCount'] . ")");
+						}
+						
+					}
+				}
+			}
+			
+			// INSERT/UPDATE QUERIES HERE
 			
 		}
 		else
