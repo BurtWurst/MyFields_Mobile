@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myfields.kyle.pestsampler" >
+    package="com.myfields.kyle.pestsampler">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STARAGE"/>
 
     <application
         android:allowBackup="true"
@@ -25,6 +28,7 @@
         <activity android:label="@string/app_name" android:name=".SelectionScreen"/>
         <activity android:label="@string/app_name" android:name=".FieldsList"/>
         <activity android:label="@string/app_name" android:name=".SpecificFieldInfo"/>
+        <activity android:label="@string/app_name" android:name=".ParseJson"/>
     </application>
 
 </manifest>
