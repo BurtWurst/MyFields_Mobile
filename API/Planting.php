@@ -1,32 +1,35 @@
 <?php
 
-class Planting
+class Planting implements JsonSerializable
 {
 	private $ID;
 	private $CropType;
 	private $CropVariety;
 	private $CropDensity;
 	private $Notes;
+	private $Date;
 	
-	public function __construct($PlantID, $Crop, $Variety, $Density, $NoteSection)
+	public function __construct($PlantID, $Crop, $Variety, $Density, $NoteSection, $DateOfPlant)
 	{
 		$this->ID = $PlantID;
 		$this->CropType = $Crop;
 		$this->CropVariety = $Variety;
 		$this->CropDensity = $Density;
 		$this->Notes = $NoteSection;
+		$this->Date = $DateOfPlant;
 	}
 	
-	public function JSONize($Tabs)
+	public function jsonSerialize()
 	{
-		echo $Tabs . "{\n";
-		$TabsPlusOne = $Tabs . "\t";
-		echo $TabsPlusOne . "\"ID\" : " . $this->ID . ",\n";
-		echo $TabsPlusOne . "\"CropType\" : \"" . $this->CropType . "\",\n";
-		echo $TabsPlusOne . "\"CropVariety\" : \"" . $this->CropVariety . "\",\n";
-		echo $TabsPlusOne . "\"CropDensity\" : \"" . $this->CropDensity . "\",\n";
-		echo $TabsPlusOne . "\"Notes\" : \"" . $this->Notes . "\"\n";
-		echo $Tabs . "}";
+		
+		return [
+					'ID' 	   	  => $this->ID,
+					'CropType' 	  => $this->CropType,
+					'CropVariety' => $this->CropVariety,
+					'CropDensity' => $this->CropDensity,
+					'Notes' 	  => $this->Notes,
+					'Date' 		  => $this->Date
+				];
 	}
 }
 

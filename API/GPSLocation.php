@@ -1,6 +1,6 @@
 <?php
 
-class GPSLocation
+class GPSLocation implements JsonSerializable
 {
 	private $Latitude;
 	private $Longitude;
@@ -10,13 +10,13 @@ class GPSLocation
 		$this->Longitude =  $Lon;
 	}
 	
-	public function JSONize($Tabs)
+	public function jsonSerialize()
 	{
-		echo $Tabs . "{\n";
-		$TabsPlusOne = $Tabs . "\t";
-		echo $TabsPlusOne . "\"Latitude\" : " . $this->Latitude . ",\n";
-		echo $TabsPlusOne . "\"Longitude\" : " . $this->Longitude . "\n";
-		echo $Tabs . "}";
+	
+		return [
+				'Latitude'  => $this->Latitude,
+				'Longitude' => $this->Longitude
+				];
 	}
 }
 
