@@ -17,9 +17,12 @@
 @property NSString *typeOfSoil;
 @property NSString *tillageSystem;
 @property NSString *irrigationSystem;
+//array
 @property NSString *plantingList;
+//array
 @property NSString *pestSamples;
 
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation;
 
 
 @end

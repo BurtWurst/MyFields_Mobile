@@ -12,4 +12,6 @@
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 
+- (void) retrieveData;
+
 @end
