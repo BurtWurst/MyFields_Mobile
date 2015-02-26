@@ -2,7 +2,7 @@
 
 include_once "GPSLocation.php";
 
-class PestSample 
+class PestSample implements JsonSerializable
 {
 	
 	protected $Id;			
@@ -29,60 +29,47 @@ class PestSample
 		
 	}
 	
-	public function JSONize()
+	public function jsonSerialize()
 	{
-		throw new Exception("Not Implemented!");
+		return [
+					'ID' 						=> $this->Id,
+					'Location' 					=> $this->Location->jsonSerialize(),
+					'Field' 					=> $this->Field,
+					'ControlCost' 				=> $this->ControlCost,
+					'CropValue' 				=> $this->CropValue,
+					'Notes' 					=> $this->Notes,
+					'OtherPests' 				=> $this->OtherPests
+				];
 	}
 }
 
 class GreenbugSample extends PestSample
 {
+	protected $SpecificID;
 	protected $TreatmentRecommendation;
 	protected $AphidCount;
 	protected $MummyCount;
 	
-	public function __construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys, $Treatment)
+	public function __construct($Specific_Identifier, $Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests, $Aphids, $Mummys, $Treatment)
 	{
 		parent::__construct($Identifier, $Latitude, $Longitude, $Site, $TreatmentCost, $CropCost, $NoteSection, $Pests);
 		
+		$this->SpecificID = $Specific_Identifier;
 		$this->TreatmentRecommendation = $Treatment;
 		$this->AphidCount = $Aphids;
 		$this->MummyCount = $Mummys;
 	}
 	
-	public function JSONize($Tabs)
+	public function jsonSerialize()
 	{
-		echo $Tabs . "{\n";
-		$TabsPlusOne = $Tabs . "\t";
-		echo $TabsPlusOne . "\"ID\" : " . $this->Id . ",\n";
-		echo $TabsPlusOne . "\"Location\" : \n";
-		echo $this->Location->JSONize($TabsPlusOne);
-		echo ",\n";
-		echo $TabsPlusOne . "\"Field\" : " . $this->Field . ",\n";
-		echo $TabsPlusOne . "\"ControlCost\" : " . $this->ControlCost . ",\n";
-		echo $TabsPlusOne . "\"CropValue\" : " . $this->CropValue . ",\n";
-		$TreatmentRecommendationString = $this->TreatmentRecommendation ? "True" : "False";
-		echo $TabsPlusOne . "\"TreatmentRecommendation\" : " . $TreatmentRecommendationString . ",\n";
-		echo $TabsPlusOne . "\"AphidCount\" : " . $this->AphidCount . ",\n";
-		echo $TabsPlusOne . "\"MummyCount\" : " . $this->MummyCount . ",\n";
-		echo $TabsPlusOne . "\"Notes\" : \"" . $this->Notes . "\",\n";
-		echo $TabsPlusOne . "\"OtherPests\" : [\n";
-		for($i = 0; $i < count($this->OtherPests); $i++)
-		{
-			echo $TabsPlusOne . "\t\"" . $this->OtherPests[$i] . "\"";
-			
-			if($i < count($this->OtherPests) - 1)
-			{
-				echo ",\n";
-			}
-			else
-			{
-				echo "\n";
-			}
-		}
 		
-		echo $TabsPlusOne . "]\n";
-		echo $Tabs . "}";
+		return [
+					'SpecificID'				=> $this->SpecificID,
+					'TreatmentRecommendation' 	=> $this->TreatmentRecommendation,
+					'AphidCount' 				=> $this->AphidCount,
+					'MummyCount' 				=> $this->MummyCount,
+					'GenericSample'				=> parent::jsonSerialize()
+				];
 	}
 }
 

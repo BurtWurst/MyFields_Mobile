@@ -4,7 +4,7 @@ include_once "PestSample.php";
 include_once "GPSLocation.php";
 include_once "Planting.php";
 
-class Field 
+class Field implements JsonSerializable
 {	
 	protected $ID;
 	protected $FieldName;
@@ -51,57 +51,33 @@ class Field
 		return $this->ID;
 	}
 	
-	public function JSONize($Tabs)
+	public function jsonSerialize()
 	{
-		echo $Tabs . "{\n";
-		$TabsPlusOne = $Tabs . "\t";
-		echo $TabsPlusOne . "\"ID\" : " . $this->ID . ",\n";
-		echo $TabsPlusOne . "\"FieldName\" : \"" . $this->FieldName . "\",\n";
-		echo $TabsPlusOne . "\"Location\" : \n";
-		echo $this->Location->JSONize($TabsPlusOne);
-		echo ",\n";
-		echo $TabsPlusOne . "\"Size\" : " . $this->Size . ",\n";
-		echo $TabsPlusOne . "\"TypeOfSoil\" : \"" . $this->TypeOfSoil . "\",\n";
-		echo $TabsPlusOne . "\"TillageSystem\" : \"" . $this->TillageSystem . "\",\n";
-		echo $TabsPlusOne . "\"IrrigationSystem\" : \"" . $this->IrrigationSystem . "\",\n";
+	
+		$PLList = array();
+		$PSList = array();
 		
-		echo $TabsPlusOne . "\"PlantingList\" : [\n";
-		
-		for($i = 0; $i < count($this->PlantingList); $i++)
+		foreach($this->PlantingList as $Planting)
 		{
-			echo $this->PlantingList[$i]->JSONize($TabsPlusOne);
-			
-			if($i < count($this->PlantingList) - 1)
-			{
-				echo ",\n";
-			}
-			else
-			{
-				echo "\n";
-			}
+			array_push($PLList, $Planting->jsonSerialize());
 		}
 		
-		echo $TabsPlusOne . "],\n";
-		
-		echo $TabsPlusOne . "\"PestSamples\" : [\n";
-		
-		for($i = 0; $i < count($this->PestSamples); $i++)
+		foreach($this->PestSamples as $Sample)
 		{
-			echo $this->PestSamples[$i]->JSONize($TabsPlusOne);
-			
-			if($i < count($this->PestSamples) - 1)
-			{
-				echo ",\n";
-			}
-			else
-			{
-				echo "\n";
-			}
+			array_push($PSList, $Sample->jsonSerialize());
 		}
 		
-		echo $TabsPlusOne . "],\n";
-		
-		echo "}";
+		return [
+					'ID' => $this->ID,
+					'FieldName' => $this->FieldName,
+					'Location' => $this->Location->jsonSerialize(),
+					'Size' => $this->Size,
+					'TypeOfSoil' => $this->TypeOfSoil,
+					'TillageSystem' => $this->TillageSystem,
+					'IrrigationSystem' => $this->IrrigationSystem,
+					'PlantingList' => $PLList,
+					'PestSamples' => $PSList
+				];
 	}
 }
 

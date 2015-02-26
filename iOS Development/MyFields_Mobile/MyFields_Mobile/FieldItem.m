@@ -14,5 +14,20 @@
 
 @implementation FieldItem
 
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation{
+    
+    self = [super init];
+    if (self){
+        self.iD = fID;
+        self.fieldName = fName;
+        self.location = fLocation;
+        self.size = fSize;
+        self.typeOfSoil = fSoil;
+        self.tillageSystem = fTillage;
+        self.irrigationSystem = fIrrigation;
+    }
+    return self;
+}
+
 @end
 
