@@ -17,7 +17,6 @@ public class FieldsList extends Activity {
         setContentView(R.layout.activity_selection_screen);
         api.AttemptConnection();
         /*listView = (ListView) findViewById(R.id.selection_list);
-
         final String[] selectionList = new String[]
                 {
                         "ID:                                        1",
@@ -25,14 +24,10 @@ public class FieldsList extends Activity {
                         "Location                                   Latitude: 39 ",
                         "                                           Longitude: -99"
                 };
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
-
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
