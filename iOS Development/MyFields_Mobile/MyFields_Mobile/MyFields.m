@@ -10,9 +10,12 @@
 #import "FieldItem.h"
 #import "AddNewField.h"
 
+#define getDataURL @"http://people.cis.ksu.edu/~dgk2010/Field.php"
+
 @interface MyFields ()
 
 @property NSMutableArray *fieldList;
+@property NSMutableArray *jsonArray;
 
 @end
 
@@ -21,9 +24,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fieldList = [[NSMutableArray alloc] init];
-    [self loadInitialData];
+    [self retrieveData];
+    
     // Do any additional setup after loading the view.
 }
+
+//void uncaughtExceptionHandler(NSException *exception) {
+//    NSLog(@"CRASH: %@", exception);
+//    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+//    // Internal error reporting
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -33,6 +43,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    if (self.isBeingDismissed){
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"/Documents/fields.plist"];
+        
+        [self.fieldList writeToFile:filePath atomically:YES];
+    }
 }
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue {
@@ -45,17 +65,44 @@
 }
 
 - (void)loadInitialData{
-    FieldItem *field1 = [[FieldItem alloc] init];
-    field1.fieldName = @"Wheat Field";
-    [self.fieldList addObject:field1];
+//    FieldItem *field1 = [[FieldItem alloc] init];
+//    field1.fieldName = @"Wheat Field";
+//    [self.fieldList addObject:field1];
+//    
+//    FieldItem *field2 = [[FieldItem alloc] init];
+//    field2.fieldName = @"Corn Field";
+//    [self.fieldList addObject:field2];
+//    
+//    FieldItem *field3 = [[FieldItem alloc] init];
+//    field3.fieldName = @"Sorghum Field";
+//    [self.fieldList addObject:field3];
+}
+
+- (void) retrieveData{
+    NSURL * url = [NSURL URLWithString:getDataURL];
+    NSData * data = [NSData dataWithContentsOfURL:url];
     
-    FieldItem *field2 = [[FieldItem alloc] init];
-    field2.fieldName = @"Corn Field";
-    [self.fieldList addObject:field2];
+    self.jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
-    FieldItem *field3 = [[FieldItem alloc] init];
-    field3.fieldName = @"Sorghum Field";
-    [self.fieldList addObject:field3];
+    self.fieldList = [[NSMutableArray alloc] init];
+    
+    //Loop through jsonArray
+    for (int i = 0; i < self.jsonArray.count; i++){
+        NSString *fID = [[self.jsonArray objectAtIndex:i] objectForKey:@"ID"];
+        NSString *fName = [[self.jsonArray objectAtIndex:i] objectForKey:@"FieldName"];
+        NSString *fLocation = [[self.jsonArray objectAtIndex:i] objectForKey:@"Location"];
+        NSString *fSize = [[self.jsonArray objectAtIndex:i] objectForKey:@"Size"];
+        NSString *fSoil = [[self.jsonArray objectAtIndex:i] objectForKey:@"TypeOfSoil"];
+        NSString *fTillage = [[self.jsonArray objectAtIndex:i] objectForKey:@"TillageSystem"];
+        NSString *fIrrigation = [[self.jsonArray objectAtIndex:i] objectForKey:@"IrrigationSystem"];
+
+        [self.fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation]];
+    }
+    
+    //Reload our table view
+    [self.tableView reloadData];
+    
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

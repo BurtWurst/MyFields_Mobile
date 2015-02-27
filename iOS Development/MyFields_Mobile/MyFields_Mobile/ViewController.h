@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface ViewController : UIViewController{
     
@@ -17,6 +18,8 @@
     
 }
 -(IBAction)enterLogin;
+
+-(NSString*) sha1:(NSString*)input;
 
 @end
 
