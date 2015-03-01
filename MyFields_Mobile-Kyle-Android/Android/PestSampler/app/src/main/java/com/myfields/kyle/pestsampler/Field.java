@@ -1,5 +1,7 @@
 package com.myfields.kyle.pestsampler;
 
+import android.util.JsonReader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +56,11 @@ public class Field {
     public int getID()
     {
         return this.ID;
+    }
+
+    public static Field jsonRead(JSONObject jsonField)
+    {
+
     }
 
     public JSONObject jsonSerialize() throws JSONException
