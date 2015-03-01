@@ -5,7 +5,7 @@ import android.location.Location;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Overview:
@@ -22,15 +22,35 @@ public class PestSample {
     protected String Notes;
     protected String[] OtherPests;
 
-    public PestSample(int ID, double Lat, double Lon, Field field, double control, double crop, String notes, String[] otherPests)
+    public PestSample(int ID, GPSLocation loc, Field field, double control, double crop, String notes,
+                      String[] otherPests)
     {
         this.ID = ID;
         this.field = field;
-        this.location = new GPSLocation(Lat, Lon);
+        this.location = loc;
         this.ControlCost = control;
         this.CropValue = crop;
         this.Notes = notes;
         this.OtherPests = otherPests;
+    }
+
+    public static PestSample jsonRead(JSONObject sample, Field f) throws JSONException
+    {
+        int id = sample.getInt("ID");
+        GPSLocation loc = GPSLocation.jsonRead(sample.getJSONObject("Location"));
+        double control = sample.getDouble("ControlCost");
+        double crop = sample.getDouble("CropValue");
+        String notes = sample.getString("Notes");
+        ArrayList<String> otherpests = new ArrayList<String>();
+
+        for(int i = 0; i < sample.getJSONArray("OtherPests").length(); i++)
+        {
+            otherpests.add(sample.getJSONArray("OtherPests").getString(i));
+        }
+
+        return new PestSample(id, loc, f, control, crop, notes,
+                otherpests.toArray(new String[otherpests.size()]));
+
     }
 
     public JSONObject jsonSerialize() throws JSONException {

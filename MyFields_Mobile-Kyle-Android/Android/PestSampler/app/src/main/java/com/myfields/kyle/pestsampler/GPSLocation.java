@@ -18,15 +18,16 @@ public class GPSLocation {
         Longitude = Lon;
     }
 
-    public double getLat()
-    {
-        return Latitude;
-
-    }
+    public double getLat() { return Latitude; }
 
     public double getLon()
     {
         return Longitude;
+    }
+
+    public static GPSLocation jsonRead(JSONObject loc) throws JSONException
+    {
+        return new GPSLocation(loc.getDouble("Latitude"), loc.getDouble("Longitude"));
     }
 
     public JSONObject jsonSerialize() throws JSONException

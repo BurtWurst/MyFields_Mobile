@@ -14,16 +14,31 @@ public class GreenbugSample extends PestSample {
     protected int AphidCount;
     protected int MummyCount;
 
-    public GreenbugSample(int SpecificID, int GenericID, double Lat, double Lon, Field field,
+    public GreenbugSample(int SpecificID, int GenericID, GPSLocation loc, Field field,
                           double control, double crop, String notes, String[] otherPests,
                           Boolean Treatment, int Aphids, int Mummys)
     {
-        super(GenericID, Lat, Lon, field, control, crop, notes, otherPests);
+        super(GenericID, loc, field, control, crop, notes, otherPests);
 
         this.SpecificID = SpecificID;
         this.TreatmentRecommendation = Treatment;
         this.AphidCount = Aphids;
         this.MummyCount = Mummys;
+    }
+
+    public static GreenbugSample jsonRead(JSONObject sample, Field f) throws JSONException
+    {
+        int specificid = sample.getInt("SpecificID");
+        boolean treat = sample.getBoolean("TreatmentRecommendation");
+        int aphidcount = sample.getInt("AphidCount");
+        int mummycount = sample.getInt("MummyCount");
+
+        PestSample genericsample = PestSample.jsonRead(sample.getJSONObject("GenericSample"), f);
+
+        return new GreenbugSample(specificid, genericsample.ID, genericsample.location, f,
+                genericsample.ControlCost, genericsample.CropValue, genericsample.Notes,
+                genericsample.OtherPests, treat, aphidcount, mummycount);
+
     }
 
     public JSONObject jsonSerialize() throws JSONException

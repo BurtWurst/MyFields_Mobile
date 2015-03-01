@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -28,12 +29,12 @@ public class Field {
     protected ArrayList<PestSample> PestSamples;
 
 
-    public Field(int FieldID, String Name, double Latitude, double Longitude, double Acres,
+    public Field(int FieldID, String Name, GPSLocation loc, double Acres,
                  String SoilType, String MethodOfTill, String Irrigation)
     {
         this.ID = FieldID;
         this.Name = Name;
-        this.location = new GPSLocation(Latitude, Longitude);
+        this.location = loc;
         this.Size = Acres;
         this.SoilType = SoilType;
         this.TillageSystem = MethodOfTill;
@@ -58,8 +59,36 @@ public class Field {
         return this.ID;
     }
 
-    public static Field jsonRead(JSONObject jsonField)
+    public static Field jsonRead(JSONObject jsonField) throws JSONException, ParseException
     {
+        int id = jsonField.getInt("ID");
+        String name = jsonField.getString("FieldName");
+        GPSLocation loc = GPSLocation.jsonRead(jsonField.getJSONObject("Location"));
+        double size = jsonField.getDouble(("Size"));
+        String soil = jsonField.getString("TypeOfSoil");
+        String tillage = jsonField.getString("TillageSystem");
+        String irrigation = jsonField.getString("IrrigationSystem");
+
+        Field f = new Field(id, name, loc, size, soil, tillage, irrigation);
+
+        JSONArray plantings = jsonField.getJSONArray("PlantingList");
+        JSONArray samples = jsonField.getJSONArray("PestSamples");
+
+        for(int i = 0; i < plantings.length(); i++)
+        {
+            f.addPlanting(Planting.jsonRead(plantings.getJSONObject(i)));
+        }
+
+        for(int i = 0; i < samples.length(); i++)
+        {
+            //This is a GreenbugSample
+            if(samples.getJSONObject(i).has("MummyCount"))
+            {
+                f.addSample(GreenbugSample.jsonRead(samples.getJSONObject(i), f));
+            }
+        }
+
+        return f;
 
     }
 
