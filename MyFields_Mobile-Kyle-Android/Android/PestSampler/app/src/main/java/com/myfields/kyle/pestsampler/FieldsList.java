@@ -1,6 +1,10 @@
 package com.myfields.kyle.pestsampler;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -34,18 +38,8 @@ public class FieldsList extends Field {
             selectionList[i].concat("Tillage System: " + fieldsList.get(i).TillageSystem + "\n");
             selectionList[i].concat("Irrigation System: " + fieldsList.get(i).IrrigationSystem + "\n");
         }
-    }
-}
 
-        /*listView = (ListView) findViewById(R.id.selection_list);
-        final String[] selectionList = new String[]
-                {
-                        "ID:                                        1",
-                        "Field Name:                                Field1",
-                        "Location                                   Latitude: 39 ",
-                        "                                           Longitude: -99"
-                };
->>>>>>> origin/DanielPersonal
+        listView = (ListView) findViewById(R.id.selection_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
         listView.setAdapter(adapter);
@@ -57,4 +51,4 @@ public class FieldsList extends Field {
             }
         });
     }
-}*/
+}
