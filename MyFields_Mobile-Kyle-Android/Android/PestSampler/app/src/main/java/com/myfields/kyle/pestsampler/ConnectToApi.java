@@ -8,7 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONObject;
+import android.os.StrictMode;
 
 import java.io.InputStreamReader;
 import java.io.InputStream;
@@ -18,90 +18,47 @@ import java.util.ArrayList;
 
 public class ConnectToApi {
 
-    public ArrayList<Field> GetAllFields(String username, String password)
-    {
+    public ArrayList<Field> GetAllFields(String username, String password) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         ArrayList<Field> items = new ArrayList<Field>();
 
-        try
-        {
+        try {
             HttpClient getRequest = new DefaultHttpClient();
 
-            HttpGet data = new HttpGet("http://people.cis.ksu.edu/~dgk2010/API.php?user=myFieldsTester&pass=1cdd42b6d34675537dd103024892d858280d7c23");
+            HttpGet data = new HttpGet("http://people.cis.ksu.edu/~dgk2010/API.php?user=" + username + "&pass=" + password);
             HttpResponse response = getRequest.execute(data);
             StatusLine status = response.getStatusLine();
 
-            if(status.getStatusCode() == HttpStatus.SC_OK)
-            {
+            if (status.getStatusCode() == HttpStatus.SC_OK) {
                 InputStream jsonIn = response.getEntity().getContent();
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(jsonIn));
                 String line = "";
                 StringBuilder result = new StringBuilder();
-                while((line = bufferedReader.readLine()) != null)
+                while ((line = bufferedReader.readLine()) != null)
                     result.append(line);
 
                 jsonIn.close();
 
-                JSONArray parsedJson = new JSONArray(result);
+                JSONArray parsedJson = new JSONArray(result.toString());
 
-                for(int i = 0; i < parsedJson.length(); i++)
-                {
+                for (int i = 0; i < parsedJson.length(); i++) {
                     items.add(Field.jsonRead(parsedJson.getJSONObject(i)));
                 }
-            }
-            else if(status.getStatusCode() == HttpStatus.SC_UNAUTHORIZED)
-            {
+            } else if (status.getStatusCode() == HttpStatus.SC_UNAUTHORIZED) {
                 throw new Exception("Username or password was incorrect!");
             }
-        }
-        catch (Exception fail)
-        {
+        } catch (Exception fail) {
             // Handle connection failed?
+            System.out.println("Exception: " + fail.getMessage());
         }
 
         return items;
 
     }
 
-    public void AttemptConnection()
-    {
-        ParseJson parses = new ParseJson();
-        parses.Save();
-        /*
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        DefaultHttpClient   httpclient = new DefaultHttpClient(new BasicHttpParams());
-        HttpPost httppost = new HttpPost("http://people.cis.ksu.edu/~dgk2010/API.php?user=myFieldsTester&pass=1cdd42b6d34675537dd103024892d858280d7c23");
-        httppost.setHeader("Content-type", "application/json");
-
-        InputStream inputStream = null;
-        String result = null;
-        try {
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-
-            inputStream = entity.getContent();
-            // json is UTF-8 by default
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            while ((line = reader.readLine()) != null)
-            {
-                sb.append(line + "\n");
-            }
-            result = sb.toString();
-            JSONObject jsonObject = new JSONObject(result);
-            String rando = jsonObject.getString("ID");
-            System.out.println(rando);
-
-        } catch (Exception e) {
-            System.out.println("Couldn't find item");
-            System.out.println(e.toString());
-        }
-        finally {
-            try{if(inputStream != null)inputStream.close();}catch(Exception squish){}
-        }*/
-    }
 }

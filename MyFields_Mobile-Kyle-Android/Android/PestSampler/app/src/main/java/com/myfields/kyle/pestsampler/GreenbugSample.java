@@ -29,7 +29,7 @@ public class GreenbugSample extends PestSample {
     public static GreenbugSample jsonRead(JSONObject sample, Field f) throws JSONException
     {
         int specificid = sample.getInt("SpecificID");
-        boolean treat = sample.getBoolean("TreatmentRecommendation");
+        boolean treat = sample.getInt("TreatmentRecommendation") == 1;
         int aphidcount = sample.getInt("AphidCount");
         int mummycount = sample.getInt("MummyCount");
 
