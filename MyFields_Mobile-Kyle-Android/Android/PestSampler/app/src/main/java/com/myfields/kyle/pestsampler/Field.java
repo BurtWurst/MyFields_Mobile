@@ -1,12 +1,11 @@
 package com.myfields.kyle.pestsampler;
 
-import android.util.JsonReader;
+import android.app.Activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -15,11 +14,11 @@ import java.util.ArrayList;
  *  This provides an implementation of a Field object, with the associated properties as
  *  defined by MyFields.
  */
-public class Field {
+public class Field extends Activity{
 
     protected int ID;
     protected String Name;
-    protected GPSLocation location;
+    protected GPSLocation Location;
     protected double Size;
     protected String SoilType;
     protected String TillageSystem;
@@ -29,12 +28,16 @@ public class Field {
     protected ArrayList<PestSample> PestSamples;
 
 
+    public Field ()
+    {
+
+    }
     public Field(int FieldID, String Name, GPSLocation loc, double Acres,
                  String SoilType, String MethodOfTill, String Irrigation)
     {
         this.ID = FieldID;
         this.Name = Name;
-        this.location = loc;
+        this.Location = loc;
         this.Size = Acres;
         this.SoilType = SoilType;
         this.TillageSystem = MethodOfTill;
@@ -98,7 +101,7 @@ public class Field {
 
         json.put("ID", this.ID);
         json.put("FieldName", this.Name);
-        json.put("Location", this.location.jsonSerialize());
+        json.put("Location", this.Location.jsonSerialize());
         json.put("Size", this.Size);
         json.put("TypeOfSoil", this.SoilType);
         json.put("TillageSystem", this.TillageSystem);
