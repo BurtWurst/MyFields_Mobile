@@ -15,7 +15,7 @@ public class FieldsList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_screen);
-        api.AttemptConnection();
+        //api.AttemptConnection();
         /*listView = (ListView) findViewById(R.id.selection_list);
         final String[] selectionList = new String[]
                 {

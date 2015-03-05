@@ -28,6 +28,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.app.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 
@@ -119,24 +121,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             focusView = mPasswordView;
             cancel = true;
         }
-        else if (!isPasswordValid(password))
-        {
-            mPasswordView.setError(getString(R.string.error_incorrect_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
 
+        ConnectToApi x = new ConnectToApi();
+        email = "myFieldsTester";
+        password = "1cdd42b6d34675537dd103024892d858280d7c23";
+        User currentUser = new User(email, password, x.GetAllFields(email, password));
+
+        /*
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -150,18 +148,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             //starts new activity that goes to selection screen
             Intent myIntent = new Intent(LoginActivity.this, SelectionScreen.class);
             LoginActivity.this.startActivity(myIntent);
-        }
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.equals("kylemurphy52589@gmail.com");
-        //return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.equals("password");
+        }*/
     }
 
     /**
