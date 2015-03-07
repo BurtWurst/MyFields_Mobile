@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My Fields Mobile</string>
+    <string name="error_no_internet_connection">Not connected to the internet!</string>
 </resources>
