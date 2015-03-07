@@ -87,7 +87,7 @@ public class Field extends Activity{
             //This is a GreenbugSample
             if(samples.getJSONObject(i).has("MummyCount"))
             {
-                f.addSample(GreenbugSample.jsonRead(samples.getJSONObject(i), f));
+                f.addSample(GreenbugSample.jsonRead(samples.getJSONObject(i)));
             }
         }
 
@@ -110,6 +110,53 @@ public class Field extends Activity{
         json.put("PestSamples", new JSONArray(PestSamples));
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof Field))
+            return false;
+        if (obj == this)
+            return true;
+
+        Field f = (Field) obj;
+
+        boolean returnValue = true;
+
+        returnValue = returnValue && f.ID == this.ID;
+        returnValue = returnValue && f.Name == this.Name;
+        returnValue = returnValue && f.location.equals(this.location);
+        returnValue = returnValue && f.Size == this.Size;
+        returnValue = returnValue && f.SoilType == this.SoilType;
+        returnValue = returnValue && f.TillageSystem == this.TillageSystem;
+        returnValue = returnValue && f.IrrigationSystem == this.IrrigationSystem;
+
+        if(f.PlantingList.size() == this.PlantingList.size())
+        {
+            for(int i = 0; i < f.PlantingList.size(); i++)
+            {
+                returnValue = returnValue && f.PlantingList.get(i).equals(this.PlantingList.get(i));
+            }
+        }
+        else
+        {
+            returnValue = returnValue && false;
+        }
+
+        if(f.PestSamples.size() == this.PestSamples.size())
+        {
+            for(int i = 0; i < f.PestSamples.size(); i++)
+            {
+                returnValue = returnValue && f.PestSamples.get(i).equals(this.PestSamples.get(i));
+            }
+        }
+        else
+        {
+            returnValue = returnValue && false;
+        }
+
+        return returnValue;
     }
 
 }

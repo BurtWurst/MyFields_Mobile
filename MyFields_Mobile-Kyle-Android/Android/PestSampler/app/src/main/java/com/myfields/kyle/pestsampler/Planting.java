@@ -56,5 +56,27 @@ public class Planting {
 
         return json;
     }
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof Planting))
+            return false;
+        if (obj == this)
+            return true;
+			
+		Planting p = (Planting) obj;
+		
+		boolean returnValue = true;
+		
+		returnValue = returnValue && p.ID == this.ID;
+		returnValue = returnValue && p.CropType == this.CropType;
+		returnValue = returnValue && p.CropVariety == this.CropVariety;
+		returnValue = returnValue && p.CropDensity == this.CropDensity;
+		returnValue = returnValue && p.Notes == this.Notes;
+		returnValue = returnValue && p.DateOfPlanting.equals(this.DateOfPlanting);
+
+		return returnValue;
+	}
 
 }

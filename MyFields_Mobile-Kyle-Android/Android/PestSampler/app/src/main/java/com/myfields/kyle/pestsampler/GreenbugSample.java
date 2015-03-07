@@ -14,7 +14,7 @@ public class GreenbugSample extends PestSample {
     protected int AphidCount;
     protected int MummyCount;
 
-    public GreenbugSample(int SpecificID, int GenericID, GPSLocation loc, Field field,
+    public GreenbugSample(int SpecificID, int GenericID, GPSLocation loc, int field,
                           double control, double crop, String notes, String[] otherPests,
                           Boolean Treatment, int Aphids, int Mummys)
     {
@@ -26,18 +26,18 @@ public class GreenbugSample extends PestSample {
         this.MummyCount = Mummys;
     }
 
-    public static GreenbugSample jsonRead(JSONObject sample, Field f) throws JSONException
+    public static GreenbugSample jsonRead(JSONObject sample) throws JSONException
     {
         int specificid = sample.getInt("SpecificID");
         boolean treat = sample.getInt("TreatmentRecommendation") == 1;
         int aphidcount = sample.getInt("AphidCount");
         int mummycount = sample.getInt("MummyCount");
 
-        PestSample genericsample = PestSample.jsonRead(sample.getJSONObject("GenericSample"), f);
+        PestSample genericsample = PestSample.jsonRead(sample.getJSONObject("GenericSample"));
 
-        return new GreenbugSample(specificid, genericsample.ID, genericsample.location, f,
-                genericsample.ControlCost, genericsample.CropValue, genericsample.Notes,
-                genericsample.OtherPests, treat, aphidcount, mummycount);
+        return new GreenbugSample(specificid, genericsample.ID, genericsample.location,
+                genericsample.fieldID, genericsample.ControlCost, genericsample.CropValue,
+                genericsample.Notes, genericsample.OtherPests, treat, aphidcount, mummycount);
 
     }
 
@@ -53,5 +53,27 @@ public class GreenbugSample extends PestSample {
 
         return json;
     }
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof GreenbugSample))
+            return false;
+        if (obj == this)
+            return true;
+			
+		GreenbugSample g = (GreenbugSample) obj;
+		
+		boolean returnValue = true;
+		
+		returnValue = returnValue && super.equals(g);
+		
+		returnValue = returnValue && g.SpecificID == this.SpecificID;
+		returnValue = returnValue && g.TreatmentRecommendation == this.TreatmentRecommendation;
+		returnValue = returnValue && g.AphidCount == this.AphidCount;
+		returnValue = returnValue && g.MummyCount == this.MummyCount;
+	
+		return returnValue;	
+	}
 
 }

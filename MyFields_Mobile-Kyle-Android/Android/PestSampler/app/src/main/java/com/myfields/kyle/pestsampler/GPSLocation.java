@@ -39,5 +39,18 @@ public class GPSLocation {
 
         return json;
     }
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof GPSLocation))
+            return false;
+        if (obj == this)
+            return true;
+			
+		GPSLocation g = (GPSLocation) obj;
+		
+		return g.Latitude == this.Latitude && g.Longitude == this.Longitude;
+	}
 
 }

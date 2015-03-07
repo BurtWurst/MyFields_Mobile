@@ -5,10 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -26,11 +28,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import android.app.*;
-import android.content.DialogInterface;
-import android.content.Intent;
+import java.math.BigInteger;
 
 
 /**
@@ -115,13 +123,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         boolean cancel = false;
         View focusView = null;
 
+        // Check for internet connection
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(cm.getActiveNetworkInfo() == null)
+        {
+            mEmailView.setError(getString(R.string.error_no_internet_connection));
+            focusView = mEmailView;
+            cancel = true;
+        }
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_incorrect_password));
             focusView = mPasswordView;
             cancel = true;
         }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -129,12 +144,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        ConnectToApi x = new ConnectToApi();
-        email = "myFieldsTester";
-        password = "1cdd42b6d34675537dd103024892d858280d7c23";
-        User currentUser = new User(email, password, x.GetAllFields(email, password));
+        password = encrypt(password);
 
-        /*
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -145,11 +156,30 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            //starts new activity that goes to selection screen
-            Intent myIntent = new Intent(LoginActivity.this, SelectionScreen.class);
-            LoginActivity.this.startActivity(myIntent);
-        }*/
+        }
     }
+
+    private static String encrypt(String x) {
+
+        java.security.MessageDigest digest = null;
+        try
+        {
+            digest = java.security.MessageDigest.getInstance("SHA-1");
+
+            digest.update(x.getBytes());
+
+            BigInteger hash = new BigInteger(1, digest.digest());
+
+            return hash.toString(16);
+
+        }
+        catch(NoSuchAlgorithmException e)
+        {
+            return null;
+        }
+
+    }
+
 
     /**
      * Shows the progress UI and hides the login form.
@@ -257,25 +287,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
+            Boolean returnValue = false;
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                HttpClient getRequest = new DefaultHttpClient();
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                HttpGet data = new HttpGet("http://people.cis.ksu.edu/~dgk2010/Authenticate.php?user=" + mEmail + "&pass=" + mPassword);
+                HttpResponse response = getRequest.execute(data);
+                StatusLine status = response.getStatusLine();
+
+                if (status.getStatusCode() == HttpStatus.SC_OK) {
+                    returnValue = true;
                 }
+            } catch (Exception fail) {
+                returnValue = false;
             }
 
-            // TODO: register the new account here.
-            return true;
+            return returnValue;
         }
 
         @Override
@@ -284,6 +313,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
+
+                // Write code for inserting credentials to SharedPreferences
+                SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
+                SharedPreferences.Editor myCredentialsWriter = myCredentials.edit();
+
+                myCredentialsWriter.putString("user", mEmail);
+                myCredentialsWriter.putString("pass", mPassword);
+                myCredentialsWriter.putString("dataFile", getApplicationInfo().dataDir);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
