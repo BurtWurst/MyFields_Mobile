@@ -1,5 +1,6 @@
 package com.myfields.kyle.pestsampler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  Represents the fields & names along with the type of field it is (corn, wheat, etc...)
  */
-public class FieldsList extends Field {
+public class FieldsList extends Activity {
     ListView listView;
     ConnectToApi api = new ConnectToApi();
     ArrayList<Field> fieldsList = new ArrayList<>();

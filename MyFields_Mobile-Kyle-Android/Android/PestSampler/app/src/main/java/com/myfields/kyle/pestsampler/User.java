@@ -3,15 +3,20 @@ package com.myfields.kyle.pestsampler;
 import java.util.ArrayList;
 
 /**
- * Created by Danny on 3/4/2015.
+ * This class represents a particular user, with their associated information.
  */
 public class User {
 
+    // The username of the user
     protected String user;
+
+    // The hashed password of the user
     protected String pass;
 
+    // This user's list of fields
     protected ArrayList<Field> Fields;
 
+    // A constructor for building a new user
     public User(String user, String pass)
     {
         this.user = user;
@@ -19,7 +24,8 @@ public class User {
 
         Fields = new ArrayList<Field>();
     }
-	
+
+    // A method to add or update fields for this user
 	public void UpdateFields(ArrayList<Field> updates)
 	{
 		int hasField;
@@ -40,21 +46,25 @@ public class User {
 		}
 	}
 
+    // A method to get this user's screen name
     public String getUserName()
     {
         return this.user;
     }
 
+    // A method to get this user's hashed password
     public String getUserPassword()
     {
         return this.pass;
     }
 
+    // A method to return this user's list of fields
     public ArrayList<Field> getFields()
     {
         return this.Fields;
     }
-	
+
+    // A method for checking if this user has a particular field
 	private int hasField(int ID)
 	{
 		int returnValue = -1;

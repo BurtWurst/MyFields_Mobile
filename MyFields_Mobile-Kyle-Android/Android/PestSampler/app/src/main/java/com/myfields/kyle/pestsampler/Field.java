@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *  This provides an implementation of a Field object, with the associated properties as
  *  defined by MyFields.
  */
-public class Field extends Activity{
+public class Field {
 
     protected int ID;
     protected String Name;
@@ -27,11 +27,6 @@ public class Field extends Activity{
     protected ArrayList<Planting> PlantingList;
     protected ArrayList<PestSample> PestSamples;
 
-
-    public Field ()
-    {
-
-    }
     public Field(int FieldID, String Name, GPSLocation loc, double Acres,
                  String SoilType, String MethodOfTill, String Irrigation)
     {
@@ -126,7 +121,7 @@ public class Field extends Activity{
 
         returnValue = returnValue && f.ID == this.ID;
         returnValue = returnValue && f.Name == this.Name;
-        returnValue = returnValue && f.location.equals(this.location);
+        returnValue = returnValue && f.Location.equals(this.Location);
         returnValue = returnValue && f.Size == this.Size;
         returnValue = returnValue && f.SoilType == this.SoilType;
         returnValue = returnValue && f.TillageSystem == this.TillageSystem;

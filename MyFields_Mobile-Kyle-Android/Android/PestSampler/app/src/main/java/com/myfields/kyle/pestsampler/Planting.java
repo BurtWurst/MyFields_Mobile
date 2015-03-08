@@ -12,14 +12,25 @@ import java.text.SimpleDateFormat;
  *  This class represents a Planting for a field.
  */
 public class Planting {
-
+    // The unique identifier of this planting.
     protected int ID;
+
+    // The type of crop associated with this planting.
     protected String CropType;
+
+    // The variety of crop associated with this planting.
     protected String CropVariety;
+
+    // The density of crop planted.
     protected double CropDensity;
+
+    // Any user inputted notes.
     protected String Notes;
+
+    // The date this planting occured.
     protected Date DateOfPlanting;
 
+    // A constructor to build a new planting object
     public Planting(int ID, String Crop, String Variety, double Density, String Notes,
                     Date DateOfPlant)
     {
@@ -31,6 +42,7 @@ public class Planting {
         this.DateOfPlanting = DateOfPlant;
     }
 
+    // A method to read in a new planting from a JSON object
     public static Planting jsonRead(JSONObject plant) throws JSONException, ParseException
     {
         int id = plant.getInt("ID");
@@ -43,6 +55,7 @@ public class Planting {
         return new Planting(id, crop, variety, density, notes, date);
     }
 
+    // A method to serialize this object to JSON
     public JSONObject jsonSerialize() throws JSONException
     {
         JSONObject json = new JSONObject();
@@ -56,7 +69,8 @@ public class Planting {
 
         return json;
     }
-	
+
+    // A method to check if this planting is equal to another.
 	@Override
 	public boolean equals(Object obj)
 	{
