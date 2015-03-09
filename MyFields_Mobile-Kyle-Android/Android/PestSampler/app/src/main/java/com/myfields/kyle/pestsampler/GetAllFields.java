@@ -8,28 +8,34 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import android.os.StrictMode;
+import android.os.AsyncTask;
 
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+public class GetAllFields extends AsyncTask<Void, Void, Boolean> {
 
-public class ConnectToApi {
+    private final String mUser;
+    private final String mPassword;
+    private final ArrayList<Field> FieldList;
 
-    public ArrayList<Field> GetAllFields(String username, String password) {
+    GetAllFields(ArrayList<Field> fields, String username, String pass) {
+        mUser = username;
+        mPassword = pass;
+        FieldList = fields;
+    }
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    @Override
+    protected Boolean doInBackground(Void... params) {
 
-        StrictMode.setThreadPolicy(policy);
-
-        ArrayList<Field> items = new ArrayList<Field>();
+        Boolean returnValue = false;
 
         try {
             HttpClient getRequest = new DefaultHttpClient();
 
-            HttpGet data = new HttpGet("http://people.cis.ksu.edu/~dgk2010/API.php?user=" + username + "&pass=" + password);
+            HttpGet data = new HttpGet("http://people.cis.ksu.edu/~dgk2010/API.php?user=" + mUser + "&pass=" + mPassword);
             HttpResponse response = getRequest.execute(data);
             StatusLine status = response.getStatusLine();
 
@@ -47,7 +53,7 @@ public class ConnectToApi {
                 JSONArray parsedJson = new JSONArray(result.toString());
 
                 for (int i = 0; i < parsedJson.length(); i++) {
-                    items.add(Field.jsonRead(parsedJson.getJSONObject(i)));
+                    FieldList.add(Field.jsonRead(parsedJson.getJSONObject(i)));
                 }
             } else if (status.getStatusCode() == HttpStatus.SC_UNAUTHORIZED) {
                 throw new Exception("Username or password was incorrect!");
@@ -55,10 +61,17 @@ public class ConnectToApi {
         } catch (Exception fail) {
             // Handle connection failed?
             System.out.println("Exception: " + fail.getMessage());
+            returnValue = false;
         }
 
-        return items;
-
+        return returnValue;
     }
 
+    @Override
+    protected void onPostExecute(final Boolean success) {
+    }
+
+    @Override
+    protected void onCancelled() {
+    }
 }

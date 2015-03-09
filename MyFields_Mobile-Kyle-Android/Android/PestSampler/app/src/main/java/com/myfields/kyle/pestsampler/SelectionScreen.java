@@ -2,7 +2,9 @@ package com.myfields.kyle.pestsampler;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.ListView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -14,7 +16,7 @@ import android.view.View;
 /**
   Represents the activity that lets you choose either My Fields or Pest Sampler
  */
-public class SelectionScreen extends Activity{
+public class SelectionScreen extends Activity {
     ListView listView ;
 
     @Override
@@ -35,6 +37,14 @@ public class SelectionScreen extends Activity{
 
         listView.setAdapter(adapter);
 
+        SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
+
+        if(!(myCredentials.contains("user")))
+        {
+            Intent myIntent = new Intent(SelectionScreen.this, LoginActivity.class);
+            SelectionScreen.this.startActivity(myIntent);
+        }
+
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -43,5 +53,7 @@ public class SelectionScreen extends Activity{
                 SelectionScreen.this.startActivity(myIntent);
             }
         });
+
+
     }
 }

@@ -135,9 +135,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             focusView = mEmailView;
             cancel = true;
         }
-
-        password = encrypt(password);
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -145,6 +142,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            password = encrypt(password);
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
@@ -306,13 +304,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
             if (success) {
 
-                // Write code for inserting credentials to SharedPreferences
                 SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
                 SharedPreferences.Editor myCredentialsWriter = myCredentials.edit();
 
                 myCredentialsWriter.putString("user", mEmail);
                 myCredentialsWriter.putString("pass", mPassword);
                 myCredentialsWriter.putString("dataFile", getApplicationInfo().dataDir);
+
+                myCredentialsWriter.commit();
 
                 finish();
             } else {
