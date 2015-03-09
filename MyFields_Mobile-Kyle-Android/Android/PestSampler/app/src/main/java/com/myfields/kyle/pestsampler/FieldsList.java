@@ -1,14 +1,9 @@
 package com.myfields.kyle.pestsampler;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,7 +39,7 @@ public class FieldsList extends Activity {
         boolean cancel = false;
         View focusView = null;
 
-        setContentView(R.layout.activity_selection_screen);
+        setContentView(R.layout.activity_fields_list);
 
         listView = (ListView) findViewById(R.id.selection_list);
 
@@ -81,13 +76,7 @@ public class FieldsList extends Activity {
         final String[] selectionList = new String[fieldsList.size()];
 
         for (int i = 0; i < fieldsList.size(); i++) {
-            selectionList[i] = "ID: " + fieldsList.get(i).ID;
-            selectionList[i].concat("Field Name: " + fieldsList.get(i).Name + "\n");
-            selectionList[i].concat("Location: " + fieldsList.get(i).Location + "\n");
-            selectionList[i].concat("Field Size: " + fieldsList.get(i).Size + "\n");
-            selectionList[i].concat("Soil Type: " + fieldsList.get(i).SoilType + "\n");
-            selectionList[i].concat("Tillage System: " + fieldsList.get(i).TillageSystem + "\n");
-            selectionList[i].concat("Irrigation System: " + fieldsList.get(i).IrrigationSystem + "\n");
+            selectionList[i] = "Field Name: " + fieldsList.get(i).Name;
         }
 
         //listView = (ListView) findViewById(R.id.selection_list);
