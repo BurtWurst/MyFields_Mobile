@@ -18,8 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-//    loginDictionary = [[NSDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"password",@"password", nil] forKeys: [NSArray arrayWithObjects:@"username",@"bmerriam", nil]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,34 +28,25 @@
 - (IBAction)enterLogin
 {
     
-    NSInteger success = 0;
+    //NSInteger success = 0;
     @try{
         if ([[username text] isEqualToString:@""] || [[password text] isEqualToString:@""]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect Username or Password" message:@"The username or password is incorrect." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a Username and Password" message:@"You must enter a Username and Password to login." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
                 [alert show];
                 password.text = @"";
         }
         
         else {
+            
+            NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [path objectAtIndex:0];
+            
             NSString *get = [[NSString alloc] initWithFormat:@"user=%@&pass=%@", [username text],[self sha1:password.text]];
             NSLog(@"GetData: %@",get);
             
-            //NSURL *url=[NSURL URLWithString:@"http://people.cis.ksu.edu/~dgk2010/API.php?"];
-            
-            
-            
-            //NSData *getData = [get dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            
-            //NSString *getLength = [NSString stringWithFormat:@"%lu", (unsigned long)[getData length]];
-            
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-            //[request setURL:url];
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://people.cis.ksu.edu/~dgk2010/API.php?user=%@&pass=%@", [username text], [self sha1:password.text]]]];
             [request setHTTPMethod:@"GET"];
-//            [request setValue:getLength forHTTPHeaderField:@"Content-Length"];
-//            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//            [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//            [request setHTTPBody:getData];
             
             NSURLResponse *requestResponse;
             NSData *requestHandler = [NSURLConnection sendSynchronousRequest:request returningResponse:&requestResponse error:nil];
@@ -68,29 +57,74 @@
             NSError *error = [[NSError alloc] init];
             NSHTTPURLResponse *response = nil;
             NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            if([response statusCode] == 0){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username or Password Incorrect" message:@"Enter a valid Username or Password." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                [alert show];
+                password.text = @"";
+
+            }
             
             NSLog(@"Respond code: %ld", (long)[response statusCode]);
             
             if([response statusCode] >= 200 && [response statusCode] <300){
-                //NSString *responseData = [[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
-                //NSLog(@"Response ==> %@", responseData);
+                
+                NSLog(@"Login Successful");
+                
+                //NSString *jsonString = @"[{\"id\": \"1\",\"name\":\"Aaa\",\"age\":\"18\"},{\"id\": \"2\",\"name\":\"Bbb\",\"age\":\"27\"}]";
+                
+//                NSString *jsonString = @"[{\"ID\": \"1\", \"FieldName\":\"Field1\",\"Location\": {\"Latitude\":\"39\",\"Longitude\":\"-99\"},\"Size\":\"10\",\"TypeOfSoil\":\"Clay\",\"TillageSystem\":\"Conventional\",\"IrrigationSystem\":\"Dry_Land\"}]";
+//                
+//                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//                NSError *e = nil;
+//                NSMutableArray *jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
+//                NSLog(@"%@", jsonArray);
                 
                 NSError *error = nil;
-                NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:urlData options:NSJSONReadingMutableContainers error:&error];
-                success = [jsonData[@"success"] integerValue];
-                NSLog(@"Success: %ld",(long)success);
                 
-                if(success == 1){
-                    NSLog(@"Login Successful");
+                NSString *jsonStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+                NSString *jsonString = [jsonStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+                
+                NSMutableArray *jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+                
+                NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"fieldData.json"];
+                BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+            @try{
+                if(fileExists){
+                    
+                    [[NSFileManager defaultManager] removeItemAtPath: filePath error: &error];
+                    
+                    NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:YES];
+                    
+                    [outputStream open];
+                    
+                    [NSJSONSerialization writeJSONObject:jsonArray toStream:outputStream options:kNilOptions error:&error];
+                    
+                    [outputStream close];
                 }
                 else{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign in Failed" message:@"Your sign in attempt has failed." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                    [alert show];
-                    password.text = @"";
+                
+                    NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:YES];
+                
+                    [outputStream open];
+                
+                    [NSJSONSerialization writeJSONObject:jsonArray toStream:outputStream options:kNilOptions error:&error];
+                
+                    [outputStream close];
                 }
             }
+            @catch(NSException * e){
+                NSLog(@"Exception: %@", e);
+            }
+                
+                UserOptions *uo = [self.storyboard instantiateViewControllerWithIdentifier:@"UserOptionsID"];
+                [self.navigationController pushViewController:uo animated:YES];
+                username.text = @"";
+                password.text = @"";
+            }
+            //Add reachability files to project to check if connected to the internet. 
             else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Failed" message:@"Sign in Failed." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Internet Connection." message:@"Sign in Failed." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
                 [alert show];
                 password.text = @"";
             }
@@ -102,31 +136,10 @@
         [alert show];
         password.text = @"";
     }
-    if(success){
-        UserOptions *uo = [self.storyboard instantiateViewControllerWithIdentifier:@"UserOptionsID"];
-            [self.navigationController pushViewController:uo animated:YES];
-            username.text = @"";
-            password.text = @"";
-    }
-//    if([[loginDictionary objectForKey:username.text]isEqualToString:password.text])
-//    {
-//        UserOptions *uo = [self.storyboard instantiateViewControllerWithIdentifier:@"UserOptionsID"];
-//        [self.navigationController pushViewController:uo animated:YES];
-//        username.text = @"";
-//        password.text = @"";
-//    }
-//    else
-//    {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect Username or Password" message:@"The username or password is incorrect." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-//        [alert show];
-//        password.text = @"";
-//    }
 }
 
 -(NSString*)sha1:(NSString*)input
 {
-    //const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
-    //NSData *data = [NSData dataWithBytes:cstr length:input.length];
     
     NSData *data = [input dataUsingEncoding:NSUTF8StringEncoding];
     
