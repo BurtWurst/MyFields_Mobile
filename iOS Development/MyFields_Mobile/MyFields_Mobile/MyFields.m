@@ -10,8 +10,6 @@
 #import "FieldItem.h"
 #import "AddNewField.h"
 
-#define getDataURL @"http://people.cis.ksu.edu/~dgk2010/Field.php"
-
 @interface MyFields ()
 
 @property NSMutableArray *fieldList;
@@ -23,17 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fieldList = [[NSMutableArray alloc] init];
     [self retrieveData];
     
     // Do any additional setup after loading the view.
 }
-
-//void uncaughtExceptionHandler(NSException *exception) {
-//    NSLog(@"CRASH: %@", exception);
-//    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
-//    // Internal error reporting
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -43,16 +34,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    if (self.isBeingDismissed){
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"/Documents/fields.plist"];
-        
-        [self.fieldList writeToFile:filePath atomically:YES];
-    }
 }
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue {
@@ -65,26 +46,18 @@
 }
 
 - (void)loadInitialData{
-//    FieldItem *field1 = [[FieldItem alloc] init];
-//    field1.fieldName = @"Wheat Field";
-//    [self.fieldList addObject:field1];
-//    
-//    FieldItem *field2 = [[FieldItem alloc] init];
-//    field2.fieldName = @"Corn Field";
-//    [self.fieldList addObject:field2];
-//    
-//    FieldItem *field3 = [[FieldItem alloc] init];
-//    field3.fieldName = @"Sorghum Field";
-//    [self.fieldList addObject:field3];
 }
 
 - (void) retrieveData{
-    NSURL * url = [NSURL URLWithString:getDataURL];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    
-    self.jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
     self.fieldList = [[NSMutableArray alloc] init];
+    
+    NSArray *jsonPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [jsonPath objectAtIndex:0];
+    NSError *error = nil;
+    NSString *jsonFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"fieldData.json"];
+    NSData *jsonData = [NSData dataWithContentsOfFile:jsonFilePath options:kNilOptions error:&error];
+    self.jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     
     //Loop through jsonArray
     for (int i = 0; i < self.jsonArray.count; i++){
@@ -101,8 +74,6 @@
     
     //Reload our table view
     [self.tableView reloadData];
-    
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
