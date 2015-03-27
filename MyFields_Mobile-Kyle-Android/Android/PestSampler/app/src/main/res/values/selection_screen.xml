@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="selection_info_list">
+        <item>My Fields</item>
+        <item>Pest Sampler</item>
+    </string-array>
+</resources>
