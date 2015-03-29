@@ -20,8 +20,6 @@ public class FieldsList extends Activity {
     private ListView listView;
     private GetAllFields api;
 
-    private View mProgressView;
-
     private User currentUser;
 
     @Override

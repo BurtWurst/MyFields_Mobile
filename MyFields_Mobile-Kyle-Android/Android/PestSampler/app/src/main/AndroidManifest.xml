@@ -30,6 +30,7 @@
         <activity android:label="@string/app_name" android:name=".LoginActivity"/>
         <activity android:label="@string/app_name" android:name=".FieldsList"/>
         <activity android:label="@string/app_name" android:name=".SpecificFieldInfo"/>
+        <activity android:label="@string/app_name" android:name=".PS_Sample_Method_Page"/>
     </application>
 
 </manifest>

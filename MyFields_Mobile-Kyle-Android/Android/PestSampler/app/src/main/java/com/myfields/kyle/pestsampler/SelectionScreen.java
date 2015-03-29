@@ -45,13 +45,13 @@ public class SelectionScreen extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //goes to fields list
                 if (position == 0) {
-                    Intent myIntent = new Intent(getApplicationContext(), FieldsList.class);
+                    Intent myIntent = new Intent(SelectionScreen.this, FieldsList.class);
                     SelectionScreen.this.startActivity(myIntent);
                 }
                 //goes to pest sampler
                 if (position == 1)
                 {
-                    Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent myIntent = new Intent(SelectionScreen.this, PS_Sample_Method_Page.class);
                     SelectionScreen.this.startActivity(myIntent);
                 }
             }
