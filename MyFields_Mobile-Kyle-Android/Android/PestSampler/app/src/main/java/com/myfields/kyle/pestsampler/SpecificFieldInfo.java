@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -67,21 +68,21 @@ public class SpecificFieldInfo extends Activity {
 
         }
         ArrayList<Field> fieldsList = currentUser.getFields();
-        final String[] selectionList = new String[fieldsList.size()];
+        List<String> field_info = new ArrayList<String>();
 
         for (int i = 0; i < fieldsList.size(); i++) {
-            selectionList[i] = "Field Name: " + fieldsList.get(i).Name;
-            selectionList[i].concat("ID: " + fieldsList.get(i).ID + "\n");
-            selectionList[i].concat("Location: " + fieldsList.get(i).Location + "\n");
-            selectionList[i].concat("Field Size: " + fieldsList.get(i).Size + "\n");
-            selectionList[i].concat("Soil Type: " + fieldsList.get(i).SoilType + "\n");
-            selectionList[i].concat("Tillage System: " + fieldsList.get(i).TillageSystem + "\n");
-            selectionList[i].concat("Irrigation System: " + fieldsList.get(i).IrrigationSystem + "\n");
+            field_info.add("Name: " + fieldsList.get(i).Name);
+            field_info.add("ID: " + fieldsList.get(i).ID);
+            field_info.add("Location: " + fieldsList.get(i).Location);
+            field_info.add("Field Size: " + fieldsList.get(i).Size);
+            field_info.add("Soil Type: " + fieldsList.get(i).SoilType);
+            field_info.add("Tillage System: " + fieldsList.get(i).TillageSystem);
+            field_info.add("Irrigation System: " + fieldsList.get(i).IrrigationSystem);
         }
 
-        //listView = (ListView) findViewById(R.id.selection_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
+                android.R.layout.simple_list_item_1, android.R.id.text1, field_info);
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
