@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/ps_sample_method_page_list"
+        android:id="@+id/ps_sample_method"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>

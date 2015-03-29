@@ -13,7 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class PS_Sample_Method_Page extends Activity {
+public class PS_Field_List extends Activity {
     ListView listView;
     private GetAllFields api;
     private User currentUser;
@@ -33,9 +33,9 @@ public class PS_Sample_Method_Page extends Activity {
         boolean cancel = false;
         View focusView = null;
 
-        setContentView(R.layout.activity_ps_sample_method_page);
+        setContentView(R.layout.activity_ps_field_list);
 
-        listView = (ListView) findViewById(R.id.ps_sample_method_page_list);
+        listView = (ListView) findViewById(R.id.ps_field_list);
 
         if (cancel) {
             // There was an error; don't attempt field retrieval and focus the first
@@ -75,8 +75,8 @@ public class PS_Sample_Method_Page extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(PS_Sample_Method_Page.this, SpecificFieldInfo.class);
-                PS_Sample_Method_Page.this.startActivity(myIntent);
+                Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
+                PS_Field_List.this.startActivity(myIntent);
             }
         });
     }
