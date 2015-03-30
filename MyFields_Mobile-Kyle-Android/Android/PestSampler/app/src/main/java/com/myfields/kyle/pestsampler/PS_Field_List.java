@@ -1,68 +1,37 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class PS_Field_List extends Activity {
     ListView listView;
-    private GetAllFields api;
-    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(currentUser == null)
-        {
-            SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
-
-            currentUser = new User(myCredentials.getString("user", null),
-                    myCredentials.getString("pass", null));
-        }
-
-        boolean cancel = false;
         View focusView = null;
 
         setContentView(R.layout.activity_ps_field_list);
 
         listView = (ListView) findViewById(R.id.ps_field_list);
 
-        if (cancel) {
-            // There was an error; don't attempt field retrieval and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
-            api = new GetAllFields(currentUser.getFields(), currentUser.getUserName(),
-                    currentUser.getUserPassword());
-            api.execute((Void) null);
-        }
+        TextView header = new TextView(this);
+        header.setText("Select A Field To Sample: ");
+        listView.addHeaderView(header);
 
         createListView();
     }
     private void createListView() {
-        try
-        {
-            api.get(10000, TimeUnit.MILLISECONDS);
-        }
-        catch(Exception e)
-        {
-           System.out.print(e.toString());
-        }
 
-        ArrayList<Field> fieldsList = currentUser.getFields();
+        ArrayList<Field> fieldsList = Globals.currentUser.getFields();
         final String[] selectionList = new String[fieldsList.size()];
 
         for (int i = 0; i < fieldsList.size(); i++) {
@@ -75,8 +44,11 @@ public class PS_Field_List extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
-                PS_Field_List.this.startActivity(myIntent);
+
+                Globals.sampleToBuild.setFieldID(Globals.currentUser.getFields().get(position - 1).getID());
+
+                //Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
+                //PS_Field_List.this.startActivity(myIntent);
             }
         });
     }

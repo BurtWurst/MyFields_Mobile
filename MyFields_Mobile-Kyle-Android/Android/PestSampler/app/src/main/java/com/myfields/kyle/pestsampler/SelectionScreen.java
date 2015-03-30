@@ -77,7 +77,7 @@ public class SelectionScreen extends Activity {
                 //goes to pest sampler
                 if (position == 1)
                 {
-                    Intent myIntent = new Intent(SelectionScreen.this, PS_Field_List.class);
+                    Intent myIntent = new Intent(SelectionScreen.this, PS_Sample_Method.class);
                     SelectionScreen.this.startActivity(myIntent);
                 }
             }
