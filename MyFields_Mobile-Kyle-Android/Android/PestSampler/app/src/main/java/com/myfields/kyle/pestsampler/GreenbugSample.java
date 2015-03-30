@@ -14,6 +14,8 @@ public class GreenbugSample extends PestSample {
     protected int AphidCount;
     protected int MummyCount;
 
+    public GreenbugSample() { }
+
     public GreenbugSample(int SpecificID, int GenericID, GPSLocation loc, int field,
                           double control, double crop, String notes, String[] otherPests,
                           Boolean Treatment, int Aphids, int Mummys)
@@ -25,6 +27,19 @@ public class GreenbugSample extends PestSample {
         this.AphidCount = Aphids;
         this.MummyCount = Mummys;
     }
+
+    public int getSpecificID() { return this.SpecificID; }
+    public void setSpecificID(int id) { this.SpecificID = id; }
+
+    public Boolean getTreatmentRecommendation() { return this.TreatmentRecommendation; }
+    public void setTreatmentRecommendation(Boolean recommendation)
+    { this.TreatmentRecommendation = recommendation; }
+
+    public int getAphidCount() { return this.AphidCount; }
+    public void setAphidCount(int count) { this.AphidCount = count; }
+
+    public int getMummyCount() { return this.MummyCount; }
+    public void setMummyCount(int count) { this.MummyCount = count; }
 
     public static GreenbugSample jsonRead(JSONObject sample) throws JSONException
     {
