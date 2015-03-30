@@ -1,7 +1,6 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +45,8 @@ public class FieldsList extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SpecificFieldInfo.setFieldIndex(position);
+
                 Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
                 FieldsList.this.startActivity(myIntent);
             }

@@ -45,7 +45,9 @@ public class PS_Field_List extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 Globals.sampleToBuild.setFieldID(Globals.currentUser.getFields().get(position - 1).getID());
+                Globals.sampleToBuild.setLocation(Globals.currentUser.getFields().get(position - 1).getLocation());
 
                 //Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
                 //PS_Field_List.this.startActivity(myIntent);

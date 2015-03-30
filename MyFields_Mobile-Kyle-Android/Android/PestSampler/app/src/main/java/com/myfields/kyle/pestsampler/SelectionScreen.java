@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,36 +36,7 @@ public class SelectionScreen extends Activity {
         // TODO: Add progress display later on
         //mProgressView = findViewById(R.id.progress_circular);
 
-        SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
-
-        if(Globals.currentUser == null)
-        {
-            if(!(myCredentials.contains("user")))
-            {
-                Intent myIntent = new Intent(SelectionScreen.this, LoginActivity.class);
-                SelectionScreen.this.startActivity(myIntent);
-            }
-
-            Globals.currentUser = new User(myCredentials.getString("user", null),
-                                           myCredentials.getString("pass", null));
-
-                // Show a progress spinner, and kick off a background task to
-                // perform the user login attempt.
-                //showProgress(true);
-                api = new GetAllFields(Globals.currentUser.getFields(),
-                                       Globals.currentUser.getUserName(),
-                                       Globals.currentUser.getUserPassword());
-                api.execute((Void) null);
-
-                try {
-                    api.get(10000, TimeUnit.MILLISECONDS);
-                }
-                catch(Exception ex) {
-
-                }
-        }
-
-        listView.setOnItemClickListener(new OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //goes to fields list
@@ -82,6 +52,41 @@ public class SelectionScreen extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
+
+        if(!(myCredentials.contains("user")))
+        {
+            Intent myIntent = new Intent(SelectionScreen.this, LoginActivity.class);
+            SelectionScreen.this.startActivity(myIntent);
+        }
+        else if(Globals.currentUser == null)
+        {
+
+            Globals.currentUser = new User(myCredentials.getString("user", null),
+                    myCredentials.getString("pass", null));
+
+            // Show a progress spinner, and kick off a background task to
+            // perform the field retrieval attempt.
+            //showProgress(true);
+            api = new GetAllFields(Globals.currentUser.getFields(),
+                    Globals.currentUser.getUserName(),
+                    Globals.currentUser.getUserPassword());
+            api.execute((Void) null);
+
+            try {
+                api.get(20000, TimeUnit.MILLISECONDS);
+            }
+            catch(Exception ex) {
+
+            }
+        }
     }
 
 

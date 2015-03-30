@@ -65,13 +65,13 @@ public class PS_Sample_Method extends Activity{
                         {
                             case("Glance N\' Go (Greenbug)"):
                                 Globals.sampleToBuild = new GreenbugSample();
+                                Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
+                                Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
+                                PS_Sample_Method.this.startActivity(myIntent);
                                 break;
                         }
 
-                        Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
 
-                        Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
-                        PS_Sample_Method.this.startActivity(myIntent);
                     }
                 })
                         .setNegativeButton(R.string.Back, new DialogInterface.OnClickListener() {
