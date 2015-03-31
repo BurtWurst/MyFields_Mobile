@@ -5,19 +5,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.ListView;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.concurrent.TimeUnit;
 
 /**
   Represents the activity that lets you choose either My Fields or Pest Sampler
  */
 public class SelectionScreen extends Activity {
-    ListView listView ;
+    ListView listView;
+    private GetAllFields api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +27,37 @@ public class SelectionScreen extends Activity {
 
         listView = (ListView) findViewById(R.id.selection_list);
 
-        String[] selectionList = new String[]
-                {
-                "My Fields",
-                "Pest Sampler",
-        };
+        String[] selectionList = getResources().getStringArray(R.array.selection_info_list);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
 
         listView.setAdapter(adapter);
+        // TODO: Add progress display later on
+        //mProgressView = findViewById(R.id.progress_circular);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //goes to fields list
+                if (position == 0) {
+                    Intent myIntent = new Intent(SelectionScreen.this, FieldsList.class);
+                    SelectionScreen.this.startActivity(myIntent);
+                }
+                //goes to pest sampler
+                if (position == 1)
+                {
+                    Intent myIntent = new Intent(SelectionScreen.this, PS_Sample_Method.class);
+                    SelectionScreen.this.startActivity(myIntent);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
 
         SharedPreferences myCredentials = getSharedPreferences("Credentials", Context.MODE_PRIVATE);
 
@@ -44,16 +66,63 @@ public class SelectionScreen extends Activity {
             Intent myIntent = new Intent(SelectionScreen.this, LoginActivity.class);
             SelectionScreen.this.startActivity(myIntent);
         }
+        else if(Globals.currentUser == null)
+        {
 
-        listView.setOnItemClickListener(new OnItemClickListener() {
+            Globals.currentUser = new User(myCredentials.getString("user", null),
+                    myCredentials.getString("pass", null));
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(SelectionScreen.this, FieldsList.class);
-                SelectionScreen.this.startActivity(myIntent);
+            // Show a progress spinner, and kick off a background task to
+            // perform the field retrieval attempt.
+            //showProgress(true);
+            api = new GetAllFields(Globals.currentUser.getFields(),
+                    Globals.currentUser.getUserName(),
+                    Globals.currentUser.getUserPassword());
+            api.execute((Void) null);
+
+            try {
+                api.get(20000, TimeUnit.MILLISECONDS);
             }
-        });
+            catch(Exception ex) {
 
-
+            }
+        }
     }
+
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            listView.setVisibility(show ? View.GONE : View.VISIBLE);
+            listView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    listView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            listView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }*/
 }

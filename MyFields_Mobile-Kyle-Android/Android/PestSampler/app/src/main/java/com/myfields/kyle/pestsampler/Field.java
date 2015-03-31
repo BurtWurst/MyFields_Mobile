@@ -1,7 +1,5 @@
 package com.myfields.kyle.pestsampler;
 
-import android.app.Activity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +54,25 @@ public class Field {
     {
         return this.ID;
     }
+    public void setID(int id) { this.ID = id; }
+
+    public GPSLocation getLocation() { return this.Location; }
+    public void setLocation(GPSLocation loc) { this.Location = loc; }
+
+    public String getName() { return this.Name; }
+    public void setName(String name) { this.Name = name; }
+
+    public double getSize() { return this.Size; }
+    public void setSize(double size) { this.Size = size; }
+
+    public String getSoilType() { return this.SoilType; }
+    public void setSoilType(String soilType) { this.SoilType = soilType; }
+
+    public String getTillageSystem() { return this.TillageSystem; }
+    public void setTillageSystem(String tillageSystem) { this.TillageSystem = tillageSystem; }
+
+    public String getIrrigationSystem() { return this.IrrigationSystem; }
+    public void setIrrigationSystem(String irrigationSystem) { this.IrrigationSystem = irrigationSystem; }
 
     public static Field jsonRead(JSONObject jsonField) throws JSONException, ParseException
     {

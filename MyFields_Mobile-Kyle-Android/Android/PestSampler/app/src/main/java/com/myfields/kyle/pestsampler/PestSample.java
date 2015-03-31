@@ -22,6 +22,8 @@ public class PestSample {
     protected String Notes;
     protected String[] OtherPests;
 
+    public PestSample(){}
+
     public PestSample(int ID, GPSLocation loc, int field, double control, double crop, String notes,
                       String[] otherPests)
     {
@@ -33,6 +35,27 @@ public class PestSample {
         this.Notes = notes;
         this.OtherPests = otherPests;
     }
+
+    public int getID() { return ID; }
+    public void setID(int id) { this.ID = id; }
+
+    public GPSLocation getLocation() { return location; }
+    public void setLocation(GPSLocation loc) { this.location = loc; }
+
+    public int getFieldID() { return fieldID; }
+    public void setFieldID(int FieldId) { this.fieldID = FieldId; }
+
+    public double getControlCost() { return ControlCost; }
+    public void setControlCost(double cost) { this.ControlCost = cost; }
+
+    public double getCropValue() { return CropValue; }
+    public void setCropValue(double Value) { this.CropValue = Value; }
+
+    public String getNotes() { return Notes; }
+    public void setNotes(String notes) { this.Notes = notes; }
+
+    public String[] getOtherPests() { return OtherPests; }
+    public void setOtherPests(String[] pests) { this.OtherPests = pests; }
 
     public static PestSample jsonRead(JSONObject sample) throws JSONException
     {

@@ -39,7 +39,7 @@ public class GPSLocation {
 
         return json;
     }
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -47,10 +47,16 @@ public class GPSLocation {
             return false;
         if (obj == this)
             return true;
-			
+
 		GPSLocation g = (GPSLocation) obj;
-		
+
 		return g.Latitude == this.Latitude && g.Longitude == this.Longitude;
 	}
+
+    @Override
+    public String toString()
+    {
+        return Longitude +", " + Latitude;
+    }
 
 }
