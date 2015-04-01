@@ -69,26 +69,14 @@
             if([response statusCode] >= 200 && [response statusCode] <300){
                 
                 NSLog(@"Login Successful");
-                
-                //NSString *jsonString = @"[{\"id\": \"1\",\"name\":\"Aaa\",\"age\":\"18\"},{\"id\": \"2\",\"name\":\"Bbb\",\"age\":\"27\"}]";
-                
-//                NSString *jsonString = @"[{\"ID\": \"1\", \"FieldName\":\"Field1\",\"Location\": {\"Latitude\":\"39\",\"Longitude\":\"-99\"},\"Size\":\"10\",\"TypeOfSoil\":\"Clay\",\"TillageSystem\":\"Conventional\",\"IrrigationSystem\":\"Dry_Land\"}]";
-//                
-//                NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//                NSError *e = nil;
-//                NSMutableArray *jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
-//                NSLog(@"%@", jsonArray);
-                
                 NSError *error = nil;
-                
                 NSString *jsonStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
                 NSString *jsonString = [jsonStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                 NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-                
                 NSMutableArray *jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-                
                 NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"fieldData.json"];
                 BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+                
             @try{
                 if(fileExists){
                     

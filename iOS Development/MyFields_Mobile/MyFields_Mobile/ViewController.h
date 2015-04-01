@@ -14,8 +14,6 @@
     IBOutlet UITextField *username;
     IBOutlet UITextField *password;
     
-    NSDictionary *loginDictionary;
-    
 }
 -(IBAction)enterLogin;
 
