@@ -1,7 +1,0 @@
-Clean up existing tests
-
-Test Pest Sampler wizard
-
-write up design doc
-
-write tests at same time as code

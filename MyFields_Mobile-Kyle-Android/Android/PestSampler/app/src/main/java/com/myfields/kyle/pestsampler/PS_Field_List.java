@@ -1,20 +1,17 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- Represents the fields & names along with the type of field it is (corn, wheat, etc...)
- */
-public class FieldsList extends Activity {
-    private ListView listView;
+public class PS_Field_List extends Activity {
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +19,16 @@ public class FieldsList extends Activity {
 
         View focusView = null;
 
-        setContentView(R.layout.activity_fields_list);
+        setContentView(R.layout.activity_ps_field_list);
 
-        listView = (ListView) findViewById(R.id.selection_list);
+        listView = (ListView) findViewById(R.id.ps_field_list);
+
+        TextView header = new TextView(this);
+        header.setText("Select A Field To Sample: ");
+        listView.addHeaderView(header);
 
         createListView();
     }
-
     private void createListView() {
 
         ArrayList<Field> fieldsList = Globals.currentUser.getFields();
@@ -38,17 +38,19 @@ public class FieldsList extends Activity {
             selectionList[i] = "Field Name: " + fieldsList.get(i).Name;
         }
 
-        //listView = (ListView) findViewById(R.id.selection_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SpecificFieldInfo.setFieldIndex(position);
 
-                Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
-                FieldsList.this.startActivity(myIntent);
+
+                Globals.sampleToBuild.setFieldID(Globals.currentUser.getFields().get(position - 1).getID());
+                Globals.sampleToBuild.setLocation(Globals.currentUser.getFields().get(position - 1).getLocation());
+
+                //Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
+                //PS_Field_List.this.startActivity(myIntent);
             }
         });
     }

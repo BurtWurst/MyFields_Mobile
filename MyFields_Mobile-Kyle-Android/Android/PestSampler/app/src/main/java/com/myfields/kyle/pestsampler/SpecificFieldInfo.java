@@ -1,22 +1,59 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
-import android.widget.ListView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 After you are on the field page (that shows a field name, and what type of field it is), you click on one, and it will take you to a screen that shows a picture of that field, and a description.
  This class represents that page.
  */
 public class SpecificFieldInfo extends Activity {
+
+    private ListView listView;
+    private static int FieldIndex = -1;
+
+    public static void setFieldIndex(int index) { SpecificFieldInfo.FieldIndex = index; }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_specific_field_info);
+
+        listView = (ListView) findViewById(R.id.list_of_information);
+
+        TextView header = new TextView(this);
+        header.setText("Field Information: ");
+        listView.addHeaderView(header);
+
+        CreateListView();
+    }
+    public void CreateListView()
+    {
+
+        Field fieldToShow = Globals.currentUser.getFields().get(SpecificFieldInfo.FieldIndex);
+
+        SpecificFieldInfo.FieldIndex = -1;
+
+        List<String> field_info = new ArrayList<String>();
+
+        field_info.add("Name: " + fieldToShow.getName());
+        field_info.add("ID: " + fieldToShow.getID());
+        field_info.add("Location: " + fieldToShow.getLocation());
+        field_info.add("Field Size: " + fieldToShow.getSize());
+        field_info.add("Soil Type: " + fieldToShow.getSoilType());
+        field_info.add("Tillage System: " + fieldToShow.getTillageSystem());
+        field_info.add("Irrigation System: " + fieldToShow.getIrrigationSystem());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, field_info);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged(); // Explain to Daniel later
     }
 }
