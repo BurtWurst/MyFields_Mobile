@@ -18,11 +18,11 @@
 @property NSString *tillageSystem;
 @property NSString *irrigationSystem;
 //array
-@property NSString *plantingList;
+@property NSArray *plantingList;
 //array
-@property NSString *pestSamples;
+@property NSArray *pestSamples;
 
--(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation;
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSArray*) fPlantingList andFieldSamples:  (NSArray *) fPestSamples;
 
 
 @end

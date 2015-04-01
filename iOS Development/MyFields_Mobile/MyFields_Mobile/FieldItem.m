@@ -14,7 +14,7 @@
 
 @implementation FieldItem
 
--(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation{
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSArray*) fPlantingList andFieldSamples: (NSArray *) fPestSamples{
     
     self = [super init];
     if (self){
@@ -25,6 +25,8 @@
         self.typeOfSoil = fSoil;
         self.tillageSystem = fTillage;
         self.irrigationSystem = fIrrigation;
+        self.plantingList = fPlantingList;
+        self.pestSamples = fPestSamples;
     }
     return self;
 }
