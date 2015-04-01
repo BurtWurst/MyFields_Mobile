@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PestSampler: UIViewController
+@interface PestSampler: UITableViewController
 
+- (void) retrieveData;
 
 @end

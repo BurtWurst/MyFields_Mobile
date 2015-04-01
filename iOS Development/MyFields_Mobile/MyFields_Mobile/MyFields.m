@@ -15,6 +15,7 @@
 @property NSMutableArray *fieldList;
 @property NSMutableArray *jsonArray;
 
+
 @end
 
 @implementation MyFields
@@ -68,8 +69,10 @@
         NSString *fSoil = [[self.jsonArray objectAtIndex:i] objectForKey:@"TypeOfSoil"];
         NSString *fTillage = [[self.jsonArray objectAtIndex:i] objectForKey:@"TillageSystem"];
         NSString *fIrrigation = [[self.jsonArray objectAtIndex:i] objectForKey:@"IrrigationSystem"];
-
-        [self.fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation]];
+        NSArray *fPlantingList = [[self.jsonArray objectAtIndex:i] objectForKey:@"PlantingList"];
+        NSArray *fPestSamples = [[self.jsonArray objectAtIndex:i] objectForKey:@"PestSamples"];
+        
+        [self.fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation andPlantingList:fPlantingList andFieldSamples:fPestSamples]];
     }
     
     //Reload our table view
