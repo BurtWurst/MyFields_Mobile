@@ -54,6 +54,6 @@ public class SpecificFieldInfo extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, field_info);
         listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged(); // Explain to Daniel later
+        adapter.notifyDataSetChanged(); // Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself
     }
 }
