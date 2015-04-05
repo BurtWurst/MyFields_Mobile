@@ -1,6 +1,7 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,8 +50,8 @@ public class PS_Field_List extends Activity {
                 Globals.sampleToBuild.setFieldID(Globals.currentUser.getFields().get(position - 1).getID());
                 Globals.sampleToBuild.setLocation(Globals.currentUser.getFields().get(position - 1).getLocation());
 
-                //Intent myIntent = new Intent(PS_Field_List.this, PS_Sample_Method.class);
-                //PS_Field_List.this.startActivity(myIntent);
+                Intent myIntent = new Intent(PS_Field_List.this, PS_Control_Cost_and_Crop_Value.class);
+                PS_Field_List.this.startActivity(myIntent);
             }
         });
     }

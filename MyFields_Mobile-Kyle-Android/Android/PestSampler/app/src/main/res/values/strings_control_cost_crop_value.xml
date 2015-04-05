@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ps_control_cost_crop_value_control_cost">Control Cost</string>
+    <string name="ps_control_cost_crop_value_crop_value">Crop Value</string>
+    <string name="ps_control_cost_crop_value_forward_button_text">Continue</string>
+    <string name="ps_control_cost_crop_value_back_button_text">Back</string>
+    <string name="ps_control_cost_crop_value_cancel_button_text">Cancel</string>
+</resources>

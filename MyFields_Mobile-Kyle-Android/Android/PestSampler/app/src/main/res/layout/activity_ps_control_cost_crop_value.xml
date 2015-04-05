@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ps_control_cost_crop_value_control_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:capitalize="characters"
+        android:text="@string/ps_control_cost_crop_value_control_cost" />
+
+    <Spinner
+        android:id="@+id/control_cost_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/ps_control_cost_crop_value_crop_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:capitalize="characters"
+        android:text="@string/ps_control_cost_crop_value_crop_value" />
+
+    <Spinner
+        android:id="@+id/crop_value_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/ps_control_cost_crop_value_continue_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ps_control_cost_crop_value_forward_button_text"/>
+
+    <Button
+        android:id="@+id/ps_control_cost_crop_value_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ps_control_cost_crop_value_back_button_text" />
+
+    <Button
+        android:id="@+id/ps_control_cost_crop_value_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ps_control_cost_crop_value_cancel_button_text" />
+
+</LinearLayout>
