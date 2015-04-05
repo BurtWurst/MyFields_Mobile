@@ -35,7 +35,7 @@ public class FieldsList extends Activity {
         final String[] selectionList = new String[fieldsList.size()];
 
         for (int i = 0; i < fieldsList.size(); i++) {
-            selectionList[i] = "Field Name: " + fieldsList.get(i).Name;
+            selectionList[i] = fieldsList.get(i).Name;
         }
 
         //listView = (ListView) findViewById(R.id.selection_list);
