@@ -8,8 +8,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.BufferedReader;
@@ -20,11 +25,16 @@ public class GetAllFields extends AsyncTask<Void, Void, Boolean> {
     private final String mUser;
     private final String mPassword;
     private final ArrayList<Field> FieldList;
+    private final ProgressDialog progressDialog;
 
-    GetAllFields(ArrayList<Field> fields, String username, String pass) {
+    private boolean UnauthorizedConnection = false;
+    private boolean NoInternetConnection = false;
+
+    GetAllFields(ArrayList<Field> fields, String username, String pass, ProgressDialog progress) {
         mUser = username;
         mPassword = pass;
         FieldList = fields;
+        progressDialog = progress;
     }
 
     @Override
@@ -56,11 +66,14 @@ public class GetAllFields extends AsyncTask<Void, Void, Boolean> {
                     FieldList.add(Field.jsonRead(parsedJson.getJSONObject(i)));
                 }
             } else if (status.getStatusCode() == HttpStatus.SC_UNAUTHORIZED) {
+                UnauthorizedConnection = true;
                 throw new Exception("Username or password was incorrect!");
             }
         } catch (Exception fail) {
-            // Handle connection failed?
-            System.out.println("Exception: " + fail.getMessage());
+
+            if(fail instanceof IOException)
+                NoInternetConnection = true;
+
             returnValue = false;
         }
 
@@ -69,6 +82,38 @@ public class GetAllFields extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(final Boolean success) {
+        progressDialog.dismiss();
+
+        // If no internet connection is available, disply an error message
+        if(NoInternetConnection)
+        {
+            /*new AlertDialog.Builder(this)
+                    .setTitle("Error - Bad Values!")
+                    .setMessage("Please select values for both Crop Value and Control Cost!")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Simply return to the costs page
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        // If the credentials used were invalid, display an error message
+        else if(UnauthorizedConnection)
+        {
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle("Error - Bad Values!")
+                    .setMessage("Please select values for both Crop Value and Control Cost!")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Simply return to the costs page
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();*/
+        }
     }
 
     @Override
