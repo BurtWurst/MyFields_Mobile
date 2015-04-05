@@ -11,9 +11,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+// ***************************************************************
+// * OVERVIEW                                                    *
+// * This activity class represents the Pest Sampler second page,*
+// *  where a user selects a field that this pest sample will    *
+// * be associated with.                                         *
+// ***************************************************************
 public class PS_Field_List extends Activity {
     ListView listView;
 
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * This function creates the activity for the field list page  *
+    // * of the pest sampler, including setting the layout to the    *
+    // * resource layout, adding a text header, and creating the     *
+    // * list of fields from the global user's.                      *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * savedInstanceState                                          *
+    // *    This parameter specifies any data that was saved by a    *
+    // *    previous run of the activity; i.e. the last time that    *
+    // *    onSaveInstanceState was called; otherwise null.          *
+    // ***************************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +51,19 @@ public class PS_Field_List extends Activity {
 
         createListView();
     }
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * This function will add each user field to the created       *
+    // * ListView and adds the event handler for a click event.      *
+    // ***************************************************************
     private void createListView() {
 
         ArrayList<Field> fieldsList = Globals.currentUser.getFields();
         final String[] selectionList = new String[fieldsList.size()];
 
         for (int i = 0; i < fieldsList.size(); i++) {
-            selectionList[i] = "Field Name: " + fieldsList.get(i).Name;
+            selectionList[i] = fieldsList.get(i).Name;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

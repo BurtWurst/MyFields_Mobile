@@ -14,13 +14,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
-Sample Method Page for Pest Sampler
- */
+// ***************************************************************
+// * OVERVIEW                                                    *
+// * This activity class represents the Pest Sampler first page, *
+// * the sample method page where a user selects what pest they  *
+// * will be sampling for.                                       *
+// ***************************************************************
 public class PS_Sample_Method extends Activity{
 
     ListView listView;
 
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * This function creates the activity for the sample method    *
+    // * page, including setting the layout to the resource layout,  *
+    // * adding a text header, and creating the list of methods.     *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * savedInstanceState                                          *
+    // *    This parameter specifies any data that was saved by a    *
+    // *    previous run of the activity; i.e. the last time that    *
+    // *    onSaveInstanceState was called; otherwise null.          *
+    // ***************************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +52,12 @@ public class PS_Sample_Method extends Activity{
 
         createListView();
     }
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * This function will add each sample method to the created    *
+    // * ListView and adds the event handler for a click event.      *
+    // ***************************************************************
     public void createListView()
     {
         final Resources res = getResources();
@@ -55,34 +78,32 @@ public class PS_Sample_Method extends Activity{
                         .setMessage(res.getStringArray(R.array.pest_sampler_descriptions)[pos]) // Position is 1-indexed
                         .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // If continue is clicked, construct the global sample
-                        if(Globals.sampleToBuild != null)
-                        {
-                            Globals.sampleToBuild = null;
+                            // If continue is clicked, construct the global sample
+                            if(Globals.sampleToBuild != null)
+                            {
+                                Globals.sampleToBuild = null;
+                            }
+
+                            // To add samples, add another case here
+                            switch(sampleMethods[pos])
+                            {
+                                case("Glance N\' Go (Greenbug)"):
+                                    Globals.sampleToBuild = new GreenbugSample();
+                                    Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
+                                    Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
+                                    PS_Sample_Method.this.startActivity(myIntent);
+                                    break;
+                            }
                         }
-
-                        switch(sampleMethods[pos])
-                        {
-                            case("Glance N\' Go (Greenbug)"):
-                                Globals.sampleToBuild = new GreenbugSample();
-                                Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
-                                Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
-                                PS_Sample_Method.this.startActivity(myIntent);
-                                break;
-                        }
-
-
-                    }
-                })
+                    })
                         .setNegativeButton(R.string.Back, new DialogInterface.OnClickListener() {
+                            // If back is clicked, return to the list of samples.
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-
-
             }
         });
     }
