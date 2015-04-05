@@ -45,9 +45,9 @@ public class FieldsList extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SpecificFieldInfo.setFieldIndex(position);
 
                 Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
+                myIntent.putExtra("FieldIndex", position);
                 FieldsList.this.startActivity(myIntent);
             }
         });

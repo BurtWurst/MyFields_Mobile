@@ -16,9 +16,6 @@ After you are on the field page (that shows a field name, and what type of field
 public class SpecificFieldInfo extends Activity {
 
     private ListView listView;
-    private static int FieldIndex = -1;
-
-    public static void setFieldIndex(int index) { SpecificFieldInfo.FieldIndex = index; }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +34,9 @@ public class SpecificFieldInfo extends Activity {
     public void CreateListView()
     {
 
-        Field fieldToShow = Globals.currentUser.getFields().get(SpecificFieldInfo.FieldIndex);
+        int FieldIndex = this.getIntent().getIntExtra("FieldIndex", 0);
 
-        SpecificFieldInfo.FieldIndex = -1;
+        Field fieldToShow = Globals.currentUser.getFields().get(FieldIndex);
 
         List<String> field_info = new ArrayList<String>();
 
