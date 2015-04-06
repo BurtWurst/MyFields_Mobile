@@ -24,9 +24,13 @@
 
     <Spinner
         android:id="@+id/crop_value_spinner"
-        android:layout_width="fill_parent"
+        android:layout_width="232dp"
         android:layout_height="wrap_content" />
-
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
     <Button
         android:id="@+id/ps_control_cost_crop_value_continue_button"
         android:layout_width="wrap_content"
@@ -37,12 +41,16 @@
         android:id="@+id/ps_control_cost_crop_value_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ps_control_cost_crop_value_back_button_text" />
+        android:text="@string/ps_control_cost_crop_value_back_button_text"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/ps_control_cost_crop_value_cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ps_control_cost_crop_value_cancel_button_text" />
+        android:text="@string/ps_control_cost_crop_value_cancel_button_text"
+        android:layout_gravity="center_horizontal" />
+
+    </TableRow>
 
 </LinearLayout>

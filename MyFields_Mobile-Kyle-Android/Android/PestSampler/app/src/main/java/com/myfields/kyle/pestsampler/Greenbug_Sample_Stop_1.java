@@ -3,6 +3,8 @@ package com.myfields.kyle.pestsampler;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -10,32 +12,22 @@ import android.widget.TextView;
  */
 public class Greenbug_Sample_Stop_1 extends Activity{
 
-    TextView textShown;
+    private ListView listView;
 
-    public void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_greenbug_sample_stop1);
+        listView = (ListView) findViewById(R.id.greenbug_sample_page1);
 
         CreateLayout();
-
     }
-
     private void CreateLayout()
     {
-        textShown = (TextView)findViewById(R.id.greenbug_sample_stop1_help_shown);
-        //hides the text until it's clicked
-        //textShown.setVisibility(View.GONE);
+        final String[] items = {"Help", "Step 1 of 5"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, items);
+        listView.setAdapter(adapter);
     }
-    /*private void ToggleContents(View view)
-    {
-        if(textShown.isShown()){
-            //Fx.slide_up(this, textShown); STILL HAVE TO WRITE THE SLIDE UP PART IN CLASS FX AND THIS
-            textShown.setVisibility(View.GONE);
-        }
-        else{
-            textShown.setVisibility(View.VISIBLE);
-            Fx.slide_down(this, textShown);
-        }
-    }*/
 }

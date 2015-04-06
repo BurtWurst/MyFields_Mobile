@@ -92,11 +92,10 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
                 // Else add the values to the current sample and move to the samples page.
                 else
                 {
-                    Globals.sampleToBuild.CropValue = (double) control_cost_spinner.getSelectedItem();
-                    Globals.sampleToBuild.ControlCost = (double) crop_value_spinner.getSelectedItem();
+                    Globals.sampleToBuild.CropValue = Double.parseDouble(control_cost_spinner.getSelectedItem().toString()); //TIL
+                    Globals.sampleToBuild.ControlCost = Double.parseDouble(crop_value_spinner.getSelectedItem().toString());
 
-                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this,
-                            Greenbug_Sample_Stop_1.class);
+                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, Greenbug_Sample_Stop_1.class);
                     PS_Control_Cost_and_Crop_Value.this.startActivity(myIntent);
                 }
             }
