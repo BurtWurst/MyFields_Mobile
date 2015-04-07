@@ -44,4 +44,14 @@
         <item>7.00</item>
     </string-array>
 
+    <string-array name="image_ids">
+        <item>@drawable/aphid1</item>
+        <item>@drawable/aphid2</item>
+        <item>@drawable/aphid3</item>
+        <item>@drawable/mummy1</item>
+        <item>@drawable/mummy2</item>
+        <item>@drawable/mummy3</item>
+
+    </string-array>
+
 </resources>
