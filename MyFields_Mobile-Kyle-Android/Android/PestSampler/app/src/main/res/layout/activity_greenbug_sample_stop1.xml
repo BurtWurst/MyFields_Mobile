@@ -12,8 +12,8 @@
 
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="281dp"
-        android:id="@+id/gridView"
+        android:layout_height="181dp"
+        android:id="@+id/greenbug_sample_stop1_gridview"
         android:numColumns="3" />
 
 </LinearLayout>
