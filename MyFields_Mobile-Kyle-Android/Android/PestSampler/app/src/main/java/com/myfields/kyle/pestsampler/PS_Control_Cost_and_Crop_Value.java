@@ -36,6 +36,10 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
     // *    previous run of the activity; i.e. the last time that    *
     // *    onSaveInstanceState was called; otherwise null.          *
     // ***************************************************************
+
+    Spinner control_cost_spinner;
+    Spinner crop_value_spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +57,10 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
     // ***************************************************************
     private void CreateLayout()
     {
-        final Spinner control_cost_spinner = (Spinner)findViewById(R.id.control_cost_spinner);
+        control_cost_spinner = (Spinner)findViewById(R.id.control_cost_spinner);
         String[] control_cost_array = getResources().getStringArray(R.array.pest_sampler_control_costs);
 
-        final Spinner crop_value_spinner = (Spinner)findViewById(R.id.crop_value_spinner);
+        crop_value_spinner = (Spinner)findViewById(R.id.crop_value_spinner);
         String[] crop_value_array = getResources().getStringArray(R.array.pest_sampler_crop_values);
 
         Button continue_Button = (Button)findViewById(R.id.ps_control_cost_crop_value_continue_button);

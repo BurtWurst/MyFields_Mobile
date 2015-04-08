@@ -28,8 +28,12 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_greenbug_sample_stop1);
+
         listView = (ListView) findViewById(R.id.greenbug_sample_page1);
         gridView = (GridView)findViewById(R.id.greenbug_sample_stop1_gridview);
+        TextView header = new TextView(this);
+        header.setText("Sample for Pest: ");
+        listView.addHeaderView(header);
 
         CreateLayout();
     }
