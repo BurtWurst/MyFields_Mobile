@@ -53,7 +53,7 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, "Tiller: " + i)); //figure out how to do one line only
+            imageItems.add(new ImageItem(bitmap, "")); //figure out how to do one line only
         }
         return imageItems;
     }
