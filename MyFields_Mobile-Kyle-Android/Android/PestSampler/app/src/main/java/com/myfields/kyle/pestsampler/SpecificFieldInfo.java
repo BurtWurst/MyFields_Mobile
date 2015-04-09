@@ -47,6 +47,8 @@ public class SpecificFieldInfo extends Activity {
         field_info.add("Soil Type: " + fieldToShow.getSoilType());
         field_info.add("Tillage System: " + fieldToShow.getTillageSystem());
         field_info.add("Irrigation System: " + fieldToShow.getIrrigationSystem());
+        field_info.add("Plantings: ");
+        field_info.add("Pest Samples: ");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, field_info);
