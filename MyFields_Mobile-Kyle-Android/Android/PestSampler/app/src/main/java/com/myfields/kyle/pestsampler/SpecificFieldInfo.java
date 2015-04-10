@@ -47,7 +47,8 @@ public class SpecificFieldInfo extends Activity {
 
         int FieldIndex = this.getIntent().getIntExtra("FieldIndex", 0);
         Field fieldToShow = Globals.currentUser.getFields().get(FieldIndex);
-        PestSample pestToSample = Globals.sampleToBuild; //
+        ArrayList<PestSample> userSamples = fieldToShow.getPestSamples();
+        ArrayList<Planting> userPlantings = fieldToShow.getPlantingList();
         List<String> pest_samples = new ArrayList<String>();
         List<String> field_info = new ArrayList<String>();
         List<String> plantings = new ArrayList<String>();
@@ -58,26 +59,31 @@ public class SpecificFieldInfo extends Activity {
         listDataHeader.add("Pest Samples");
 
         // Adding child data
-        field_info.add("Name: " + fieldToShow.getName());
-        field_info.add("ID: " + fieldToShow.getID());
-        field_info.add("Location: " + fieldToShow.getLocation());
-        field_info.add("Field Size: " + fieldToShow.getSize());
-        field_info.add("Soil Type: " + fieldToShow.getSoilType());
-        field_info.add("Tillage System: " + fieldToShow.getTillageSystem());
-        field_info.add("Irrigation System: " + fieldToShow.getIrrigationSystem());
+        field_info.add("Name: \n\t" + fieldToShow.getName());
+        field_info.add("ID: \n\t" + fieldToShow.getID());
+        field_info.add("Location: \n\t" + fieldToShow.getLocation());
+        field_info.add("Field Size (acres): \n\t" + fieldToShow.getSize());
+        field_info.add("Soil Type: \n\t" + fieldToShow.getSoilType());
+        field_info.add("Tillage System: \n\t" + fieldToShow.getTillageSystem());
+        field_info.add("Irrigation System: \n\t" + fieldToShow.getIrrigationSystem());
 
-        plantings.add("The Conjuring");
-        plantings.add("Despicable Me 2");
-        plantings.add("Turbo");
-        plantings.add("Grown Ups 2");
-        plantings.add("Red 2");
-        plantings.add("The Wolverine");
+        for(Planting p : userPlantings)
+        {
+            plantings.add(p.getDateOfPlanting().toString() + ": " + p.getCropType() +
+                            "\n\tCrop Variety: " + p.getCropVariety() +
+                            "\n\tDensity: " + p.getCropDensity() );
+        }
 
-        pest_samples.add("ID: ");
-        pest_samples.add("The Smurfs 2");
-        pest_samples.add("The Spectacular Now");
-        pest_samples.add("The Canyons");
-        pest_samples.add("Europa Report");
+        for(PestSample p : userSamples)
+        {
+            if(p instanceof GreenbugSample)
+            {
+                pest_samples.add("Greenbug Sample\n\tTreat: " +
+                        ((GreenbugSample) p).getTreatmentRecommendation().toString() +
+                        "\n\tAphid Count: " + ((GreenbugSample) p).getAphidCount() +
+                        "\n\tMummy Count: " + ((GreenbugSample) p).getMummyCount());
+            }
+        }
 
         listDataChild.put(listDataHeader.get(0), field_info); // Header, Child data
         listDataChild.put(listDataHeader.get(1), plantings);
