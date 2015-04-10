@@ -20,8 +20,6 @@ public class FieldsList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View focusView = null;
-
         setContentView(R.layout.activity_fields_list);
 
         listView = (ListView) findViewById(R.id.selection_list);
@@ -38,7 +36,6 @@ public class FieldsList extends Activity {
             selectionList[i] = fieldsList.get(i).Name;
         }
 
-        //listView = (ListView) findViewById(R.id.selection_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
         listView.setAdapter(adapter);

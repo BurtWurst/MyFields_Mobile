@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 public class SpecificFieldInfo extends Activity {
 
+    private int fieldID;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
@@ -46,12 +47,12 @@ public class SpecificFieldInfo extends Activity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        int FieldIndex = this.getIntent().getIntExtra("FieldIndex", 0);
-        Field fieldToShow = Globals.currentUser.getFields().get(FieldIndex);
+        fieldID = this.getIntent().getIntExtra("FieldIndex", 0);
+        Field fieldToShow = Globals.currentUser.getFields().get(fieldID);
         ArrayList<PestSample> userSamples = fieldToShow.getPestSamples();
         ArrayList<Planting> userPlantings = fieldToShow.getPlantingList();
-        List<String> pest_samples = new ArrayList<String>();
         List<String> field_info = new ArrayList<String>();
+        List<String> pest_samples = new ArrayList<String>();
         List<String> plantings = new ArrayList<String>();
 
         // Adding child data
@@ -97,12 +98,20 @@ public class SpecificFieldInfo extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-                if (groupPosition == 1)
+                switch((String) parent.getExpandableListAdapter().getGroup(groupPosition))
                 {
-                    if (childPosition == 0)
-                    {
-                        //shit be wrong
-                    }
+                    case "Plantings":
+                        Intent myPlantingIntent = new Intent(SpecificFieldInfo.this, PlantingsSpecificInfo.class);
+                        myPlantingIntent.putExtra("FieldIndex", fieldID);
+                        myPlantingIntent.putExtra("PlantingIndex", childPosition);
+                        SpecificFieldInfo.this.startActivity(myPlantingIntent);
+                        break;
+                    case "Pest Samples":
+                        Intent mySampleIntent = new Intent(SpecificFieldInfo.this, PestSamplesSpecificInfo.class);
+                        mySampleIntent.putExtra("FieldIndex", fieldID);
+                        mySampleIntent.putExtra("SampleIndex", childPosition);
+                        SpecificFieldInfo.this.startActivity(mySampleIntent);
+                        break;
                 }
 
                 return false;
