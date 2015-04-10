@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -88,5 +89,25 @@ public class SpecificFieldInfo extends Activity {
         listDataChild.put(listDataHeader.get(0), field_info); // Header, Child data
         listDataChild.put(listDataHeader.get(1), plantings);
         listDataChild.put(listDataHeader.get(2), pest_samples);
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                if (groupPosition == 1)
+                {
+                    if (childPosition == 0)
+                    {
+                        //shit be wrong
+                    }
+                }
+
+                return false;
+            }
+        });
     }
+
 }
