@@ -9,9 +9,16 @@ import org.json.JSONObject;
  */
 public class GreenbugSample extends PestSample {
 
+    // The database ID associated with this Greenbug Sample
     protected int SpecificID;
+
+    // Whether or not to treat based on this sample
     protected Boolean TreatmentRecommendation;
+
+    // The number of greenbugs detected via sampling
     protected int AphidCount;
+
+    // The number of mummies detected via sampling
     protected int MummyCount;
 
     public GreenbugSample() { }

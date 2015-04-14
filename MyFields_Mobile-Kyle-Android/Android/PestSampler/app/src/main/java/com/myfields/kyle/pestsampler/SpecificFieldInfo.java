@@ -1,59 +1,122 @@
 package com.myfields.kyle.pestsampler;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.Toast;
 
-/**
-After you are on the field page (that shows a field name, and what type of field it is), you click on one, and it will take you to a screen that shows a picture of that field, and a description.
- This class represents that page.
- */
 public class SpecificFieldInfo extends Activity {
 
-    private ListView listView;
-    private static int FieldIndex = -1;
-
-    public static void setFieldIndex(int index) { SpecificFieldInfo.FieldIndex = index; }
+    private int fieldID;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_specific_field_info);
 
-        listView = (ListView) findViewById(R.id.list_of_information);
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        TextView header = new TextView(this);
-        header.setText("Field Information: ");
-        listView.addHeaderView(header);
+        // preparing list data
+        prepareListData();
 
-        CreateListView();
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
     }
-    public void CreateListView()
-    {
 
-        Field fieldToShow = Globals.currentUser.getFields().get(SpecificFieldInfo.FieldIndex);
+    /*
+     * Preparing the list data
+     */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
-        SpecificFieldInfo.FieldIndex = -1;
-
+        fieldID = this.getIntent().getIntExtra("FieldIndex", 0);
+        Field fieldToShow = Globals.currentUser.getFields().get(fieldID);
+        ArrayList<PestSample> userSamples = fieldToShow.getPestSamples();
+        ArrayList<Planting> userPlantings = fieldToShow.getPlantingList();
         List<String> field_info = new ArrayList<String>();
+        List<String> pest_samples = new ArrayList<String>();
+        List<String> plantings = new ArrayList<String>();
 
-        field_info.add("Name: " + fieldToShow.getName());
-        field_info.add("ID: " + fieldToShow.getID());
-        field_info.add("Location: " + fieldToShow.getLocation());
-        field_info.add("Field Size: " + fieldToShow.getSize());
-        field_info.add("Soil Type: " + fieldToShow.getSoilType());
-        field_info.add("Tillage System: " + fieldToShow.getTillageSystem());
-        field_info.add("Irrigation System: " + fieldToShow.getIrrigationSystem());
+        // Adding child data
+        listDataHeader.add("Field Info");
+        listDataHeader.add("Plantings");
+        listDataHeader.add("Pest Samples");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, field_info);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged(); // Explain to Daniel later
+        // Adding child data
+        field_info.add("Name: \n\t" + fieldToShow.getName());
+        field_info.add("ID: \n\t" + fieldToShow.getID());
+        field_info.add("Location: \n\t" + fieldToShow.getLocation());
+        field_info.add("Field Size (acres): \n\t" + fieldToShow.getSize());
+        field_info.add("Soil Type: \n\t" + fieldToShow.getSoilType());
+        field_info.add("Tillage System: \n\t" + fieldToShow.getTillageSystem());
+        field_info.add("Irrigation System: \n\t" + fieldToShow.getIrrigationSystem());
+
+        for(Planting p : userPlantings)
+        {
+            plantings.add(p.getDateOfPlanting().toString() + ": " + p.getCropType() +
+                            "\n\tCrop Variety: " + p.getCropVariety() +
+                            "\n\tDensity: " + p.getCropDensity() );
+        }
+
+        for(PestSample p : userSamples)
+        {
+            if(p instanceof GreenbugSample)
+            {
+                pest_samples.add("Greenbug Sample\n\tTreat: " +
+                        ((GreenbugSample) p).getTreatmentRecommendation().toString() +
+                        "\n\tAphid Count: " + ((GreenbugSample) p).getAphidCount() +
+                        "\n\tMummy Count: " + ((GreenbugSample) p).getMummyCount());
+            }
+        }
+
+        listDataChild.put(listDataHeader.get(0), field_info); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), plantings);
+        listDataChild.put(listDataHeader.get(2), pest_samples);
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                switch((String) parent.getExpandableListAdapter().getGroup(groupPosition))
+                {
+                    case "Plantings":
+                        Intent myPlantingIntent = new Intent(SpecificFieldInfo.this, PlantingsSpecificInfo.class);
+                        myPlantingIntent.putExtra("FieldIndex", fieldID);
+                        myPlantingIntent.putExtra("PlantingIndex", childPosition);
+                        SpecificFieldInfo.this.startActivity(myPlantingIntent);
+                        break;
+                    case "Pest Samples":
+                        Intent mySampleIntent = new Intent(SpecificFieldInfo.this, PestSamplesSpecificInfo.class);
+                        mySampleIntent.putExtra("FieldIndex", fieldID);
+                        mySampleIntent.putExtra("SampleIndex", childPosition);
+                        SpecificFieldInfo.this.startActivity(mySampleIntent);
+                        break;
+                }
+
+                return false;
+            }
+        });
     }
+
 }

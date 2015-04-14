@@ -74,15 +74,19 @@ public class Field {
     public String getIrrigationSystem() { return this.IrrigationSystem; }
     public void setIrrigationSystem(String irrigationSystem) { this.IrrigationSystem = irrigationSystem; }
 
+    public ArrayList<Planting> getPlantingList() { return  this.PlantingList; }
+
+    public ArrayList<PestSample> getPestSamples() { return this.PestSamples; }
+
     public static Field jsonRead(JSONObject jsonField) throws JSONException, ParseException
     {
         int id = jsonField.getInt("ID");
         String name = jsonField.getString("FieldName");
         GPSLocation loc = GPSLocation.jsonRead(jsonField.getJSONObject("Location"));
         double size = jsonField.getDouble(("Size"));
-        String soil = jsonField.getString("TypeOfSoil");
-        String tillage = jsonField.getString("TillageSystem");
-        String irrigation = jsonField.getString("IrrigationSystem");
+        String soil = jsonField.getString("TypeOfSoil").replace('_', ' ');
+        String tillage = jsonField.getString("TillageSystem").replace('-', ' ');
+        String irrigation = jsonField.getString("IrrigationSystem").replace('_', ' ');
 
         Field f = new Field(id, name, loc, size, soil, tillage, irrigation);
 
@@ -115,11 +119,11 @@ public class Field {
         json.put("FieldName", this.Name);
         json.put("Location", this.Location.jsonSerialize());
         json.put("Size", this.Size);
-        json.put("TypeOfSoil", this.SoilType);
-        json.put("TillageSystem", this.TillageSystem);
-        json.put("IrrigationSystem", this.IrrigationSystem);
+        json.put("TypeOfSoil", this.SoilType.replace(' ', '_'));
+        json.put("TillageSystem", this.TillageSystem.replace(' ', '-'));
+        json.put("IrrigationSystem", this.IrrigationSystem.replace(' ', '_'));
         json.put("PlantingList", new JSONArray(this.PlantingList));
-        json.put("PestSamples", new JSONArray(PestSamples));
+        json.put("PestSamples", new JSONArray(this.PestSamples));
 
         return json;
     }

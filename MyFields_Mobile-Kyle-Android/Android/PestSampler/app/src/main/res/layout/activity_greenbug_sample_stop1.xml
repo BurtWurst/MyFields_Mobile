@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Clickable title -->
+    <ListView
+        android:id="@+id/greenbug_sample_page1"
+        android:layout_height="122dp"
+        android:layout_width="match_parent">
+    </ListView>
+
+    <GridView
+        android:id="@+id/greenbug_sample_stop1_gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:columnWidth="100dp"
+        android:drawSelectorOnTop="true"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        android:focusable="true"
+        android:clickable="true"/>
+    <TableRow
+        android:id="@+id/control_cost_crop_value_tablerow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <Button
+            android:id="@+id/greenbug_sample_stop1_continue_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ps_control_cost_crop_value_forward_button_text"/>
+
+        <Button
+            android:id="@+id/greenbug_sample_stop1_back_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ps_control_cost_crop_value_back_button_text"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/greenbug_sample_stop1_cancel_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ps_control_cost_crop_value_cancel_button_text"
+            android:layout_gravity="center_horizontal" />
+
+    </TableRow>
+
+</LinearLayout>

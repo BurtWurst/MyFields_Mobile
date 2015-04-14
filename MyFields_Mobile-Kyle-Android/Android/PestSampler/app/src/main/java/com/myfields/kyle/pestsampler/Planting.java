@@ -30,6 +30,8 @@ public class Planting {
     // The date this planting occured.
     protected Date DateOfPlanting;
 
+    public static final SimpleDateFormat dateStringFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     // A constructor to build a new planting object
     public Planting(int ID, String Crop, String Variety, double Density, String Notes,
                     Date DateOfPlant)
@@ -42,6 +44,18 @@ public class Planting {
         this.DateOfPlanting = DateOfPlant;
     }
 
+    public int getID() { return this.ID; }
+
+    public String getCropType() { return this.CropType; }
+
+    public String getCropVariety() { return this.CropVariety; }
+
+    public double getCropDensity() { return this.CropDensity; }
+
+    public String getNotes() { return this.Notes; }
+
+    public String getDateOfPlanting() { return dateStringFormat.format(this.DateOfPlanting); }
+
     // A method to read in a new planting from a JSON object
     public static Planting jsonRead(JSONObject plant) throws JSONException, ParseException
     {
@@ -50,7 +64,7 @@ public class Planting {
         String variety = plant.getString("CropVariety");
         double density = plant.getDouble("CropDensity");
         String notes = plant.getString("Notes");
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(plant.getString("Date"));
+        Date date = dateStringFormat.parse(plant.getString("Date"));
 
         return new Planting(id, crop, variety, density, notes, date);
     }
@@ -65,7 +79,7 @@ public class Planting {
         json.put("CropVariety", this.CropVariety);
         json.put("CropDensity", this.CropDensity);
         json.put("Notes", this.Notes);
-        json.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(this.DateOfPlanting));
+        json.put("Date", dateStringFormat.format(this.DateOfPlanting));
 
         return json;
     }
@@ -84,10 +98,10 @@ public class Planting {
 		boolean returnValue = true;
 		
 		returnValue = returnValue && p.ID == this.ID;
-		returnValue = returnValue && p.CropType == this.CropType;
-		returnValue = returnValue && p.CropVariety == this.CropVariety;
+		returnValue = returnValue && p.CropType.equals(this.CropType);
+		returnValue = returnValue && p.CropVariety.equals(this.CropVariety);
 		returnValue = returnValue && p.CropDensity == this.CropDensity;
-		returnValue = returnValue && p.Notes == this.Notes;
+		returnValue = returnValue && p.Notes.equals(this.Notes);
 		returnValue = returnValue && p.DateOfPlanting.equals(this.DateOfPlanting);
 
 		return returnValue;

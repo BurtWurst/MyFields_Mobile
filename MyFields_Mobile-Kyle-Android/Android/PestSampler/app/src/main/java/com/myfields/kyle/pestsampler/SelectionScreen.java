@@ -2,6 +2,7 @@ package com.myfields.kyle.pestsampler;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -74,18 +75,16 @@ public class SelectionScreen extends Activity {
 
             // Show a progress spinner, and kick off a background task to
             // perform the field retrieval attempt.
-            //showProgress(true);
+            ProgressDialog progress = new ProgressDialog(this);
+            progress.setTitle("Loading...");
+            progress.setMessage("Please wait while we load your information.");
+            progress.show();
+
             api = new GetAllFields(Globals.currentUser.getFields(),
                     Globals.currentUser.getUserName(),
-                    Globals.currentUser.getUserPassword());
+                    Globals.currentUser.getUserPassword(),
+                    progress);
             api.execute((Void) null);
-
-            try {
-                api.get(20000, TimeUnit.MILLISECONDS);
-            }
-            catch(Exception ex) {
-
-            }
         }
     }
 
