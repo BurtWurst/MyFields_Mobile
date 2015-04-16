@@ -15,6 +15,14 @@
 		0C6972A01A88609200947D85 /* PestSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C69729F1A88609200947D85 /* PestSampler.m */; };
 		0C6972A31A8871CE00947D85 /* AddNewField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6972A21A8871CE00947D85 /* AddNewField.m */; };
 		0C6972A61A895B3300947D85 /* FieldItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6972A51A895B3300947D85 /* FieldItem.m */; };
+		0C75388A1AD4AD03001ED545 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7538891AD4AD03001ED545 /* Reachability.m */; };
+		0C75388C1AD5B9DB001ED545 /* MyFields logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0C75388B1AD5B9DB001ED545 /* MyFields logo.jpg */; };
+		0C75388F1AD5D2EC001ED545 /* ControlCostItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75388E1AD5D2EC001ED545 /* ControlCostItem.m */; };
+		0C7538921AD5D3A0001ED545 /* TakeFieldSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7538911AD5D3A0001ED545 /* TakeFieldSample.m */; };
+		0C7538951AD5DD1C001ED545 /* NewControlCost.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7538941AD5DD1C001ED545 /* NewControlCost.m */; };
+		0C7538981AD5F9FE001ED545 /* NewCropValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7538971AD5F9FE001ED545 /* NewCropValue.m */; };
+		0C75389B1AD5FA54001ED545 /* CropValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75389A1AD5FA54001ED545 /* CropValueItem.m */; };
+		0C75389E1AD61004001ED545 /* ViewFieldData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C75389D1AD61004001ED545 /* ViewFieldData.m */; };
 		0C92C2131A7EB8B400BB8115 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92C2121A7EB8B400BB8115 /* main.m */; };
 		0C92C2161A7EB8B400BB8115 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92C2151A7EB8B400BB8115 /* AppDelegate.m */; };
 		0C92C2191A7EB8B400BB8115 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92C2181A7EB8B400BB8115 /* ViewController.m */; };
@@ -48,6 +56,21 @@
 		0C6972A21A8871CE00947D85 /* AddNewField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewField.m; sourceTree = "<group>"; };
 		0C6972A41A895B3300947D85 /* FieldItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldItem.h; sourceTree = "<group>"; };
 		0C6972A51A895B3300947D85 /* FieldItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldItem.m; sourceTree = "<group>"; };
+		0C7538881AD4AD03001ED545 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		0C7538891AD4AD03001ED545 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		0C75388B1AD5B9DB001ED545 /* MyFields logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "MyFields logo.jpg"; path = "Images.xcassets/MyFields logo.jpg"; sourceTree = "<group>"; };
+		0C75388D1AD5D2EC001ED545 /* ControlCostItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlCostItem.h; sourceTree = "<group>"; };
+		0C75388E1AD5D2EC001ED545 /* ControlCostItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlCostItem.m; sourceTree = "<group>"; };
+		0C7538901AD5D3A0001ED545 /* TakeFieldSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakeFieldSample.h; sourceTree = "<group>"; };
+		0C7538911AD5D3A0001ED545 /* TakeFieldSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakeFieldSample.m; sourceTree = "<group>"; };
+		0C7538931AD5DD1C001ED545 /* NewControlCost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewControlCost.h; sourceTree = "<group>"; };
+		0C7538941AD5DD1C001ED545 /* NewControlCost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewControlCost.m; sourceTree = "<group>"; };
+		0C7538961AD5F9FE001ED545 /* NewCropValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCropValue.h; sourceTree = "<group>"; };
+		0C7538971AD5F9FE001ED545 /* NewCropValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCropValue.m; sourceTree = "<group>"; };
+		0C7538991AD5FA54001ED545 /* CropValueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropValueItem.h; sourceTree = "<group>"; };
+		0C75389A1AD5FA54001ED545 /* CropValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropValueItem.m; sourceTree = "<group>"; };
+		0C75389C1AD61004001ED545 /* ViewFieldData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFieldData.h; sourceTree = "<group>"; };
+		0C75389D1AD61004001ED545 /* ViewFieldData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFieldData.m; sourceTree = "<group>"; };
 		0C92C20D1A7EB8B400BB8115 /* MyFields_Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFields_Mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C92C2111A7EB8B400BB8115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C92C2121A7EB8B400BB8115 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,16 +132,31 @@
 				0C1BFE3C1A88001700EC217F /* UserOptions.m */,
 				0C69729D1A88606400947D85 /* MyFields.h */,
 				0C69729B1A88605800947D85 /* MyFields.m */,
+				0C75389C1AD61004001ED545 /* ViewFieldData.h */,
+				0C75389D1AD61004001ED545 /* ViewFieldData.m */,
 				0C69729E1A88608200947D85 /* PestSampler.h */,
 				0C69729F1A88609200947D85 /* PestSampler.m */,
 				0C5A43961AC9F40600C8FB67 /* NewPestSample.h */,
 				0C5A43971AC9F40600C8FB67 /* NewPestSample.m */,
+				0C7538931AD5DD1C001ED545 /* NewControlCost.h */,
+				0C7538941AD5DD1C001ED545 /* NewControlCost.m */,
+				0C7538961AD5F9FE001ED545 /* NewCropValue.h */,
+				0C7538971AD5F9FE001ED545 /* NewCropValue.m */,
+				0C7538901AD5D3A0001ED545 /* TakeFieldSample.h */,
+				0C7538911AD5D3A0001ED545 /* TakeFieldSample.m */,
 				0C6972A11A8871CE00947D85 /* AddNewField.h */,
 				0C6972A21A8871CE00947D85 /* AddNewField.m */,
 				0C6972A41A895B3300947D85 /* FieldItem.h */,
 				0C6972A51A895B3300947D85 /* FieldItem.m */,
 				0C0BA9EB1ACB838E005A0226 /* PestItem.h */,
 				0C0BA9EC1ACB838E005A0226 /* PestItem.m */,
+				0C75388D1AD5D2EC001ED545 /* ControlCostItem.h */,
+				0C75388E1AD5D2EC001ED545 /* ControlCostItem.m */,
+				0C7538991AD5FA54001ED545 /* CropValueItem.h */,
+				0C75389A1AD5FA54001ED545 /* CropValueItem.m */,
+				0C7538881AD4AD03001ED545 /* Reachability.h */,
+				0C7538891AD4AD03001ED545 /* Reachability.m */,
+				0C75388B1AD5B9DB001ED545 /* MyFields logo.jpg */,
 				0C92C21D1A7EB8B400BB8115 /* Images.xcassets */,
 				0C92C2101A7EB8B400BB8115 /* Supporting Files */,
 			);
@@ -233,6 +271,7 @@
 			files = (
 				0C92C21E1A7EB8B400BB8115 /* Images.xcassets in Resources */,
 				0C69729A1A88231600947D85 /* Main.storyboard in Resources */,
+				0C75388C1AD5B9DB001ED545 /* MyFields logo.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,11 +292,18 @@
 				0C92C2191A7EB8B400BB8115 /* ViewController.m in Sources */,
 				0C6972A61A895B3300947D85 /* FieldItem.m in Sources */,
 				0C5A43981AC9F40600C8FB67 /* NewPestSample.m in Sources */,
+				0C7538951AD5DD1C001ED545 /* NewControlCost.m in Sources */,
+				0C75388A1AD4AD03001ED545 /* Reachability.m in Sources */,
 				0C92C2161A7EB8B400BB8115 /* AppDelegate.m in Sources */,
 				0C92C2131A7EB8B400BB8115 /* main.m in Sources */,
 				0C1BFE3D1A88001700EC217F /* UserOptions.m in Sources */,
+				0C7538981AD5F9FE001ED545 /* NewCropValue.m in Sources */,
+				0C75388F1AD5D2EC001ED545 /* ControlCostItem.m in Sources */,
+				0C75389B1AD5FA54001ED545 /* CropValueItem.m in Sources */,
 				0C6972A01A88609200947D85 /* PestSampler.m in Sources */,
 				0C6972A31A8871CE00947D85 /* AddNewField.m in Sources */,
+				0C75389E1AD61004001ED545 /* ViewFieldData.m in Sources */,
+				0C7538921AD5D3A0001ED545 /* TakeFieldSample.m in Sources */,
 				0C0BA9ED1ACB838E005A0226 /* PestItem.m in Sources */,
 				0C69729C1A88605800947D85 /* MyFields.m in Sources */,
 			);
