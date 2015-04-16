@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FieldItem.h"
 
-@interface MyFields: UITableViewController
+@interface MyFields: UITableViewController{
+    
+    NSMutableArray *fieldList;
+    int fieldIndex;
+    FieldItem *shareFieldObject;
+}
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 
 - (void) retrieveData;
+
+@property(strong) NSMutableArray *fieldList;
+@property int fieldIndex;
+@property(strong) FieldItem *shareFieldObject;
 
 @end

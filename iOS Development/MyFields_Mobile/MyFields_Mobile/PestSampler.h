@@ -11,5 +11,8 @@
 @interface PestSampler: UITableViewController
 
 - (void) retrieveData;
+-(IBAction)nextButton:(UIBarButtonItem *)sender;
+@property(strong) NSMutableArray *pestSample;
+
 
 @end

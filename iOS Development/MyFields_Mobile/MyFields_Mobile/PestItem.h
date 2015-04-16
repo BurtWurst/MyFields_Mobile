@@ -13,4 +13,6 @@
 
 @property NSString *pestName;
 
+-(id) initWithPestName: (NSString *) pName;
+
 @end
