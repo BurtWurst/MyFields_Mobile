@@ -60,6 +60,8 @@
         
         MyFields *mf = [self.storyboard instantiateViewControllerWithIdentifier:@"MyFieldsID"];
         [self.navigationController pushViewController:mf animated:YES];
+        
+        
 
     }
     else if(indexPath.row == 1){

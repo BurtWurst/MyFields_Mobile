@@ -8,11 +8,15 @@
 
 #import "PestSampler.h"
 #import "FieldItem.h"
+#import "NewPestSample.h"
 
 @interface PestSampler ()
 
 @property NSMutableArray *fieldList;
 @property NSMutableArray *jsonArray;
+
+//MyFields *myFields = [[MyFields alloc] init];
+//NSMutableArray *mfArray = [myFields.fields mutableCopy];
 
 @end
 
@@ -35,6 +39,8 @@
 }
 
 - (void) retrieveData{
+    
+    
     
     self.fieldList = [[NSMutableArray alloc] init];
     
@@ -86,7 +92,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -95,6 +100,17 @@
     else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+}
+
+-(IBAction)nextButton:(UIBarButtonItem *)sender {
+    NewPestSample *nps = [self.storyboard instantiateViewControllerWithIdentifier:@"PestListID"];
+    [self.navigationController pushViewController:nps animated:YES];
+    
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
 }
 
 

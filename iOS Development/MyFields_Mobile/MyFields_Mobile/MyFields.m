@@ -9,16 +9,21 @@
 #import "MyFields.h"
 #import "FieldItem.h"
 #import "AddNewField.h"
+#import "ViewFieldData.h"
+
+
 
 @interface MyFields ()
 
-@property NSMutableArray *fieldList;
 @property NSMutableArray *jsonArray;
-
 
 @end
 
 @implementation MyFields
+
+@synthesize fieldList;
+@synthesize fieldIndex;
+@synthesize shareFieldObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,17 +46,14 @@
     AddNewField *source = [segue sourceViewController];
     FieldItem *item = source.fieldItem;
     if (item != nil) {
-        [self.fieldList addObject:item];
+        [fieldList addObject:item];
         [self.tableView reloadData];
     }
 }
 
-- (void)loadInitialData{
-}
-
 - (void) retrieveData{
     
-    self.fieldList = [[NSMutableArray alloc] init];
+    fieldList = [[NSMutableArray alloc] init];
     
     NSArray *jsonPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [jsonPath objectAtIndex:0];
@@ -72,7 +74,7 @@
         NSArray *fPlantingList = [[self.jsonArray objectAtIndex:i] objectForKey:@"PlantingList"];
         NSArray *fPestSamples = [[self.jsonArray objectAtIndex:i] objectForKey:@"PestSamples"];
         
-        [self.fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation andPlantingList:fPlantingList andFieldSamples:fPestSamples]];
+        [fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation andPlantingList:fPlantingList andFieldSamples:fPestSamples]];
     }
     
     //Reload our table view
@@ -86,18 +88,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //Return the number of rows in the section.
-    
-    return [self.fieldList count];
+    return [fieldList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
     
-    
-    FieldItem *fieldItem = [self.fieldList objectAtIndex:indexPath.row];
+    FieldItem *fieldItem = [fieldList objectAtIndex:indexPath.row];
     cell.textLabel.text = fieldItem.fieldName;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    fieldIndex = (int)indexPath.row;
+    shareFieldObject = [fieldList objectAtIndex:indexPath.row];
+    ViewFieldData *vfd = [self.storyboard instantiateViewControllerWithIdentifier:@"FieldDataID"];
+    [self.navigationController pushViewController:vfd animated:YES];
+    vfd.pointerToMyFields = self;
+    
 }
 
 /*

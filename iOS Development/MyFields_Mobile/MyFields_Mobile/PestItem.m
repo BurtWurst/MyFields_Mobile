@@ -8,6 +8,20 @@
 
 #import "PestItem.h"
 
+@interface PestItem()
+
+@end
+
 @implementation PestItem
+
+-(id) initWithPestName: (NSString *) pName{
+    
+    self = [super init];
+    if (self){
+        self.pestName = pName;
+
+    }
+    return self;
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "UserOptions.h"
+//#import "KeychainItemWrapper.h"
 
 @interface ViewController ()
 
@@ -18,6 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+//    if(keyChainItem != NULL){
+//        UserOptions *uo = [self.storyboard instantiateViewControllerWithIdentifier:@"UserOptionsID"];
+//        [self.navigationController pushViewController:uo animated:YES];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,8 +33,13 @@
 
 - (IBAction)enterLogin
 {
-    
-    //NSInteger success = 0;
+//    KeychainItemWrapper *keyChainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"MyFieldsLogin" accessGroup:nil];
+//    
+//    if(keyChainItem != NULL){
+//        UserOptions *uo = [self.storyboard instantiateViewControllerWithIdentifier:@"UserOptionsID"];
+//        [self.navigationController pushViewController:uo animated:YES];
+//    }
+
     @try{
         if ([[username text] isEqualToString:@""] || [[password text] isEqualToString:@""]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter a Username and Password" message:@"You must enter a Username and Password to login." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
@@ -43,6 +54,9 @@
             
             NSString *get = [[NSString alloc] initWithFormat:@"user=%@&pass=%@", [username text],[self sha1:password.text]];
             NSLog(@"GetData: %@",get);
+            
+            //[keyChainItem setObject:[username text] forKey:(__bridge id)(kSecValueData)];
+            //[keyChainItem setObject:[self sha1:password.text] forKey:(__bridge id)(kSecAttrAccount)];
             
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://people.cis.ksu.edu/~dgk2010/API.php?user=%@&pass=%@", [username text], [self sha1:password.text]]]];
