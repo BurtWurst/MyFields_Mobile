@@ -36,6 +36,7 @@
         <activity android:label="@string/app_name" android:name=".Greenbug_Sample_Stop_1"/>
         <activity android:label="@string/app_name" android:name=".PlantingsSpecificInfo"/>
         <activity android:label="@string/app_name" android:name=".PestSamplesSpecificInfo"/>
+        <activity android:label="@string/app_name" android:name=".Notes_and_Other_Pests"/>
     </application>
 
 </manifest>

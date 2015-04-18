@@ -4,14 +4,20 @@
     android:layout_height="match_parent">
 
     <!-- Clickable title -->
-    <ListView
+    <ExpandableListView
         android:id="@+id/greenbug_sample_page1"
         android:layout_height="122dp"
+        android:layout_width="match_parent">
+    </ExpandableListView>
+
+    <ListView
+        android:id="@+id/greenbug_sample_page1_listview"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>
 
     <GridView
-        android:id="@+id/greenbug_sample_stop1_gridview"
+        android:id="@+id/greenbug_sample_page1_gridview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

@@ -10,10 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.Toast;
 
 public class SpecificFieldInfo extends Activity {
 
@@ -29,7 +25,7 @@ public class SpecificFieldInfo extends Activity {
         setContentView(R.layout.activity_specific_field_info);
 
         // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        expListView = (ExpandableListView) findViewById(R.id.specific_field_info_expandable_listview);
 
         // preparing list data
         prepareListData();
