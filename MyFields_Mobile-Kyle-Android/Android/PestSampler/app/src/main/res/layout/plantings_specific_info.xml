@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Layout for the plantings specific info page -->
     <ListView
         android:id="@+id/plantings_specific_info_list"
         android:layout_height="wrap_content"

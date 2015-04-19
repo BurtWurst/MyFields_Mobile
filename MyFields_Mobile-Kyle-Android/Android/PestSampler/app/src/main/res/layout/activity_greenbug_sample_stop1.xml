@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Clickable title -->
+    <!--Layout for the first stop on the greenbug sample-->
     <ListView
         android:id="@+id/greenbug_sample_page1"
         android:layout_height="122dp"

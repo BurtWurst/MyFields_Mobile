@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="#f4f4f4" >
 
+    <!-- Layout for the specific field info in the fields list part of the app -->
     <ExpandableListView
         android:id="@+id/specific_field_info_expandable_listview"
         android:layout_height="match_parent"

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- Activity for the pst sampler field list page -->
     <ListView
         android:id="@+id/ps_field_list"
         android:layout_height="wrap_content"

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- Layout for the pest sampler sample method page -->
     <ListView
         android:id="@+id/ps_sample_method"
         android:layout_height="wrap_content"

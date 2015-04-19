@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="#f4f4f4" >
 
+    <!-- Layout for the notes and other pests page -->
     <ExpandableListView
         android:id="@+id/notes_and_other_pests_expandable_listview"
         android:layout_height="match_parent"
