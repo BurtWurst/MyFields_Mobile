@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pest_sampler_methods">
+        <item>Glance N\' Go (Greenbug)</item>
+        <item>Wheat Stem Sawfly</item>
+        <item>Soybean Aphid</item>
+        <item>Sugarcane Aphid</item>
+        <item>Future: Russian Wheat Aphid</item>
+    </string-array>
+
+    <string-array name="pest_sampler_descriptions">
+        <item>A presence/absence sampling method to make a treatment decision for greenbugs in winter wheat. First, sampling information is linked to a location or field site. Then, an economic threshold is determined by choosing the cost of treatment per acre ($/acre), and the expected value of the crop in $/bu. This economic threshold is then used to sample a minimum number of tillers for both live greenbugs and parasitized greenbugs (mummies, to account for biocontrol services working in the field). A treatment decision is provided in the report page of the sampler, which can be printed out and is automatically saved to a field site\'s history.</item>
+        <item>This sampling method is for recording presence/absence of sawfly larval stage in fields. Tillers are sampled by splitting stems toward the crown of the plant and looking for larvae that are actively feeding within the stems or by observing the feeding damage of larvae that have left frass within the hollow stem.</item>
+        <item>With this method, the entire number of aphids on each plant does not need to be estimated. Plants are considered \“infested\” if they have 40 or more aphids and \“uninfested\” if they have less than 40 aphids. In each 50-acre area of soybean, 11 plants are initially inspected in this manner and the numbers of \“infested\” and \“uninfested\” plants are tallied. From those results, a decision is made to treat the field, not to treat the field, or to inspect 5 additional plants. When a treat or no-treat decision cannot be made, this process will continue up to a maximum of 31 plants, at which point the decision is made to resample in 3-4 days. To account for the tendency to over recommend treatment, a decision to treat a field should be confirmed by resampling the field in 3 to 4 days.</item>
+        <item>This sampling method is for recording presence/absence of sugarcane aphid within a sorghum field.</item>
+        <item>A presence/absence sampling method for making a treatment decision for russian wheat aphid in winter wheat.</item>
+    </string-array>
+
+</resources>

@@ -43,10 +43,10 @@ public class GreenbugSample extends PestSample {
     { this.TreatmentRecommendation = recommendation; }
 
     public int getAphidCount() { return this.AphidCount; }
-    public void setAphidCount(int count) { this.AphidCount = count; }
+    public void addAphids(int count) { this.AphidCount += count; }
 
     public int getMummyCount() { return this.MummyCount; }
-    public void setMummyCount(int count) { this.MummyCount = count; }
+    public void addMummys(int count) { this.MummyCount += count; }
 
     public static GreenbugSample jsonRead(JSONObject sample) throws JSONException
     {
