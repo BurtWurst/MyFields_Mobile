@@ -1,9 +1,12 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
@@ -11,6 +14,7 @@ import android.widget.ListView;
  */
 public class PestSamplesSpecificInfo extends Activity{
     private ListView listView;
+    private Button home_Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,7 @@ public class PestSamplesSpecificInfo extends Activity{
 
         setContentView(R.layout.pest_samples_specific_info);
 
+        home_Button = (Button) findViewById(R.id.pest_samples_specific_info_home_button);
         listView = (ListView) findViewById(R.id.pest_samples_specific_info_list);
 
         createListView();
@@ -28,6 +33,14 @@ public class PestSamplesSpecificInfo extends Activity{
         int fieldIndex = this.getIntent().getIntExtra("FieldIndex", 0);
         int sampleIndex = this.getIntent().getIntExtra("SampleIndex", 0);
         PestSample p = Globals.currentUser.getFields().get(fieldIndex).getPestSamples().get(sampleIndex);
+
+        home_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(PestSamplesSpecificInfo.this, SelectionScreen.class);
+                PestSamplesSpecificInfo.this.startActivity(myIntent);
+            }
+        });
 
         if(p instanceof GreenbugSample)
         {
@@ -55,7 +68,6 @@ public class PestSamplesSpecificInfo extends Activity{
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, selectionList);
         listView.setAdapter(adapter);
-
     }
 
     @Override

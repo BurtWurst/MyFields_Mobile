@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
@@ -18,6 +19,7 @@ public class SpecificFieldInfo extends Activity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private Button home_Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class SpecificFieldInfo extends Activity {
 
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.specific_field_info_expandable_listview);
+        home_Button = (Button) findViewById(R.id.specific_field_info_home_button);
 
         // preparing list data
         prepareListData();
@@ -111,6 +114,13 @@ public class SpecificFieldInfo extends Activity {
                 }
 
                 return false;
+            }
+        });
+        home_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SpecificFieldInfo.this, SelectionScreen.class);
+                SpecificFieldInfo.this.startActivity(myIntent);
             }
         });
     }

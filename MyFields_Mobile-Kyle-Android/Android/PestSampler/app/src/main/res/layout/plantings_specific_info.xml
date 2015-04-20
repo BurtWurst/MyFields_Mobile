@@ -8,5 +8,11 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>
+    <Button android:id="@+id/plantings_specific_info_home_button"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Home"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp"/>
 
 </RelativeLayout>

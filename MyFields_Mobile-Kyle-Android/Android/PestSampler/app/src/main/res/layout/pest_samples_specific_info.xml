@@ -1,12 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <!-- Layout for the pest sampler specific info page -->
+    <!-- Layout for the pest samples specific info page -->
+
     <ListView
         android:id="@+id/pest_samples_specific_info_list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@+id/pest_samples_specific_info_home_button">
     </ListView>
-
+    <Button android:id="@+id/pest_samples_specific_info_home_button"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Home"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp"/>
 </RelativeLayout>

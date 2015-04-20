@@ -1,9 +1,11 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
@@ -11,6 +13,7 @@ import android.widget.ListView;
  */
 public class PlantingsSpecificInfo extends Activity {
     private ListView listView;
+    private Button home_Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,7 @@ public class PlantingsSpecificInfo extends Activity {
 
         setContentView(R.layout.plantings_specific_info);
 
+        home_Button = (Button) findViewById(R.id.plantings_specific_info_home_button);
         listView = (ListView) findViewById(R.id.plantings_specific_info_list);
 
         createListView();
@@ -28,6 +32,14 @@ public class PlantingsSpecificInfo extends Activity {
         int fieldIndex = this.getIntent().getIntExtra("FieldIndex", 0);
         int plantingIndex = this.getIntent().getIntExtra("PlantingIndex", 0);
         Planting p = Globals.currentUser.getFields().get(fieldIndex).getPlantingList().get(plantingIndex);
+
+        home_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(PlantingsSpecificInfo.this, SelectionScreen.class);
+                PlantingsSpecificInfo.this.startActivity(myIntent);
+            }
+        });
 
         selectionList[0] = "ID: \n\t" + p.getID();
         selectionList[1] = "Crop Type: \n\t" + p.getCropType();

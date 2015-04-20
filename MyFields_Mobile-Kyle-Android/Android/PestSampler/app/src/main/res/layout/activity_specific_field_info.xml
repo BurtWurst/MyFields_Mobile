@@ -3,12 +3,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#f4f4f4" >
+    android:background="#f4f4f4"
+    android:weightSum="1">
 
     <!-- Layout for the specific field info in the fields list part of the app -->
     <ExpandableListView
         android:id="@+id/specific_field_info_expandable_listview"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_height="495dp"
+        android:layout_above="@+id/specific_field_info_home_button"
+        android:layout_width="fill_parent"
+        android:layout_weight="1" />
 
+    <Button android:id="@+id/specific_field_info_home_button"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Home"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
