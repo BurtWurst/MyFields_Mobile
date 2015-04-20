@@ -1,10 +1,17 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +23,9 @@ import java.util.List;
 // * page, which happens after the pest sample main areas        *
 // ***************************************************************
 public class Notes_and_Other_Pests extends Activity{
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    Button helpButton;
+    CheckBox notesCheckbox;
+    CheckBox pestsCheckbox;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -41,13 +47,10 @@ public class Notes_and_Other_Pests extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_and_other_pests); // sets the look to the layout file
-
-        expListView = (ExpandableListView) findViewById(R.id.notes_and_other_pests_expandable_listview); //gets the expandablelistview ID from the layout file
-
+        helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
+        notesCheckbox = (CheckBox)findViewById(R.id.notes_and_other_pests_show_notes_checkbox);
+        pestsCheckbox = (CheckBox)findViewById(R.id.notes_and_other_pests_show_pest_checkbox);
         CreateLayout();
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter); //assigns the expandablelistview
     }
 
     // ***************************************************************
@@ -57,12 +60,50 @@ public class Notes_and_Other_Pests extends Activity{
     // ***************************************************************
     private void CreateLayout()
     {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        //Start of onclick listener that shows the help dialog for the help button
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog alert = new AlertDialog.Builder(Notes_and_Other_Pests.this).create();
+                alert.setTitle(getResources().getString(R.string.notes_and_other_pests_help));
+                alert.setMessage(getResources().getString(R.string.notes_and_other_pests_help_shown));
+                alert.setButton("Done", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish(); //make sure it goes to last page
+                    }
+                });
+                alert.show();
+            }
+        });
+        //end of onclick listener that shows the help dialog for the help button
 
-        List<String> header_info = new ArrayList<String>(); //used to put the expandablelistview info into
-        listDataHeader.add("Help"); //what to make the expandable listview say
-        header_info.add(getResources().getString(R.string.notes_and_other_pests_help_shown)); //what the expandable listview says when you click on it
-        listDataChild.put(listDataHeader.get(0), header_info); //puts the header and child info from the 2 lines above into the expandable listview
+        //start of onclick listener for the notes checkbox
+        notesCheckbox.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (notesCheckbox.isChecked()) {
+                    Intent myIntent = new Intent(Notes_and_Other_Pests.this, Notes_and_Other_Pests_Show_Notes.class);
+                    Notes_and_Other_Pests.this.startActivity(myIntent);
+                } else {
+                    //to do
+                }
+            }
+        }); //end of onclick listener for the notes checkbox
+
+        //start of onclick listener for the pests checkbox
+        pestsCheckbox.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (pestsCheckbox.isChecked()) {
+                    Intent myIntent = new Intent(Notes_and_Other_Pests.this, Notes_and_Other_Pests_Show_Pests.class);
+                    Notes_and_Other_Pests.this.startActivity(myIntent);
+                } else {
+                    //to do
+                }
+            }
+        }); //end of onclick listener for the pests checkbox
     }
 }

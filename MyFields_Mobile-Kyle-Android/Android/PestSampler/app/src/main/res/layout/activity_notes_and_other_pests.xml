@@ -3,12 +3,53 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#f4f4f4" >
+    android:background="#f4f4f4"
+    android:weightSum="1">
 
     <!-- Layout for the notes and other pests page -->
-    <ExpandableListView
-        android:id="@+id/notes_and_other_pests_expandable_listview"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_and_other_pests_help"
+        android:id="@+id/notes_and_other_pests_help"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_weight="0.05" />
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_and_other_pests_show_notes"
+        android:id="@+id/notes_and_other_pests_show_notes_checkbox"
+        android:layout_weight="0.05" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notes_and_other_pests_show_pests"
+        android:id="@+id/notes_and_other_pests_show_pest_checkbox"
+        android:layout_weight="0.05" />
+    <TableRow
+        android:id="@+id/control_cost_crop_value_tablerow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <Button
+            android:id="@+id/greenbug_sample_stop1_continue_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_and_other_pests_continue"/>
+        <Button
+            android:id="@+id/notes_and_other_pests_back_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_and_other_pests_back"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/notes_and_other_pests_cancel_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_and_other_pests_cancel"
+            android:layout_gravity="center_horizontal" />
+    </TableRow>
 </LinearLayout>
