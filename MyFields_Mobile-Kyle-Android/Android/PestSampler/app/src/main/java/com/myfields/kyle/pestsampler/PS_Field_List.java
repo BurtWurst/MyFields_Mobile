@@ -42,8 +42,6 @@ public class PS_Field_List extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View focusView = null;
-
         setContentView(R.layout.activity_ps_field_list);
 
         listView = (ListView) findViewById(R.id.ps_field_list);
