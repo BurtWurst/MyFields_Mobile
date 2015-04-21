@@ -16,19 +16,32 @@
         android:textSize="18sp"
         android:layout_weight="0.05" />
 
-    <CheckBox
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/notes_and_other_pests_show_notes"
-        android:id="@+id/notes_and_other_pests_show_notes_checkbox"
-        android:layout_weight="0.05" />
+        android:gravity="center"
+        android:id="@+id/notes_and_other_pests_editable_notes_textbox"
+        android:layout_weight="0.31" />
 
-    <CheckBox
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="54dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:id="@+id/notes_and_other_pests_spinner"
+        android:spinnerMode="dialog" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/notes_and_other_pests_show_pests"
-        android:id="@+id/notes_and_other_pests_show_pest_checkbox"
-        android:layout_weight="0.05" />
+        android:text="Chosen pests: "
+        android:textSize="18sp"
+        android:gravity="center"
+        android:id="@+id/notes_and_other_pests_chosen_pests"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.36" />
+
     <TableRow
         android:id="@+id/control_cost_crop_value_tablerow"
         android:layout_width="wrap_content"

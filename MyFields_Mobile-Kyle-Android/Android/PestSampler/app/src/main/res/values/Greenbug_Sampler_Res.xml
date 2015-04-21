@@ -37,6 +37,79 @@
         <item>@drawable/mummy3</item>
     </string-array>
 
+    <string-array name="show_pests_array">
+        <item>Select a pest</item>
+        <item>Army Cutworm</item>
+        <item>Armyworm</item>
+        <item>Banks Grass Mite</item>
+        <item>Bean Leaf Beetle</item>
+        <item>Billbug</item>
+        <item>Bird cherry-oat aphid</item>
+        <item>Black Cutworm</item>
+        <item>Black Grass Bug</item>
+        <item>Blister Beetles</item>
+        <item>Blue Alfalfa Aphid</item>
+        <item>Bollworm</item>
+        <item>Brown Wheat Mite</item>
+        <item>Cabbage Aphid</item>
+        <item>Cereal Leaf Beetle</item>
+        <item>Chinch Bug</item>
+        <item>Common Stalk Borer0</item>
+        <item>Corn Borer</item>
+        <item>Corn Earworm (Podworm)</item>
+        <item>Corn Flea Beetle</item>
+        <item>Corn leaf aphid</item>
+        <item>Cotton Fleahopper</item>
+        <item>Cowpea Aphid</item>
+        <item>Cutworms</item>
+        <item>Dectes Stem Borer</item>
+        <item>English Grain Aphid</item>
+        <item>European Corn Borer</item>
+        <item>Fall Armyworm</item>
+        <item>False Chinch Bug</item>
+        <item>False Wireworm</item>
+        <item>Flea Beetle</item>
+        <item>Garden Webworm</item>
+        <item>Grasshoppers</item>
+        <item>Green Bug</item>
+        <item>Green Cloverworm</item>
+        <item>Green Peach Aphid</item>
+        <item>Green Stink Bug</item>
+        <item>Hessian Fly</item>
+        <item>Kudzu Bug</item>
+        <item>Northern Corn Rootworm</item>
+        <item>Orange Wheat Blossom Midge</item>
+        <item>Pale Western Cutworm</item>
+        <item>Pea Aphid</item>
+        <item>Pillbugs</item>
+        <item>Russian wheat aphid</item>
+        <item>Say stink bug</item>
+        <item>Seedcorn Beetle</item>
+        <item>Seedcorn Maggot</item>
+        <item>Seedpod Weevil</item>
+        <item>Sorghum Midge</item>
+        <item>Sorghum Webworm</item>
+        <item>Southern Corn Leaf Beetle</item>
+        <item>Southwestern Corn Borer</item>
+        <item>Soybean Aphid</item>
+        <item>Spider Mites</item>
+        <item>Sugarcane Aphid</item>
+        <item>Sugarcane Rootstalk Weevil</item>
+        <item>Tarnished Plant Bug</item>
+        <item>Thistle Caterpillar (Painted Lady Caterpillar)</item>
+        <item>Thrips</item>
+        <item>True Wireworms</item>
+        <item>Turnip aphid</item>
+        <item>Western Bean Cutworm</item>
+        <item>Western Corn Rootworm</item>
+        <item>Wheat Curl Mite</item>
+        <item>Wheat Stem Sawfly</item>
+        <item>White Grub</item>
+        <item>Winter grain mite</item>
+        <item>Wireworms</item>
+        <item>Woolybears</item>
+    </string-array>
+
     <string name="mummyThresholdValues">
 {
     "1": "4",

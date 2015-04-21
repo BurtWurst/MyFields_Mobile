@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,8 +27,9 @@ import java.util.List;
 // ***************************************************************
 public class Notes_and_Other_Pests extends Activity{
     Button helpButton;
-    CheckBox notesCheckbox;
-    CheckBox pestsCheckbox;
+    EditText editText;
+    Spinner spinner;
+    String[] arrayOfPests;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -48,8 +52,8 @@ public class Notes_and_Other_Pests extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_and_other_pests); // sets the look to the layout file
         helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
-        notesCheckbox = (CheckBox)findViewById(R.id.notes_and_other_pests_show_notes_checkbox);
-        pestsCheckbox = (CheckBox)findViewById(R.id.notes_and_other_pests_show_pest_checkbox);
+        editText = (EditText)findViewById(R.id.notes_and_other_pests_editable_notes_textbox);
+        spinner = (Spinner)findViewById(R.id.notes_and_other_pests_spinner);
         CreateLayout();
     }
 
@@ -74,36 +78,11 @@ public class Notes_and_Other_Pests extends Activity{
                 alert.show();
             }
         });
-        //end of onclick listener that shows the help dialog for the help button
+        arrayOfPests = getResources().getStringArray(R.array.show_pests_array);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayOfPests);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(spinnerAdapter);
 
-        //start of onclick listener for the notes checkbox
-        notesCheckbox.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (notesCheckbox.isChecked()) {
-                    Intent myIntent = new Intent(Notes_and_Other_Pests.this, Notes_and_Other_Pests_Show_Notes.class);
-                    Notes_and_Other_Pests.this.startActivity(myIntent);
-                } else {
-                    //to do
-                }
-            }
-        }); //end of onclick listener for the notes checkbox
-
-        //start of onclick listener for the pests checkbox
-        pestsCheckbox.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (pestsCheckbox.isChecked()) {
-                    Intent myIntent = new Intent(Notes_and_Other_Pests.this, Notes_and_Other_Pests_Show_Pests.class);
-                    Notes_and_Other_Pests.this.startActivity(myIntent);
-                } else {
-                    //to do
-                }
-            }
-        }); //end of onclick listener for the pests checkbox
     }
 }

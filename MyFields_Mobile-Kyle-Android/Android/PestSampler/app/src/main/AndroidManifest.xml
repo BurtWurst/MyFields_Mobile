@@ -37,8 +37,6 @@
         <activity android:label="@string/app_name" android:name=".PlantingsSpecificInfo"/>
         <activity android:label="@string/app_name" android:name=".PestSamplesSpecificInfo"/>
         <activity android:label="@string/app_name" android:name=".Notes_and_Other_Pests"/>
-        <activity android:label="@string/app_name" android:name=".Notes_and_Other_Pests_Show_Notes"/>
-        <activity android:label="@string/app_name" android:name=".Notes_and_Other_Pests_Show_Pests"/>
     </application>
 
 </manifest>

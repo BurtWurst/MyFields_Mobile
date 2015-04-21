@@ -60,33 +60,26 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position >= 6) // Do not do anything if the header cells are clicked
+                if (position >= 6) // Do not do anything if the header cells are clicked
                 {
-                    if(position <= 8) // Aphid clicked
+                    if (position <= 8) // Aphid clicked
                     {
-                        if(!ViewSelected[position - 6])
-                        {
+                        if (!ViewSelected[position - 6]) {
                             view.setBackgroundColor(Color.GREEN);
                             ViewSelected[position - 6] = true;
                             ((GreenbugSample) Globals.sampleToBuild).addAphids(1);
-                        }
-                        else
-                        {
+                        } else {
                             view.setBackgroundColor(Color.TRANSPARENT);
                             ViewSelected[position - 6] = false;
                             ((GreenbugSample) Globals.sampleToBuild).addAphids(-1);
                         }
-                    }
-                    else // Mummy clicked
+                    } else // Mummy clicked
                     {
-                        if(!ViewSelected[position - 6])
-                        {
+                        if (!ViewSelected[position - 6]) {
                             view.setBackgroundColor(Color.RED);
                             ViewSelected[position - 6] = true;
                             ((GreenbugSample) Globals.sampleToBuild).addMummys(1);
-                        }
-                        else
-                        {
+                        } else {
                             view.setBackgroundColor(Color.TRANSPARENT);
                             ViewSelected[position - 6] = false;
                             ((GreenbugSample) Globals.sampleToBuild).addMummys(-1);
@@ -97,7 +90,13 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                 }
             }
         });
-
+        continue_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, Notes_and_Other_Pests.class);
+                Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+            }
+        });
         back_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
