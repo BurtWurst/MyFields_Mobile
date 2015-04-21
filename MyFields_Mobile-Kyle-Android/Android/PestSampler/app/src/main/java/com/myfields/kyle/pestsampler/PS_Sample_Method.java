@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class PS_Sample_Method extends Activity{
 
     ListView listView;
+    Button backButton, cancelButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -60,6 +62,10 @@ public class PS_Sample_Method extends Activity{
     // ***************************************************************
     public void createListView()
     {
+
+        backButton = (Button)findViewById(R.id.ps_sample_method_back_button);
+        cancelButton = (Button)findViewById(R.id.ps_sample_method_home_button);
+
         final Resources res = getResources();
         final String[] sampleMethods = res.getStringArray(R.array.pest_sampler_methods);
 
@@ -77,25 +83,23 @@ public class PS_Sample_Method extends Activity{
                         .setTitle("Sample Method Description")
                         .setMessage(res.getStringArray(R.array.pest_sampler_descriptions)[pos]) // Position is 1-indexed
                         .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                            // If continue is clicked, construct the global sample
-                            if(Globals.sampleToBuild != null)
-                            {
-                                Globals.sampleToBuild = null;
-                            }
+                            public void onClick(DialogInterface dialog, int which) {
+                                // If continue is clicked, construct the global sample
+                                if (Globals.sampleToBuild != null) {
+                                    Globals.sampleToBuild = null;
+                                }
 
-                            // To add samples, add another case here
-                            switch(sampleMethods[pos])
-                            {
-                                case("Glance N\' Go (Greenbug)"):
-                                    Globals.sampleToBuild = new GreenbugSample();
-                                    Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
-                                    Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
-                                    PS_Sample_Method.this.startActivity(myIntent);
-                                    break;
+                                // To add samples, add another case here
+                                switch (sampleMethods[pos]) {
+                                    case ("Glance N\' Go (Greenbug)"):
+                                        Globals.sampleToBuild = new GreenbugSample();
+                                        Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
+                                        Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
+                                        PS_Sample_Method.this.startActivity(myIntent);
+                                        break;
+                                }
                             }
-                        }
-                    })
+                        })
                         .setNegativeButton(R.string.Back, new DialogInterface.OnClickListener() {
                             // If back is clicked, return to the list of samples.
                             public void onClick(DialogInterface dialog, int which) {
@@ -104,6 +108,22 @@ public class PS_Sample_Method extends Activity{
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+        });
+        // On back click, return to the previous activity by finishing this one.
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Globals.sampleToBuild = null;
+
+                Intent myIntent = new Intent(PS_Sample_Method.this, SelectionScreen.class);
+                PS_Sample_Method.this.startActivity(myIntent);
             }
         });
     }

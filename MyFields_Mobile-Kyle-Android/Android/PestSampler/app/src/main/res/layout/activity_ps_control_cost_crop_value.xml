@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <!-- Layout for the pest sampler control cost and crop value page -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:textSize="18sp"
+        android:text="@string/ps_control_cost_crop_value_help_button"
+        android:id="@+id/ps_control_cost_crop_value_help_button" />
+
     <TextView
         android:id="@+id/ps_control_cost_crop_value_control_cost"
         android:layout_width="match_parent"

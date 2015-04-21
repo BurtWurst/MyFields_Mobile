@@ -4,11 +4,22 @@
     android:layout_height="match_parent">
 
     <!--Layout for the first stop on the greenbug sample-->
-    <ListView
-        android:id="@+id/greenbug_sample_page1"
-        android:layout_height="122dp"
-        android:layout_width="match_parent">
-    </ListView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/greenbug_sample_stop1_help_shown"
+        android:id="@+id/greenbug_sample_stop1_help_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="@string/greenbug_sample_stop1_stop1"
+        android:id="@+id/greenbug_sample_stop1_stop1_textbox" />
 
     <GridView
         android:id="@+id/greenbug_sample_stop1_gridview"

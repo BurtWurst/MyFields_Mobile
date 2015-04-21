@@ -67,12 +67,12 @@ public class Notes_and_Other_Pests extends Activity{
         //Start of onclick listener that shows the help dialog for the help button
         helpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AlertDialog alert = new AlertDialog.Builder(Notes_and_Other_Pests.this).create();
+                final AlertDialog alert = new AlertDialog.Builder(Notes_and_Other_Pests.this).create();
                 alert.setTitle(getResources().getString(R.string.notes_and_other_pests_help));
                 alert.setMessage(getResources().getString(R.string.notes_and_other_pests_help_shown));
                 alert.setButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        finish(); //make sure it goes to last page
+                        alert.cancel(); //make sure it goes to last page
                     }
                 });
                 alert.show();

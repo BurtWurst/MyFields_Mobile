@@ -1,6 +1,8 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -23,7 +25,8 @@ import java.util.ArrayList;
  */
 public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
 
-    private ListView listView;
+    private Button helpButton;
+    private TextView stop1TextView;
     private GridView gridView;
     private ArrayAdapter gridViewAdapter;
     boolean[] ViewSelected;
@@ -34,11 +37,9 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
 
         setContentView(R.layout.activity_greenbug_sample_stop1);
 
-        listView = (ListView) findViewById(R.id.greenbug_sample_page1);
+        helpButton = (Button)findViewById(R.id.greenbug_sample_stop1_help_button);
+        stop1TextView = (TextView)findViewById(R.id.greenbug_sample_stop1_stop1_textbox);
         gridView = (GridView)findViewById(R.id.greenbug_sample_stop1_gridview);
-        TextView header = new TextView(this);
-        header.setText("Sample for Pest: ");
-        listView.addHeaderView(header);
 
         ViewSelected = new boolean[6];
 
@@ -49,10 +50,6 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
         Button back_Button = (Button) findViewById(R.id.greenbug_sample_stop1_back_button);
         Button cancel_Button = (Button) findViewById(R.id.greenbug_sample_stop1_cancel_button);
 
-        final String[] items = {"Help", "Step 1 of 5"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, items);
-        listView.setAdapter(adapter);
 
         gridViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getData());
         gridView.setAdapter(gridViewAdapter);
@@ -110,6 +107,19 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
 
                 Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, SelectionScreen.class);
                 Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+            }
+        });
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final AlertDialog alert = new AlertDialog.Builder(Greenbug_Sample_Stop_1.this).create();
+                alert.setTitle(getResources().getString(R.string.greenbug_sample_stop1_help_shown));
+                alert.setMessage(getResources().getString(R.string.greenbug_sample_stop1_help_expanded));
+                alert.setButton("Done", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.cancel(); //make sure it goes to last page
+                    }
+                });
+                alert.show();
             }
         });
 
