@@ -119,6 +119,7 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                         alert.cancel(); //make sure it goes to last page
                     }
                 });
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
                 alert.show();
             }
         });

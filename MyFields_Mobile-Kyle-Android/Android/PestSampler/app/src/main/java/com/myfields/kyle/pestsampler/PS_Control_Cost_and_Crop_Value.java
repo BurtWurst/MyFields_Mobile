@@ -137,6 +137,7 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
                         alert.cancel(); //make sure it goes to last page
                     }
                 });
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
                 alert.show();
             }
         });
