@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * Created by Kyle on 4/9/2015.
@@ -24,6 +25,10 @@ public class PestSamplesSpecificInfo extends Activity{
 
         home_Button = (Button) findViewById(R.id.pest_samples_specific_info_home_button);
         listView = (ListView) findViewById(R.id.pest_samples_specific_info_list);
+
+        TextView header = new TextView(this);
+        header.setText("Complete Pest Sample Info: ");
+        listView.addHeaderView(header);
 
         createListView();
     }

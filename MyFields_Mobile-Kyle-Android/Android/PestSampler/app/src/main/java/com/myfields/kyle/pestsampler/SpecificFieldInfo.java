@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.TextView;
 
 public class SpecificFieldInfo extends Activity {
 
@@ -29,6 +30,10 @@ public class SpecificFieldInfo extends Activity {
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.specific_field_info_expandable_listview);
         home_Button = (Button) findViewById(R.id.specific_field_info_home_button);
+
+        TextView header = new TextView(this);
+        header.setText("Complete Field Info: ");
+        expListView.addHeaderView(header);
 
         // preparing list data
         prepareListData();

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +29,10 @@ public class SelectionScreen extends Activity {
 
         listView = (ListView) findViewById(R.id.selection_list);
 
+        TextView header = new TextView(this);
+        header.setText("Select an option: ");
+        listView.addHeaderView(header);
+
         String[] selectionList = getResources().getStringArray(R.array.selection_info_list);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -41,12 +46,12 @@ public class SelectionScreen extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //goes to fields list
-                if (position == 0) {
+                if (position == 1) {
                     Intent myIntent = new Intent(SelectionScreen.this, FieldsList.class);
                     SelectionScreen.this.startActivity(myIntent);
                 }
                 //goes to pest sampler
-                if (position == 1)
+                if (position == 2)
                 {
                     Intent myIntent = new Intent(SelectionScreen.this, PS_Sample_Method.class);
                     SelectionScreen.this.startActivity(myIntent);

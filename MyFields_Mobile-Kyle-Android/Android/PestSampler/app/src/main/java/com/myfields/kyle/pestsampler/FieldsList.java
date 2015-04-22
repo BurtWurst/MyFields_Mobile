@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,10 @@ public class FieldsList extends Activity {
         setContentView(R.layout.activity_fields_list);
 
         listView = (ListView) findViewById(R.id.selection_list);
+
+        TextView header = new TextView(this);
+        header.setText("Select A Field to View: ");
+        listView.addHeaderView(header);
 
         createListView();
     }
