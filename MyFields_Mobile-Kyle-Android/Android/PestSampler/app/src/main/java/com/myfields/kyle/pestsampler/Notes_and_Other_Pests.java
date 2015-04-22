@@ -30,6 +30,7 @@ public class Notes_and_Other_Pests extends Activity{
     EditText editText;
     Spinner spinner;
     String[] arrayOfPests;
+    Button cancelButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -54,6 +55,7 @@ public class Notes_and_Other_Pests extends Activity{
         helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
         editText = (EditText)findViewById(R.id.notes_and_other_pests_editable_notes_textbox);
         spinner = (Spinner)findViewById(R.id.notes_and_other_pests_spinner);
+        cancelButton = (Button)findViewById(R.id.notes_and_other_pests_cancel_button);
         CreateLayout();
     }
 
@@ -75,6 +77,7 @@ public class Notes_and_Other_Pests extends Activity{
                         alert.cancel(); //make sure it goes to last page
                     }
                 });
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
                 alert.show();
             }
         });
@@ -83,6 +86,13 @@ public class Notes_and_Other_Pests extends Activity{
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(spinnerAdapter);
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent myIntent = new Intent(Notes_and_Other_Pests.this, SelectionScreen.class);
+                Notes_and_Other_Pests.this.startActivity(myIntent);
+            }
+        });
     }
 }
