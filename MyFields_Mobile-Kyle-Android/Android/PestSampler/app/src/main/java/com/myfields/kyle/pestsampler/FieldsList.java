@@ -73,7 +73,7 @@ public class FieldsList extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
-                myIntent.putExtra("FieldIndex", position);
+                myIntent.putExtra("FieldIndex", position-1);
                 FieldsList.this.startActivity(myIntent);
             }
         });
