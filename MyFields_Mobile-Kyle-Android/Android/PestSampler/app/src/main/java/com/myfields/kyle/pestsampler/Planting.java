@@ -7,11 +7,13 @@ import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-/**
- * Overview:
- *  This class represents a Planting for a field.
- */
+// ***************************************************************
+// * OVERVIEW                                                    *
+// * This provides an implementation of a Planting object, with  *
+// * the associated properties as defined by MyFields.           *
+// ***************************************************************
 public class Planting {
+
     // The unique identifier of this planting.
     protected int ID;
 
@@ -30,9 +32,31 @@ public class Planting {
     // The date this planting occured.
     protected Date DateOfPlanting;
 
+    // The Date format used in any date-related processing in a Planting.
     public static final SimpleDateFormat dateStringFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    // A constructor to build a new planting object
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A constructor which takes in all necessary parameters to    *
+    // * construct a new Planting.                                   *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * ID                                                          *
+    // *    The database identifier of the new Planting.             *
+    // * Crop                                                        *
+    // *    The type of crop planted.                                *
+    // * Variety                                                     *
+    // *    The variety of the crop planted.                         *
+    // * Density                                                     *
+    // *    The density, in thousand seeds per acre, of the          *
+    // *    planted crop.                                            *
+    // * Notes                                                       *
+    // *    Any notes recorded during this planting.                 *
+    // * Date                                                        *
+    // *    The date, in year-month-day, the planting was done.      *
+    // ***************************************************************
     public Planting(int ID, String Crop, String Variety, double Density, String Notes,
                     Date DateOfPlant)
     {
@@ -44,19 +68,36 @@ public class Planting {
         this.DateOfPlanting = DateOfPlant;
     }
 
+    // A method used to get the database identifier of this Planting.
     public int getID() { return this.ID; }
 
+    // A method to retrieve the crop type of this Planting.
     public String getCropType() { return this.CropType; }
 
+    // A method to retrieve the crop variety of this Planting.
     public String getCropVariety() { return this.CropVariety; }
 
+    // A method to retrieve the crop density, in thousand seeds per acre, of this Planting.
     public double getCropDensity() { return this.CropDensity; }
 
+    // A method to retrieve the notes stored as part of this Planting.
     public String getNotes() { return this.Notes; }
 
+    // A method to return the Date of this Planting in String format.
     public String getDateOfPlanting() { return dateStringFormat.format(this.DateOfPlanting); }
 
-    // A method to read in a new planting from a JSON object
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method used to parse in a new Planting object from the    *
+    // * MyFields website API.                                       *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * jsonField                                                   *
+    // *    The JSON string returned from the MyFields API           *
+    // *    representing this particular Planting.                   *
+    // ***************************************************************
     public static Planting jsonRead(JSONObject plant) throws JSONException, ParseException
     {
         int id = plant.getInt("ID");
@@ -69,7 +110,18 @@ public class Planting {
         return new Planting(id, crop, variety, density, notes, date);
     }
 
-    // A method to serialize this object to JSON
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method used to parse this Planting into a JSONObject, for *
+    // * use in local storage of Planting objects.                   *
+    // ***************************************************************
+    // * RETURN                                                      *
+    // * ----------------------------------------------------------- *
+    // * This method returns a JSONObject, which contains the key-   *
+    // * value pairs representing this Planting's data members in    *
+    // * JSON format.                                                *
+    // ***************************************************************
     public JSONObject jsonSerialize() throws JSONException
     {
         JSONObject json = new JSONObject();
@@ -84,7 +136,24 @@ public class Planting {
         return json;
     }
 
-    // A method to check if this planting is equal to another.
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method used to determine equality between this Planting   *
+    // * and a passed in field. Done by performing equality checks   *
+    // * on each data member.                                        *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * obj                                                         *
+    // *    The Planting to compare this one against.                *
+    // ***************************************************************
+    // * RETURN                                                      *
+    // * ----------------------------------------------------------- *
+    // * This method returns a boolean which indicates if this       *
+    // * Planting is equal to the Planting passed in.                *
+    // * True if they are equal.                                     *
+    // ***************************************************************
 	@Override
 	public boolean equals(Object obj)
 	{
