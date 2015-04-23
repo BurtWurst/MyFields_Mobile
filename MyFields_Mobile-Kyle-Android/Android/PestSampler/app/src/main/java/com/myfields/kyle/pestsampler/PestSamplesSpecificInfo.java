@@ -56,9 +56,7 @@ public class PestSamplesSpecificInfo extends Activity{
             selectionList[1] = "Specific Sample ID: \n\t" + specificSample.getSpecificID();
             selectionList[2] = "Generic Sample ID: \n\t" + specificSample.getID();
             selectionList[3] = "Treatment Recommendation: \n\t" +
-                    (specificSample.getTreatmentRecommendation() ?
-                            "Treat Field for Greenbugs" :
-                            "Do Not Treat Field for Greenbugs");
+                    specificSample.getTreatmentRecommendation().toString().replace('_', ' ');
             selectionList[4] = "Aphid Count: \n\t" + specificSample.getAphidCount();
             selectionList[5] = "Mummy Count: \n\t" + specificSample.getMummyCount();
             selectionList[6] = "Crop Value: \n\t" + specificSample.getCropValue();

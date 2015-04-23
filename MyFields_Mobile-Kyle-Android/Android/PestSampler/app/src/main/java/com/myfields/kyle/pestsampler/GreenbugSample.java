@@ -10,11 +10,19 @@ import org.json.JSONObject;
 // ***************************************************************
 public class GreenbugSample extends PestSample {
 
+    public static enum Greenbug_Sample_Values
+    {
+        Indeterminate,
+        Do_Not_Treat_Based_On_Mummy_Count,
+        Treat_Based_On_Greenbug_Count,
+        Do_Not_Treat_Based_On_Greenbug_Count,
+    }
+
     // The database ID associated with this Greenbug Sample
     protected int SpecificID;
 
     // Whether or not to treat based on this sample
-    protected Boolean TreatmentRecommendation;
+    protected Greenbug_Sample_Values TreatmentRecommendation;
 
     // The number of greenbugs detected via sampling
     protected int AphidCount;
@@ -74,7 +82,7 @@ public class GreenbugSample extends PestSample {
     // ***************************************************************
     public GreenbugSample(int SpecificID, int GenericID, GPSLocation loc, int field,
                           double control, double crop, String notes, String[] otherPests,
-                          Boolean Treatment, int Aphids, int Mummys)
+                          Greenbug_Sample_Values Treatment, int Aphids, int Mummys)
     {
         super(GenericID, loc, field, control, crop, notes, otherPests);
 
@@ -90,9 +98,9 @@ public class GreenbugSample extends PestSample {
     public void setSpecificID(int id) { this.SpecificID = id; }
 
     // A method to get the recommended treatment for this pest sample.
-    public Boolean getTreatmentRecommendation() { return this.TreatmentRecommendation; }
+    public Greenbug_Sample_Values getTreatmentRecommendation() { return this.TreatmentRecommendation; }
     // A method to set the recommended treatment for this pest sample.
-    public void setTreatmentRecommendation(Boolean recommendation)
+    public void setTreatmentRecommendation(Greenbug_Sample_Values recommendation)
     { this.TreatmentRecommendation = recommendation; }
 
     // A method to get the number of Aphids detected when taking this sample.
@@ -120,7 +128,8 @@ public class GreenbugSample extends PestSample {
     public static GreenbugSample jsonRead(JSONObject sample) throws JSONException
     {
         int specificid = sample.getInt("SpecificID");
-        boolean treat = sample.getInt("TreatmentRecommendation") == 1;
+        Greenbug_Sample_Values treat = Greenbug_Sample_Values.valueOf
+                (sample.getString("TreatmentRecommendation"));
         int aphidcount = sample.getInt("AphidCount");
         int mummycount = sample.getInt("MummyCount");
 

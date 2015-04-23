@@ -85,7 +85,7 @@ public class SpecificFieldInfo extends Activity {
             if(p instanceof GreenbugSample)
             {
                 pest_samples.add("Greenbug Sample\n\tTreat: " +
-                        ((GreenbugSample) p).getTreatmentRecommendation().toString() +
+                        ((GreenbugSample) p).getTreatmentRecommendation().toString().replace('_', ' ') +
                         "\n\tAphid Count: " + ((GreenbugSample) p).getAphidCount() +
                         "\n\tMummy Count: " + ((GreenbugSample) p).getMummyCount());
             }
