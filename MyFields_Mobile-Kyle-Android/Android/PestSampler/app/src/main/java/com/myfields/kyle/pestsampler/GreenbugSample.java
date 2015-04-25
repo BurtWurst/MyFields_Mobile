@@ -2,6 +2,11 @@ package com.myfields.kyle.pestsampler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.Context;
+import android.content.res.Resources;
+
+import java.util.Calendar;
+import java.util.Date;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
@@ -206,5 +211,75 @@ public class GreenbugSample extends PestSample {
 	
 		return returnValue;	
 	}
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * This function will determine whether or not to treat the    *
+    // * field for an unacceptable number of pests based on the      *
+    // * counts collected during sampling. Returns indeterminate     *
+    // * if more samples need to be collected.
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * Stops                                                       *
+    // *    This parameter specifies the number of samples that have *
+    // *    been collected so far. Minimum 5, maximum 30, always a   *
+    // *    multiple of 5.                                           *
+    // * Context                                                     *
+    // *    This parameter is the Context of the activity this is    *
+    // *    called from. Required to get resource values for         *
+    // *    pest thresholds.                                         *
+    // ***************************************************************
+    // * RETURN                                                      *
+    // * ----------------------------------------------------------- *
+    // * This function returns Do Not Treat Based on Mummy Count,    *
+    // * Do Not Treat Based on Greenbug Count, or Treat Based on     *
+    // * Greenbug Count, or Indeterminate based on the current       *
+    // * pest counts in the field.                                   *
+    // ***************************************************************
+    public void determineTreatment(int stops, Context context) throws JSONException
+    {
+        this.TreatmentRecommendation = Greenbug_Sample_Values.Indeterminate;
+
+        Resources arrayAccessor = context.getResources();
+
+        JSONObject mummiesArray = new JSONObject(arrayAccessor.getString(R.string.mummyThresholdValues));
+
+        // A unit is 5 stops.
+        // If mummy count is greater than the threshold value at the number of units you have taken,
+        // return Do Not Treat Based on Mummies.
+        if(this.MummyCount >= (int) mummiesArray.get(Integer.toString(stops/5)))
+        {
+            TreatmentRecommendation = Greenbug_Sample_Values.Do_Not_Treat_Based_On_Mummy_Count;
+        }
+        else
+        {
+            int month = Calendar.getInstance().get(Calendar.MONTH); // Calendar month is 0-based
+            String season = month <= 7 ? "spring" : "fall";
+
+            JSONObject ETValues = new JSONObject(arrayAccessor.getString(R.string.ETValues));
+            JSONObject ETGreenbugValues = new JSONObject(arrayAccessor.getString(R.string.ET_Greenbug_Values));
+
+            int ETValue =
+                    (int) ETValues.
+                            getJSONObject(Double.toString(ControlCost)).
+                            get(Double.toString(CropValue));
+
+            JSONObject GreenbugThreshold = ETGreenbugValues.getJSONObject(season).
+                            getJSONObject(Integer.toString(ETValue)).
+                            getJSONObject(Integer.toString(stops * 3));
+
+            if(AphidCount <= (int) GreenbugThreshold.get("d"))
+            {
+                TreatmentRecommendation = Greenbug_Sample_Values.Do_Not_Treat_Based_On_Greenbug_Count;
+            }
+            else if(!Globals.tryParseInt((String) GreenbugThreshold.get("t")) ||
+                    AphidCount >= (int) GreenbugThreshold.get("t"))
+            {
+                TreatmentRecommendation = Greenbug_Sample_Values.Treat_Based_On_Greenbug_Count;
+            }
+        }
+    }
 
 }
