@@ -4,9 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.content.res.Resources;
+import java.text.DecimalFormat;
 
 import java.util.Calendar;
-import java.util.Date;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
@@ -244,12 +244,17 @@ public class GreenbugSample extends PestSample {
 
         Resources arrayAccessor = context.getResources();
 
+        /* NOTE:
+         *  Due to the decision to store the lookup arrays as JSON objects, each numeric
+         *  index must be prepended by a letter, as numeric keys are not valid JSON syntax.
+         */
+
         JSONObject mummiesArray = new JSONObject(arrayAccessor.getString(R.string.mummyThresholdValues));
 
         // A unit is 5 stops.
         // If mummy count is greater than the threshold value at the number of units you have taken,
         // return Do Not Treat Based on Mummies.
-        if(this.MummyCount >= (int) mummiesArray.get(Integer.toString(stops/5)))
+        if(this.MummyCount >= Integer.parseInt(mummiesArray.getString("m" + Integer.toString(stops/5)).replace("m", "")))
         {
             TreatmentRecommendation = Greenbug_Sample_Values.Do_Not_Treat_Based_On_Mummy_Count;
         }
@@ -261,21 +266,22 @@ public class GreenbugSample extends PestSample {
             JSONObject ETValues = new JSONObject(arrayAccessor.getString(R.string.ETValues));
             JSONObject ETGreenbugValues = new JSONObject(arrayAccessor.getString(R.string.ET_Greenbug_Values));
 
-            int ETValue =
-                    (int) ETValues.
-                            getJSONObject(Double.toString(ControlCost)).
-                            get(Double.toString(CropValue));
+            DecimalFormat arrayFormatter = new DecimalFormat("0.00");
+
+            int ETValue = ETValues.
+                            getJSONObject("e" + arrayFormatter.format(ControlCost)).
+                            getInt("e" + arrayFormatter.format(CropValue));
 
             JSONObject GreenbugThreshold = ETGreenbugValues.getJSONObject(season).
-                            getJSONObject(Integer.toString(ETValue)).
-                            getJSONObject(Integer.toString(stops * 3));
+                            getJSONObject("g" + ETValue).
+                            getJSONObject("g" + Integer.toString(stops * 3));
 
-            if(AphidCount <= (int) GreenbugThreshold.get("d"))
+            if(AphidCount <= GreenbugThreshold.getInt("d"))
             {
                 TreatmentRecommendation = Greenbug_Sample_Values.Do_Not_Treat_Based_On_Greenbug_Count;
             }
-            else if(!Globals.tryParseInt((String) GreenbugThreshold.get("t")) ||
-                    AphidCount >= (int) GreenbugThreshold.get("t"))
+            else if(!Globals.tryParseInt(GreenbugThreshold.getString("t")) ||
+                    AphidCount >= GreenbugThreshold.getInt("t"))
             {
                 TreatmentRecommendation = Greenbug_Sample_Values.Treat_Based_On_Greenbug_Count;
             }
