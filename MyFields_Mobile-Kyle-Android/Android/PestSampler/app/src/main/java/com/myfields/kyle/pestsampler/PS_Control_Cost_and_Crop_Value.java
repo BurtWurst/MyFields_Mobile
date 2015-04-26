@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -113,6 +114,11 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
         back_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Reset values to defaults
+                Globals.sampleToBuild.setControlCost(0.0);
+                Globals.sampleToBuild.setCropValue(0.0);
+
                 finish();
             }
         });
