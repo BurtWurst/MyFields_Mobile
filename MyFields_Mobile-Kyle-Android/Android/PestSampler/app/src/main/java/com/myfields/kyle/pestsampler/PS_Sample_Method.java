@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class PS_Sample_Method extends Activity{
 
     ListView listView;
-    Button backButton, cancelButton;
+    Button cancelButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -62,8 +62,6 @@ public class PS_Sample_Method extends Activity{
     // ***************************************************************
     public void createListView()
     {
-
-        backButton = (Button)findViewById(R.id.ps_sample_method_back_button);
         cancelButton = (Button)findViewById(R.id.ps_sample_method_home_button);
 
         final Resources res = getResources();
@@ -108,13 +106,6 @@ public class PS_Sample_Method extends Activity{
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-            }
-        });
-        // On back click, return to the previous activity by finishing this one.
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
