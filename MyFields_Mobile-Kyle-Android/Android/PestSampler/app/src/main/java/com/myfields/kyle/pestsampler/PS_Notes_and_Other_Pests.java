@@ -6,31 +6,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
 // * This activity class represents the Notes and Other Pests    *
 // * page, which happens after the pest sample main areas        *
 // ***************************************************************
-public class Notes_and_Other_Pests extends Activity{
+public class PS_Notes_and_Other_Pests extends Activity{
     Button helpButton;
     EditText editText;
     Spinner spinner;
     String[] arrayOfPests;
     Button cancelButton;
+    Button backButton;
+    Button finishButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -52,10 +47,17 @@ public class Notes_and_Other_Pests extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_and_other_pests); // sets the look to the layout file
-        helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
+
+
+
         editText = (EditText)findViewById(R.id.notes_and_other_pests_editable_notes_textbox);
         spinner = (Spinner)findViewById(R.id.notes_and_other_pests_spinner);
+
+        helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
         cancelButton = (Button)findViewById(R.id.notes_and_other_pests_cancel_button);
+        backButton = (Button) findViewById(R.id.notes_and_other_pests_back_button);
+        finishButton = (Button) findViewById(R.id.notes_and_other_pests_finish_button);
+
         CreateLayout();
     }
 
@@ -66,33 +68,62 @@ public class Notes_and_Other_Pests extends Activity{
     // ***************************************************************
     private void CreateLayout()
     {
-        //Start of onclick listener that shows the help dialog for the help button
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final AlertDialog alert = new AlertDialog.Builder(Notes_and_Other_Pests.this).create();
-                alert.setTitle(getResources().getString(R.string.notes_and_other_pests_help));
-                alert.setMessage(getResources().getString(R.string.notes_and_other_pests_help_shown));
-                alert.setButton("Done", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        alert.cancel(); //make sure it goes to last page
-                    }
-                });
-                alert.setIcon(android.R.drawable.ic_dialog_alert);
-                alert.show();
-            }
-        });
+
         arrayOfPests = getResources().getStringArray(R.array.show_pests_array);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayOfPests);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(spinnerAdapter);
 
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Display an alert dialog with the help text as defined in the Resource values
+                new AlertDialog.Builder(PS_Notes_and_Other_Pests.this)
+                        .setTitle(getResources().getString(R.string.notes_and_other_pests_help))
+                        .setMessage(getResources().getString(R.string.notes_and_other_pests_help_shown))
+                        .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(Notes_and_Other_Pests.this, SelectionScreen.class);
-                Notes_and_Other_Pests.this.startActivity(myIntent);
+                // Cancelling the sample, nullify the one being built
+                Globals.sampleToBuild = null;
+
+                // Return to the main menu page
+                Intent myIntent = new Intent(PS_Notes_and_Other_Pests.this, SelectionScreen.class);
+                PS_Notes_and_Other_Pests.this.startActivity(myIntent);
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            // Reset Notes and Other Pests to defaults
+            Globals.sampleToBuild.setNotes("");
+            Globals.sampleToBuild.setOtherPests(new ArrayList<String>());
+
+            // Return to the main menu page
+            finish();
+            }
+        });
+
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 }

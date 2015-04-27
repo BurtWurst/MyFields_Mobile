@@ -48,10 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <Button
-            android:id="@+id/greenbug_sample_stop1_continue_button"
+            android:id="@+id/notes_and_other_pests_finish_button"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="@string/notes_and_other_pests_continue"/>
+            android:text="@string/notes_and_other_pests_finish"/>
         <Button
             android:id="@+id/notes_and_other_pests_back_button"
             android:layout_width="100sp"

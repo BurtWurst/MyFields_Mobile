@@ -1,22 +1,16 @@
 package com.myfields.kyle.pestsampler;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -26,7 +20,7 @@ import java.util.ArrayList;
 /**
  Greenbug sample stop
  */
-public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
+public class PS_Greenbug_Sample_Stop extends ActionBarActivity{
 
     private Button helpButton;
     private TextView stop1TextView;
@@ -139,8 +133,8 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                                     .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
 
-                                            Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, Notes_and_Other_Pests.class);
-                                            Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+                                            Intent myIntent = new Intent(PS_Greenbug_Sample_Stop.this, PS_Notes_and_Other_Pests.class);
+                                            PS_Greenbug_Sample_Stop.this.startActivity(myIntent);
 
                                         }
                                     })
@@ -163,10 +157,10 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                                     .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                         // Build a new Sample Stop with stops + 1 and max stops + 5
-                                        Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, Greenbug_Sample_Stop_1.class);
+                                        Intent myIntent = new Intent(PS_Greenbug_Sample_Stop.this, PS_Greenbug_Sample_Stop.class);
                                         myIntent.putExtra("Stop", StopNumber + 1);
                                         myIntent.putExtra("MaxStop", MaxStops + 5);
-                                        Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+                                        PS_Greenbug_Sample_Stop.this.startActivity(myIntent);
 
                                         }
                                     })
@@ -191,8 +185,8 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                                     public void onClick(DialogInterface dialog, int which) {
 
                                         // If continue is pressed, continue to the notes page
-                                        Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, Notes_and_Other_Pests.class);
-                                        Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+                                        Intent myIntent = new Intent(PS_Greenbug_Sample_Stop.this, PS_Notes_and_Other_Pests.class);
+                                        PS_Greenbug_Sample_Stop.this.startActivity(myIntent);
 
                                     }
                                 })
@@ -211,10 +205,10 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                 {
                     // Build a new Sample Stop activity, with + 1 to the stop count and the same
                     // max stops
-                    Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, Greenbug_Sample_Stop_1.class);
+                    Intent myIntent = new Intent(PS_Greenbug_Sample_Stop.this, PS_Greenbug_Sample_Stop.class);
                     myIntent.putExtra("Stop", StopNumber + 1);
                     myIntent.putExtra("MaxStop", MaxStops);
-                    Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+                    PS_Greenbug_Sample_Stop.this.startActivity(myIntent);
                 }
             }
         });
@@ -251,15 +245,15 @@ public class Greenbug_Sample_Stop_1 extends ActionBarActivity{
                 Globals.sampleToBuild = null;
 
                 // Return to the main page.
-                Intent myIntent = new Intent(Greenbug_Sample_Stop_1.this, SelectionScreen.class);
-                Greenbug_Sample_Stop_1.this.startActivity(myIntent);
+                Intent myIntent = new Intent(PS_Greenbug_Sample_Stop.this, SelectionScreen.class);
+                PS_Greenbug_Sample_Stop.this.startActivity(myIntent);
             }
         });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Display an alert dialog with the help text as defined in the Resource values
-                new AlertDialog.Builder(Greenbug_Sample_Stop_1.this)
+                new AlertDialog.Builder(PS_Greenbug_Sample_Stop.this)
                     .setTitle(getResources().getString(R.string.greenbug_sample_stop1_help_shown))
                     .setMessage(getResources().getString(R.string.greenbug_sample_stop1_help_expanded))
                     .setPositiveButton("Done", new DialogInterface.OnClickListener() {
