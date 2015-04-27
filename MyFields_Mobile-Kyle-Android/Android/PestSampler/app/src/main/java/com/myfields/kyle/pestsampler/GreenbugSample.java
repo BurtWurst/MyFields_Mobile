@@ -41,7 +41,15 @@ public class GreenbugSample extends PestSample {
     // * An empty constructor used for creating a blank Greenbug     *
     // * sample. This is used when starting a new pest sample.       *
     // ***************************************************************
-    public GreenbugSample() { }
+    public GreenbugSample()
+    {
+        super();
+
+        SpecificID = 0;
+        TreatmentRecommendation = Greenbug_Sample_Values.Indeterminate;
+        AphidCount = 0;
+        MummyCount = 0;
+    }
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -142,7 +150,7 @@ public class GreenbugSample extends PestSample {
 
         return new GreenbugSample(specificid, genericsample.ID, genericsample.location,
                 genericsample.fieldID, genericsample.ControlCost, genericsample.CropValue,
-                genericsample.Notes, (String[]) genericsample.OtherPests.toArray(), treat, aphidcount, mummycount);
+                genericsample.Notes, genericsample.OtherPests.toArray(new String[genericsample.OtherPests.size()]), treat, aphidcount, mummycount);
 
     }
 

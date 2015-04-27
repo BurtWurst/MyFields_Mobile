@@ -42,7 +42,16 @@ public class PestSample {
     // * An empty constructor used for creating a blank pest         *
     // * sample. This is used when starting a new pest sample.       *
     // ***************************************************************
-    public PestSample(){}
+    public PestSample()
+    {
+        ID = 0;
+        location = new GPSLocation(0.0, 0.0);
+        fieldID = 0;
+        ControlCost = 0.0;
+        CropValue = 0.0;
+        Notes = "";
+        OtherPests = new ArrayList<String>();
+    }
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -82,7 +91,12 @@ public class PestSample {
         this.ControlCost = control;
         this.CropValue = crop;
         this.Notes = notes;
-        this.OtherPests = new ArrayList<String>(Arrays.asList(otherPests));
+        this.OtherPests = new ArrayList<String>();
+
+        for(int i = 0; i < otherPests.length; i++)
+        {
+            this.OtherPests.add(otherPests[i]);
+        }
     }
 
     // A method to return this sample's unique database identifier.
