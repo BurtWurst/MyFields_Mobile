@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +74,31 @@ public class PS_Notes_and_Other_Pests extends Activity{
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayOfPests);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(spinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedPest = parent.getItemAtPosition(position).toString();
+
+                if(!selectedPest.equals("Select a pest"))
+                {
+                    if(!Globals.sampleToBuild.checkForOtherPest(selectedPest))
+                    {
+                        Globals.sampleToBuild.addOtherPest(selectedPest);
+                    }
+                    else
+                    {
+                        Globals.sampleToBuild.removeOtherPest(selectedPest);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

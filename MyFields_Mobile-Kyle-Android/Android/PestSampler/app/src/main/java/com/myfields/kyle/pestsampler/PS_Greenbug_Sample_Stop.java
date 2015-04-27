@@ -127,7 +127,7 @@ public class PS_Greenbug_Sample_Stop extends ActionBarActivity{
                             // Is it possible to not be able to determine a recommendation at
                             // the max number of stops?
                             new AlertDialog.Builder(v.getContext())
-                                    .setTitle("Sample Method Description")
+                                    .setTitle("Treatment Recommendation")
                                     .setMessage("Cannot determine a Treatment Recommendation with the maximum number of samples. " +
                                             "Press continue to go to the Notes pages.")
                                     .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
@@ -152,7 +152,7 @@ public class PS_Greenbug_Sample_Stop extends ActionBarActivity{
                         {
                             // Display an alert that we can't determine the sample recommendation
                             new AlertDialog.Builder(v.getContext())
-                                    .setTitle("Sample Method Description")
+                                    .setTitle("Treatment Recommendation")
                                     .setMessage("Cannot determine a Treatment Recommendation. Press continue to keep sampling.")
                                     .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -179,7 +179,7 @@ public class PS_Greenbug_Sample_Stop extends ActionBarActivity{
                     {
                         // Display the recommendation to the user
                         new AlertDialog.Builder(v.getContext())
-                                .setTitle("Sample Method Description")
+                                .setTitle("Treatment Recommendation")
                                 .setMessage(sample.TreatmentRecommendation.toString().replace('_', ' '))
                                 .setPositiveButton(R.string.Continue, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
