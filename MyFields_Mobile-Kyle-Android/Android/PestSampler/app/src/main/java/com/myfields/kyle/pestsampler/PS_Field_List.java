@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class PS_Field_List extends Activity {
 
     ListView listView;
-    Button backButton, cancelButton;
+    Button cancelButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -60,7 +60,6 @@ public class PS_Field_List extends Activity {
     // ***************************************************************
     private void createListView() {
 
-        backButton = (Button)findViewById(R.id.ps_field_list_back_button);
         cancelButton = (Button)findViewById(R.id.ps_field_list_home_button);
 
         ArrayList<Field> fieldsList = Globals.currentUser.getFields();
@@ -85,17 +84,7 @@ public class PS_Field_List extends Activity {
                 PS_Field_List.this.startActivity(myIntent);
             }
         });
-        // On back click, return to the previous activity by finishing this one.
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                // Reset field id to 0
-                Globals.sampleToBuild.setFieldID(0);
-
-                finish();
-            }
-        });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
