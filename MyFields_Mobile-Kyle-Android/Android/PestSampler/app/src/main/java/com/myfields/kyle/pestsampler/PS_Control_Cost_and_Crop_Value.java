@@ -5,13 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
@@ -104,7 +101,7 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
                     Globals.sampleToBuild.CropValue = Double.parseDouble(crop_value_spinner.getSelectedItem().toString());
                     Globals.sampleToBuild.ControlCost = Double.parseDouble(control_cost_spinner.getSelectedItem().toString());
 
-                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, Greenbug_Sample_Stop_1.class);
+                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, PS_Greenbug_Sample_Stop.class);
                     PS_Control_Cost_and_Crop_Value.this.startActivity(myIntent);
                 }
             }

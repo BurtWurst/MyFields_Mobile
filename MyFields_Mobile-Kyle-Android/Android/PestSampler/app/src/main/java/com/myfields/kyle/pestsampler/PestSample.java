@@ -1,11 +1,10 @@
 package com.myfields.kyle.pestsampler;
 
-import android.location.Location;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
@@ -35,7 +34,7 @@ public class PestSample {
     protected String Notes;
 
     // Any other pests detected in the field at the time of this pest sample.
-    protected String[] OtherPests;
+    protected ArrayList<String> OtherPests;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -83,7 +82,7 @@ public class PestSample {
         this.ControlCost = control;
         this.CropValue = crop;
         this.Notes = notes;
-        this.OtherPests = otherPests;
+        this.OtherPests = new ArrayList<String>(Arrays.asList(otherPests));
     }
 
     // A method to return this sample's unique database identifier.
@@ -118,9 +117,22 @@ public class PestSample {
 
     // A method to return a string array representing other pests detected
     // in the field at the time of sampling.
-    public String[] getOtherPests() { return OtherPests; }
+    public String[] getOtherPests() { return (String[]) OtherPests.toArray(); }
     // A method to set Other Pests detected at the time of sampling.
-    public void setOtherPests(String[] pests) { this.OtherPests = pests; }
+    public void setOtherPests(ArrayList<String> pests) { this.OtherPests = pests; }
+    // A method to add a pest to the list of Other Pests
+    public void addOtherPest(String pest) { this.OtherPests.add(pest); }
+    // A method to remove a pest from the list of other Pests
+    public void removeOtherPest(String pest)
+    {
+        if(this.OtherPests.contains(pest))
+        {
+            this.OtherPests.remove(pest);
+        }
+    }
+    // A method to see if the list of Other Pests already contains a pest
+    public boolean checkForOtherPest(String pest) { return this.OtherPests.contains(pest); }
+
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -220,11 +232,11 @@ public class PestSample {
 		returnValue = returnValue && p.Notes.equals(this.Notes);
 		
 		
-		if(p.OtherPests.length == this.OtherPests.length)
+		if(p.OtherPests.size() == this.OtherPests.size())
 		{
-			for(int i = 0; i < p.OtherPests.length; i++)
+			for(int i = 0; i < p.OtherPests.size(); i++)
 			{
-				returnValue = returnValue && p.OtherPests[i].equals(this.OtherPests[i]);
+				returnValue = returnValue && p.OtherPests.get(i).equals(this.OtherPests.get(i));
 			}
 		}
 		else

@@ -142,7 +142,7 @@ public class GreenbugSample extends PestSample {
 
         return new GreenbugSample(specificid, genericsample.ID, genericsample.location,
                 genericsample.fieldID, genericsample.ControlCost, genericsample.CropValue,
-                genericsample.Notes, genericsample.OtherPests, treat, aphidcount, mummycount);
+                genericsample.Notes, (String[]) genericsample.OtherPests.toArray(), treat, aphidcount, mummycount);
 
     }
 
