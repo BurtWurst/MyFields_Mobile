@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -146,7 +147,26 @@ public class PS_Notes_and_Other_Pests extends Activity{
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String editString = editText.getText().toString();
 
+                if(!(editString == null) && !editString.equals("Show Notes"))
+                {
+                    Globals.sampleToBuild.setNotes(editText.getText().toString());
+                }
+                int FieldID = Globals.sampleToBuild.getFieldID();
+                Field fieldToAdd = Globals.currentUser.getFieldByID(FieldID);
+                int FieldIndex = Globals.currentUser.hasField(FieldID);
+
+                fieldToAdd.addSample(Globals.sampleToBuild);
+                int SampleIndex = fieldToAdd.hasSample(Globals.sampleToBuild);
+
+                Intent mySampleIntent = new Intent(PS_Notes_and_Other_Pests.this, PestSamplesSpecificInfo.class);
+                mySampleIntent.putExtra("FieldIndex", FieldIndex);
+                mySampleIntent.putExtra("SampleIndex", SampleIndex);
+
+                Globals.sampleToBuild = null;
+
+                PS_Notes_and_Other_Pests.this.startActivity(mySampleIntent);
             }
         });
 
