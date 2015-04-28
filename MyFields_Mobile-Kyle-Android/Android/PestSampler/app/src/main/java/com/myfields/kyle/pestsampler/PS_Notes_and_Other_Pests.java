@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,6 @@ public class PS_Notes_and_Other_Pests extends Activity{
     Button helpButton;
     EditText editText;
     Spinner spinner;
-    String[] arrayOfPests;
     Button cancelButton;
     Button backButton;
     Button finishButton;
@@ -50,8 +50,6 @@ public class PS_Notes_and_Other_Pests extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_and_other_pests); // sets the look to the layout file
 
-
-
         editText = (EditText)findViewById(R.id.notes_and_other_pests_editable_notes_textbox);
         spinner = (Spinner)findViewById(R.id.notes_and_other_pests_spinner);
 
@@ -71,7 +69,7 @@ public class PS_Notes_and_Other_Pests extends Activity{
     private void CreateLayout()
     {
 
-        arrayOfPests = getResources().getStringArray(R.array.show_pests_array);
+        String[] arrayOfPests = getResources().getStringArray(R.array.show_pests_array);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayOfPests);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(spinnerAdapter);

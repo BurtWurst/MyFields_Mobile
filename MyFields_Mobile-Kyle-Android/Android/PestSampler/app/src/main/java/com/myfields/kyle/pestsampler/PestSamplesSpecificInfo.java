@@ -1,6 +1,8 @@
 package com.myfields.kyle.pestsampler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -82,5 +84,22 @@ public class PestSamplesSpecificInfo extends Activity{
         super.onStop();
 
         finish(); //finishes the activity safely and goes to the last activity
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // Display an alert dialog with the help text as defined in the Resource values
+        new AlertDialog.Builder(PestSamplesSpecificInfo.this)
+                .setTitle("WARNING")
+                .setMessage("If this page was reached by creating a Pest Sample, the back button should not be used. Press Home instead.")
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PestSamplesSpecificInfo.this.finish();
+                    }
+                })
+                .setNegativeButton("Back", null) // Do nothing if back is pressed, return to page
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
