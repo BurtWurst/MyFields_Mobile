@@ -131,7 +131,7 @@ public class PestSample {
 
     // A method to return a string array representing other pests detected
     // in the field at the time of sampling.
-    public String[] getOtherPests() { return (String[]) OtherPests.toArray(); }
+    public String[] getOtherPests() { return OtherPests.toArray(new String[OtherPests.size()]); }
     // A method to set Other Pests detected at the time of sampling.
     public void setOtherPests(ArrayList<String> pests) { this.OtherPests = pests; }
     // A method to add a pest to the list of Other Pests

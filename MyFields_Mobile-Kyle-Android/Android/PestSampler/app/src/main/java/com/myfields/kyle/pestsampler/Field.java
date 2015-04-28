@@ -274,4 +274,32 @@ public class Field {
         return returnValue;
     }
 
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method for checking if this field has a pest sample that  *
+    // * matches the provided sample.
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * p                                                           *
+    // *    The sample to look for.                                  *
+    // ***************************************************************
+    public int hasSample(PestSample p)
+    {
+        int returnValue = -1;
+
+        for(int i = 0; i < PestSamples.size(); i++)
+        {
+            if(PestSamples.get(i).equals(p))
+            {
+                returnValue = i;
+                break;
+            }
+
+        }
+
+        return returnValue;
+    }
+
 }
