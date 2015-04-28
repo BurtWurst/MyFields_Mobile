@@ -93,6 +93,21 @@ public class User {
     // ***************************************************************
     // * OVERVIEW                                                    *
     // * ----------------------------------------------------------- *
+    // * A method for getting a Field by its database identifier.    *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * ID                                                          *
+    // *    The database identifier of the Field to return.          *
+    // ***************************************************************
+    public Field getFieldByID(int id)
+    {
+        return Fields.get(hasField(id));
+    }
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
     // * A method for checking if this user has a Field with a       *
     // * particular database identifier.                             *
     // ***************************************************************
@@ -102,7 +117,7 @@ public class User {
     // *    The database identifier of the Field to check if this    *
     // *    user currently has.                                      *
     // ***************************************************************
-	private int hasField(int ID)
+	public int hasField(int ID)
 	{
 		int returnValue = -1;
 		

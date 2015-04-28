@@ -92,7 +92,8 @@ public class PS_Sample_Method extends Activity{
                                 switch (sampleMethods[pos]) {
                                     case ("Glance N\' Go (Greenbug)"):
                                         Globals.sampleToBuild = new GreenbugSample();
-                                        Globals.sampleToBuild.setID(5); //TODO: Fix this to dynamically determine next index
+                                        Globals.sampleToBuild.setID(0); // Mark as 0 so database can auto-generate later
+                                        ((GreenbugSample) Globals.sampleToBuild).setSpecificID(0);
                                         Intent myIntent = new Intent(PS_Sample_Method.this, PS_Field_List.class);
                                         PS_Sample_Method.this.startActivity(myIntent);
                                         break;
