@@ -2,5 +2,5 @@
 <resources>
     <string name="greenbug_sample_stop1_help_shown">Help</string>
     <string name="greenbug_sample_stop1_help_expanded">Walk in a zig-zag pattern through your field, and stop at a random location (this is Stop 1). Then, randomly pick a tiller in front of you, to your side, and to your back. For each of the three tillers, if greenbug and/or mummies are observed, mark the appropriate box on your mobile device. If none are observed, leave boxes unmarked. After filling out the Stop 1 screen, push the Continue button to repeat these steps at another random stop (at least 15 steps between stops). At least 5 stops are needed to result in a treatment recommendation. In some cases, the sampler will require more stops to make an accurate recommendation.</string>
-    <string name="greenbug_sample_stop1_step1">Stop 1 of 5</string>
+    <string name="greenbug_sample_stop1_stop1">Stop 1 of 5</string>
 </resources>

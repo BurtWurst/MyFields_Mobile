@@ -5,4 +5,6 @@
     <string name="ps_control_cost_crop_value_forward_button_text">Continue</string>
     <string name="ps_control_cost_crop_value_back_button_text">Back</string>
     <string name="ps_control_cost_crop_value_cancel_button_text">Cancel</string>
+    <string name="ps_control_cost_crop_value_help_button">Help</string>
+    <string name="ps_control_cost_crop_value_help_shown_text">The economic threshold for the field sampled is determined based on the user inputs of control costs (cost to treat aphids per acre) and the market value of the grain (in $/bushel). Once the appropriate economic threshold is determined by iWheat, the field is then sampled to determine if the economic threshold has been exceeded. Both greenbug and the presence of mummies are accounted for.</string>
 </resources>

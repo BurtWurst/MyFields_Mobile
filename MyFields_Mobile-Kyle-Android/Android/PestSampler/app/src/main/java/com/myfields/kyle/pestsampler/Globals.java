@@ -15,4 +15,25 @@ public class Globals {
     // and therefore must be declared global.
     public static PestSample sampleToBuild = null;
 
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * This function will try to parse a string value into an int  *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * Value                                                       *
+    // *    The string to attempt to parse.                          *
+    // ***************************************************************
+    public static boolean tryParseInt(String value)
+    {
+        try
+        {
+            Integer.parseInt(value);
+            return true;
+        } catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+    }
+
 }

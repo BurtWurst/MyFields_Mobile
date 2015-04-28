@@ -2,9 +2,11 @@ package com.myfields.kyle.pestsampler;
 
 import java.util.ArrayList;
 
-/**
- * This class represents a particular user, with their associated information.
- */
+// ***************************************************************
+// * OVERVIEW                                                    *
+// * This provides an implementation of a User object, with      *
+// * the associated properties as needed by the app.             *
+// ***************************************************************
 public class User {
 
     // The username of the user
@@ -16,7 +18,19 @@ public class User {
     // This user's list of fields
     protected ArrayList<Field> Fields;
 
-    // A constructor for building a new user
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A constructor which takes in all necessary parameters to    *
+    // * construct a new User.                                       *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * User                                                        *
+    // *    The database username of this user.                      *
+    // * Pass                                                        *
+    // *    The hashed password of this user.                        *
+    // ***************************************************************
     public User(String user, String pass)
     {
         this.user = user;
@@ -25,7 +39,19 @@ public class User {
         Fields = new ArrayList<Field>();
     }
 
-    // A method to add or update fields for this user
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method for synchronizing a user's fields with an array of *
+    // * fields passed in. This will add any fields the user does    *
+    // * not currently have, and update any that they do.            *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * Updates                                                     *
+    // *    The list of fields to compare against this User's        *
+    // *    fields.                                                  *
+    // ***************************************************************
 	public void UpdateFields(ArrayList<Field> updates)
 	{
 		int hasField;
@@ -64,8 +90,34 @@ public class User {
         return this.Fields;
     }
 
-    // A method for checking if this user has a particular field
-	private int hasField(int ID)
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method for getting a Field by its database identifier.    *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * ID                                                          *
+    // *    The database identifier of the Field to return.          *
+    // ***************************************************************
+    public Field getFieldByID(int id)
+    {
+        return Fields.get(hasField(id));
+    }
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * A method for checking if this user has a Field with a       *
+    // * particular database identifier.                             *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * ID                                                          *
+    // *    The database identifier of the Field to check if this    *
+    // *    user currently has.                                      *
+    // ***************************************************************
+	public int hasField(int ID)
 	{
 		int returnValue = -1;
 		

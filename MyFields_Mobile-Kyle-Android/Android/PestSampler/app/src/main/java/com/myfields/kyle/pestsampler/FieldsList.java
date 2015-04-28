@@ -7,15 +7,33 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- Represents the fields & names along with the type of field it is (corn, wheat, etc...)
- */
-public class FieldsList extends Activity {
-    private ListView listView;
 
+// ***************************************************************
+// * OVERVIEW                                                    *
+// * This activity class represents the Fields List page, which  *
+// * shows the fields & names along with what type of field it is*
+// ***************************************************************
+
+public class FieldsList extends Activity {
+    private ListView listView; //listview used to create the layout
+
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * ----------------------------------------------------------- *
+    // * This function creates the activity for the Fields List page.*
+    // * It calls the createListView method which does the work      *
+    // ***************************************************************
+    // * PARAMETERS                                                  *
+    // * ----------------------------------------------------------- *
+    // * savedInstanceState                                          *
+    // *    This parameter specifies any data that was saved by a    *
+    // *    previous run of the activity; i.e. the last time that    *
+    // *    onSaveInstanceState was called; otherwise null.          *
+    // ***************************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +42,25 @@ public class FieldsList extends Activity {
 
         listView = (ListView) findViewById(R.id.selection_list);
 
+        TextView header = new TextView(this);
+        header.setText("Select A Field to View: ");
+        listView.addHeaderView(header);
+
         createListView();
     }
 
+    // ***************************************************************
+    // * OVERVIEW                                                    *
+    // * This function creates the activity, which is a list view    *
+    // * that loads in field info from the api then puts it into     *
+    // * the api                                                     *
+    // ***************************************************************
     private void createListView() {
 
-        ArrayList<Field> fieldsList = Globals.currentUser.getFields();
-        final String[] selectionList = new String[fieldsList.size()];
+        ArrayList<Field> fieldsList = Globals.currentUser.getFields(); //gets the fieldsList from the current user
+        final String[] selectionList = new String[fieldsList.size()]; //gets the size of the field list
 
+        //puts the fields list info into selectionList
         for (int i = 0; i < fieldsList.size(); i++) {
             selectionList[i] = fieldsList.get(i).Name;
         }
@@ -44,7 +73,7 @@ public class FieldsList extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent myIntent = new Intent(FieldsList.this, SpecificFieldInfo.class);
-                myIntent.putExtra("FieldIndex", position);
+                myIntent.putExtra("FieldIndex", position-1);
                 FieldsList.this.startActivity(myIntent);
             }
         });

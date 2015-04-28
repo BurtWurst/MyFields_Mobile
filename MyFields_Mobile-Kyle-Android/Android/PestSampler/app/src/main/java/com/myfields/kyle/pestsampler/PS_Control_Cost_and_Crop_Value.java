@@ -6,11 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 // ***************************************************************
 // * OVERVIEW                                                    *
@@ -37,6 +35,7 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
     // *    onSaveInstanceState was called; otherwise null.          *
     // ***************************************************************
 
+    Button helpButton;
     Spinner control_cost_spinner;
     Spinner crop_value_spinner;
 
@@ -57,6 +56,8 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
     // ***************************************************************
     private void CreateLayout()
     {
+        helpButton = (Button)findViewById(R.id.ps_control_cost_crop_value_help_button);
+
         control_cost_spinner = (Spinner)findViewById(R.id.control_cost_spinner);
         String[] control_cost_array = getResources().getStringArray(R.array.pest_sampler_control_costs);
 
@@ -97,10 +98,10 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
                 // Else add the values to the current sample and move to the samples page.
                 else
                 {
-                    Globals.sampleToBuild.CropValue = Double.parseDouble(control_cost_spinner.getSelectedItem().toString()); //TIL
-                    Globals.sampleToBuild.ControlCost = Double.parseDouble(crop_value_spinner.getSelectedItem().toString());
+                    Globals.sampleToBuild.CropValue = Double.parseDouble(crop_value_spinner.getSelectedItem().toString());
+                    Globals.sampleToBuild.ControlCost = Double.parseDouble(control_cost_spinner.getSelectedItem().toString());
 
-                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, Greenbug_Sample_Stop_1.class);
+                    Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, PS_Greenbug_Sample_Stop.class);
                     PS_Control_Cost_and_Crop_Value.this.startActivity(myIntent);
                 }
             }
@@ -110,6 +111,11 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
         back_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Reset values to defaults
+                Globals.sampleToBuild.setControlCost(0.0);
+                Globals.sampleToBuild.setCropValue(0.0);
+
                 finish();
             }
         });
@@ -122,6 +128,20 @@ public class PS_Control_Cost_and_Crop_Value extends Activity{
 
                 Intent myIntent = new Intent(PS_Control_Cost_and_Crop_Value.this, SelectionScreen.class);
                 PS_Control_Cost_and_Crop_Value.this.startActivity(myIntent);
+            }
+        });
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final AlertDialog alert = new AlertDialog.Builder(PS_Control_Cost_and_Crop_Value.this).create();
+                alert.setTitle(getResources().getString(R.string.ps_control_cost_crop_value_help_button));
+                alert.setMessage(getResources().getString(R.string.ps_control_cost_crop_value_help_shown_text));
+                alert.setButton("Done", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.cancel(); //make sure it goes to last page
+                    }
+                });
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
+                alert.show();
             }
         });
     }

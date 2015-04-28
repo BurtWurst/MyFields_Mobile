@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 // * be associated with.                                         *
 // ***************************************************************
 public class PS_Field_List extends Activity {
+
     ListView listView;
+    Button cancelButton;
 
     // ***************************************************************
     // * OVERVIEW                                                    *
@@ -39,8 +42,6 @@ public class PS_Field_List extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View focusView = null;
-
         setContentView(R.layout.activity_ps_field_list);
 
         listView = (ListView) findViewById(R.id.ps_field_list);
@@ -58,6 +59,8 @@ public class PS_Field_List extends Activity {
     // * ListView and adds the event handler for a click event.      *
     // ***************************************************************
     private void createListView() {
+
+        cancelButton = (Button)findViewById(R.id.ps_field_list_home_button);
 
         ArrayList<Field> fieldsList = Globals.currentUser.getFields();
         final String[] selectionList = new String[fieldsList.size()];
@@ -78,6 +81,16 @@ public class PS_Field_List extends Activity {
                 Globals.sampleToBuild.setLocation(Globals.currentUser.getFields().get(position - 1).getLocation());
 
                 Intent myIntent = new Intent(PS_Field_List.this, PS_Control_Cost_and_Crop_Value.class);
+                PS_Field_List.this.startActivity(myIntent);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Globals.sampleToBuild = null;
+
+                Intent myIntent = new Intent(PS_Field_List.this, SelectionScreen.class);
                 PS_Field_List.this.startActivity(myIntent);
             }
         });
