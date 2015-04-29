@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Pest sampler header file. Creates retrieveData method, action method nextButton, and a pest sample array.
+ */
 @interface PestSampler: UITableViewController
 
 - (void) retrieveData;
--(IBAction)nextButton:(UIBarButtonItem *)sender;
 @property(strong) NSMutableArray *pestSample;
 
 

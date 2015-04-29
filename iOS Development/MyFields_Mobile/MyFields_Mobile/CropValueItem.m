@@ -8,12 +8,18 @@
 
 #import "CropValueItem.h"
 
+/**
+ CropValueItem implementation file.
+ */
 @interface CropValueItem()
 
 @end
 
 @implementation CropValueItem
 
+/**
+ Method for initializing the cropval string. 
+ */
 -(id) initWithCropValue: (NSString *) cropVal{
     self = [super init];
     if (self){

@@ -10,10 +10,14 @@
 #import "FieldItem.h"
 #import "NewPestSample.h"
 
+/**
+ Pest sampler implementation file.
+ */
 @interface PestSampler ()
 
 @property NSMutableArray *fieldList;
 @property NSMutableArray *jsonArray;
+@property (nonatomic, assign) BOOL cellSelected;
 
 //MyFields *myFields = [[MyFields alloc] init];
 //NSMutableArray *mfArray = [myFields.fields mutableCopy];
@@ -38,10 +42,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+/**
+ Pulls json data from saved file. Loops through the json array and puts each Field object into the fieldList array.
+ */
 - (void) retrieveData{
-    
-    
-    
     self.fieldList = [[NSMutableArray alloc] init];
     
     NSArray *jsonPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -81,6 +85,9 @@
     return [self.fieldList count];
 }
 
+/**
+ Adds a field item to the table view and makes the table cell text equal to the field name.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
     
@@ -91,23 +98,42 @@
     return cell;
 }
 
+/**
+ Adds a checkmark to the cell that is selected.
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.cellSelected = true;
         // Reflect selection in data model
     }
     else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        self.cellSelected = false;
     }
 }
 
+/**
+ Next button action that goes to the next page which is NewPestSample
+ */
 -(IBAction)nextButton:(UIBarButtonItem *)sender {
-    NewPestSample *nps = [self.storyboard instantiateViewControllerWithIdentifier:@"PestListID"];
-    [self.navigationController pushViewController:nps animated:YES];
+    UIAlertView *noCellAlert = [[UIAlertView alloc]
+                                initWithTitle:@"No Cell Selected!" message:@"Please select a cell. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    if(self.cellSelected == true){
+        NewPestSample *nps = [self.storyboard instantiateViewControllerWithIdentifier:@"PestListID"];
+        [self.navigationController pushViewController:nps animated:YES];
+    }
+    else{
+        [noCellAlert show];
+    }
     
 }
 
+/**
+ Deselects selected row when another row is selected. 
+ */
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;

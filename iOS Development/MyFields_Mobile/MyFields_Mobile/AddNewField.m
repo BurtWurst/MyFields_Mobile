@@ -8,6 +8,9 @@
 
 #import "AddNewField.h"
 
+/**
+ AddNewField implementation file. Creates 2 outlet properties for the text field for naming the field and the save button for saving the field to the field list. Will probably not be used in the final product. 
+ */
 @interface AddNewField ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;

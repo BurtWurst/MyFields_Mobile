@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MyFields.h"
-//@class MyFields;
+
+/**
+ ViewFieldData header file. Creates a pointer to the MyFields view controller. That way, the field list that was created there can be used in this view controller. 
+ */
 @interface ViewFieldData : UITableViewController{
     
     MyFields *pointerToMyFields;

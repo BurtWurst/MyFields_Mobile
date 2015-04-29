@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewControlCost : UITableViewController
+/**
+ NewControlCost header file.
+ */
+@interface NewControlCost : UITableViewController 
 
 @end

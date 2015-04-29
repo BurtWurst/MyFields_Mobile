@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FieldItem.h"
 
+/**
+ AddNewField header file. Creates a pointer to a field item.
+ */
 @interface AddNewField : UIViewController
 
 @property FieldItem *fieldItem;

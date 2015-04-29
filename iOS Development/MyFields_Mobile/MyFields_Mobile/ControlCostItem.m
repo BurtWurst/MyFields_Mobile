@@ -8,12 +8,18 @@
 
 #import "ControlCostItem.h"
 
+/**
+ ControlCostItem implementation file.
+ */
 @interface ControlCostItem()
 
 @end
 
 @implementation ControlCostItem
 
+/**
+ Method for initializing control cost string in the control cost item. 
+ */
 -(id) initWithControlCost:(NSString *)controlCostVal{
     self = [super init];
     if (self){

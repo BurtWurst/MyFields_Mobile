@@ -9,10 +9,15 @@
 #import "NewControlCost.h"
 #import "ControlCostItem.h"
 #import "NewCropValue.h"
+#import "SharedDataSingleton.h"
 
+/**
+ NewControlCost implementation file. 
+ */
 @interface NewControlCost ()
 
 @property NSMutableArray *controlCostList;
+@property (nonatomic, assign) BOOL cellSelected;
 
 @end
 
@@ -35,6 +40,9 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+/**
+ Loads the initial data for each control cost item that is then stored in the controlCostList.
+ */
 -(void)loadInitialData{
     
     self.controlCostList = [[NSMutableArray alloc] init];
@@ -84,6 +92,18 @@
     return [self.controlCostList count];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    SharedDataSingleton *sharedManager = [SharedDataSingleton sharedInstance];
+    [super viewWillDisappear:animated];
+    
+    if(self.isMovingFromParentViewController){
+        sharedManager.controlCost = @"";
+    }
+}
+
+/**
+ Adds a control cost item to the table view and makes the table cell text equal to the control cost string value.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ControlCostPrototypeCell" forIndexPath:indexPath];
     
@@ -93,29 +113,53 @@
     return cell;
 }
 
-
+/**
+ Adds a checkmark to the cell that is selected.
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    SharedDataSingleton *sharedManager = [SharedDataSingleton sharedInstance];
     
     ControlCostItem *controlCostItem = [self.controlCostList objectAtIndex:indexPath.row];
     cell.textLabel.text = controlCostItem.controlCost;
     
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.cellSelected = true;
+        sharedManager.controlCost = controlCostItem.controlCost;
+        NSLog(@"Control Cost is %@", sharedManager.controlCost);
+        
         // Reflect selection in data model
 
     }
     else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        self.cellSelected = false;
+        sharedManager.controlCost = @"";
+        NSLog(@"Control Cost is %@", sharedManager.controlCost);
     }
 }
 
+/**
+ Next button action that goes to the next page which is NewCropValue.
+ */
 -(IBAction)nextButton:(UIBarButtonItem *)sender {
-    NewCropValue *ncv = [self.storyboard instantiateViewControllerWithIdentifier:@"NewCropValueID"];
-    [self.navigationController pushViewController:ncv animated:YES];
+    UIAlertView *noCellAlert = [[UIAlertView alloc]
+                                initWithTitle:@"No Cell Selected!" message:@"Please select a cell. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
+    if(self.cellSelected == true){
+        NewCropValue *ncv = [self.storyboard instantiateViewControllerWithIdentifier:@"NewCropValueID"];
+        [self.navigationController pushViewController:ncv animated:YES];
+    }
+    else{
+        [noCellAlert show];
+    }
 }
 
+/**
+ Deselects selected row when another row is selected.
+ */
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
