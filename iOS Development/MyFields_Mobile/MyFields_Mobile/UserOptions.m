@@ -32,6 +32,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+/**
+ Back to login method. If the logout button is pressed while in the user options menu, logs the 
+ current user out and returns to the login screen.
+ */
 - (IBAction)backToLogin{
     
     UIAlertView *messageAlert = [[UIAlertView alloc]
@@ -42,6 +46,9 @@
     
 }
 
+/**
+ Alert view method. Determines what the alertview in the back to login does. In this case, sends it back to the ViewController page which is the login page.
+ */
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 1){
             
@@ -54,6 +61,9 @@
     }
 }
 
+/**
+ Table view method. Determines where to go when either the MyFields button is pressed or the Pest Sampler button is pressed. 
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row == 0){

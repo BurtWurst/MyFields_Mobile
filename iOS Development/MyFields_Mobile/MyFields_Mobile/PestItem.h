@@ -9,10 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/**
+ PestItem header file.
+ */
 @interface PestItem : NSObject
 
 @property NSString *pestName;
 
+/**
+ Method for initializing pest item with a name. 
+ */
 -(id) initWithPestName: (NSString *) pName;
 
 @end

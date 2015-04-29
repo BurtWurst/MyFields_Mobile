@@ -30,6 +30,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+/**
+ Initializes the selectedFieldList array and sets multiple strings equal to the values stored in the field object.
+ */
 - (void)loadInitialData{
     
     selectedFieldList = [[NSMutableArray alloc] init];
@@ -40,10 +43,10 @@
     NSString *selectedFieldSoil = pointerToMyFields.shareFieldObject.typeOfSoil;
     NSString *selectedFieldTillage = pointerToMyFields.shareFieldObject.tillageSystem;
     NSString *selectedFieldIrrigation = pointerToMyFields.shareFieldObject.irrigationSystem;
-    //NSArray *selectedFieldPlantingList = pointerToMyFields.shareFieldObject.plantingList;
-    NSString *selectedFieldPlantingList = @"";
-    //NSArray *selectedFieldPestSamples = pointerToMyFields.shareFieldObject.pestSamples;
-    NSString *selectedFieldPestSamples = @"";
+    NSMutableArray *selectedFieldPlantingList = pointerToMyFields.shareFieldObject.plantingList;
+    //NSString *selectedFieldPlantingList = @"";
+    NSMutableArray *selectedFieldPestSamples = pointerToMyFields.shareFieldObject.pestSamples;
+    //NSString *selectedFieldPestSamples = @"";
     
     NSString *fName = @"Field Name:  ";
     NSString *fLocation = @"Field Location:  ";
@@ -60,10 +63,10 @@
     NSString *catSoil = [fSoil stringByAppendingString:selectedFieldSoil];
     NSString *catTillage = [fTillage stringByAppendingString:selectedFieldTillage];
     NSString *catIrrigation = [fIrrigation stringByAppendingString:selectedFieldIrrigation];
-    NSString *catPlantings = [fPlantings stringByAppendingString:selectedFieldPlantingList];
-    NSString *catPests = [fPests stringByAppendingString:selectedFieldPestSamples];
+    //NSString *catPlantings = [fPlantings stringByAppendingString:selectedFieldPlantingList];
+    //NSString *catPests = [fPests stringByAppendingString:selectedFieldPestSamples];
     
-    selectedFieldList = [NSMutableArray arrayWithObjects:catName, catLocation, catSize, catSoil, catTillage, catIrrigation, catPlantings, catPests, nil];
+    selectedFieldList = [NSMutableArray arrayWithObjects:catName, catLocation, catSize, catSoil, catTillage, catIrrigation, fPlantings, fPests, nil];
 
     //Reload our table view
     [self.tableView reloadData];
@@ -81,6 +84,9 @@
     return [selectedFieldList count];
 }
 
+/**
+ Sets each cell in the table equal to the strings stored in the selectedFieldList array.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelectedFieldPrototypeCell" forIndexPath:indexPath];
     

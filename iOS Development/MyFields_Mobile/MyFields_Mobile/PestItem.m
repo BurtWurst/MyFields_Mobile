@@ -8,12 +8,18 @@
 
 #import "PestItem.h"
 
+/**
+ PestItem implementation file.
+ */
 @interface PestItem()
 
 @end
 
 @implementation PestItem
 
+/**
+ Method for initializing the name string of a pest item. 
+ */
 -(id) initWithPestName: (NSString *) pName{
     
     self = [super init];

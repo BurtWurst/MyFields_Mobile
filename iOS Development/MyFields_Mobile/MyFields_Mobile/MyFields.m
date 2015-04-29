@@ -12,7 +12,9 @@
 #import "ViewFieldData.h"
 
 
-
+/**
+ MyFields implementation file
+ */
 @interface MyFields ()
 
 @property NSMutableArray *jsonArray;
@@ -42,6 +44,9 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+/**
+ Unwind to list view after adding a new field. Might not be used in final release.
+ */
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue {
     AddNewField *source = [segue sourceViewController];
     FieldItem *item = source.fieldItem;
@@ -51,6 +56,9 @@
     }
 }
 
+/**
+ Pulls json data from saved file. Loops through the json array and puts each Field object into the fieldList array.
+ */
 - (void) retrieveData{
     
     fieldList = [[NSMutableArray alloc] init];
@@ -71,8 +79,8 @@
         NSString *fSoil = [[self.jsonArray objectAtIndex:i] objectForKey:@"TypeOfSoil"];
         NSString *fTillage = [[self.jsonArray objectAtIndex:i] objectForKey:@"TillageSystem"];
         NSString *fIrrigation = [[self.jsonArray objectAtIndex:i] objectForKey:@"IrrigationSystem"];
-        NSArray *fPlantingList = [[self.jsonArray objectAtIndex:i] objectForKey:@"PlantingList"];
-        NSArray *fPestSamples = [[self.jsonArray objectAtIndex:i] objectForKey:@"PestSamples"];
+        NSMutableArray *fPlantingList = [[self.jsonArray objectAtIndex:i] objectForKey:@"PlantingList"];
+        NSMutableArray *fPestSamples = [[self.jsonArray objectAtIndex:i] objectForKey:@"PestSamples"];
         
         [fieldList addObject:[[FieldItem alloc]initWithFieldName:fID andFieldName:fName andFieldLocation:fLocation andFieldSize:fSize andFieldSoil:fSoil andFieldTillage:fTillage andFieldIrrigation:fIrrigation andPlantingList:fPlantingList andFieldSamples:fPestSamples]];
     }
@@ -91,6 +99,9 @@
     return [fieldList count];
 }
 
+/**
+ Adds a field item to the table view and makes the table cell text equal to the field name.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
     
@@ -100,6 +111,9 @@
     return cell;
 }
 
+/**
+ Passes the fieldIndex, which is set to the index of the row selected, to the ViewFieldData controller. This allows the data from each field to be viewed in the next view controller. 
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     fieldIndex = (int)indexPath.row;

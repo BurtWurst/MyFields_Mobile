@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C0BA9ED1ACB838E005A0226 /* PestItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0BA9EC1ACB838E005A0226 /* PestItem.m */; };
 		0C1BFE3D1A88001700EC217F /* UserOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1BFE3C1A88001700EC217F /* UserOptions.m */; };
+		0C22809E1AF03B3900300648 /* NotesAndOtherPests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C22809D1AF03B3900300648 /* NotesAndOtherPests.m */; };
+		0C3ED30C1AEC3E0F0088C6BB /* SharedDataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3ED30B1AEC3E0F0088C6BB /* SharedDataSingleton.m */; };
 		0C5A43981AC9F40600C8FB67 /* NewPestSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5A43971AC9F40600C8FB67 /* NewPestSample.m */; };
 		0C69729A1A88231600947D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C6972981A88231600947D85 /* Main.storyboard */; };
 		0C69729C1A88605800947D85 /* MyFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C69729B1A88605800947D85 /* MyFields.m */; };
@@ -28,6 +30,7 @@
 		0C92C2191A7EB8B400BB8115 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92C2181A7EB8B400BB8115 /* ViewController.m */; };
 		0C92C21E1A7EB8B400BB8115 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C92C21D1A7EB8B400BB8115 /* Images.xcassets */; };
 		0C92C22D1A7EB8B400BB8115 /* MyFields_MobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C92C22C1A7EB8B400BB8115 /* MyFields_MobileTests.m */; };
+		0CDC4A301AF05C5300DC829E /* otherPest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CDC4A2F1AF05C5300DC829E /* otherPest.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,10 @@
 		0C0BA9EC1ACB838E005A0226 /* PestItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PestItem.m; sourceTree = "<group>"; };
 		0C1BFE3C1A88001700EC217F /* UserOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserOptions.m; sourceTree = "<group>"; };
 		0C1BFE3E1A88003500EC217F /* UserOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserOptions.h; sourceTree = "<group>"; };
+		0C22809C1AF03B3900300648 /* NotesAndOtherPests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesAndOtherPests.h; sourceTree = "<group>"; };
+		0C22809D1AF03B3900300648 /* NotesAndOtherPests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesAndOtherPests.m; sourceTree = "<group>"; };
+		0C3ED30A1AEC3E0F0088C6BB /* SharedDataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedDataSingleton.h; sourceTree = "<group>"; };
+		0C3ED30B1AEC3E0F0088C6BB /* SharedDataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedDataSingleton.m; sourceTree = "<group>"; };
 		0C5A43961AC9F40600C8FB67 /* NewPestSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPestSample.h; sourceTree = "<group>"; };
 		0C5A43971AC9F40600C8FB67 /* NewPestSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPestSample.m; sourceTree = "<group>"; };
 		0C6972991A88231600947D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,6 +89,7 @@
 		0C92C2261A7EB8B400BB8115 /* MyFields_MobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFields_MobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C92C22B1A7EB8B400BB8115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C92C22C1A7EB8B400BB8115 /* MyFields_MobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFields_MobileTests.m; sourceTree = "<group>"; };
+		0CDC4A2F1AF05C5300DC829E /* otherPest.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = otherPest.txt; path = MyFields_Mobile/otherPest.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +113,7 @@
 		0C92C2041A7EB8B400BB8115 = {
 			isa = PBXGroup;
 			children = (
+				0CDC4A2F1AF05C5300DC829E /* otherPest.txt */,
 				0C92C20F1A7EB8B400BB8115 /* MyFields_Mobile */,
 				0C92C2291A7EB8B400BB8115 /* MyFields_MobileTests */,
 				0C92C20E1A7EB8B400BB8115 /* Products */,
@@ -126,6 +135,8 @@
 				0C6972981A88231600947D85 /* Main.storyboard */,
 				0C92C2141A7EB8B400BB8115 /* AppDelegate.h */,
 				0C92C2151A7EB8B400BB8115 /* AppDelegate.m */,
+				0C3ED30A1AEC3E0F0088C6BB /* SharedDataSingleton.h */,
+				0C3ED30B1AEC3E0F0088C6BB /* SharedDataSingleton.m */,
 				0C92C2171A7EB8B400BB8115 /* ViewController.h */,
 				0C92C2181A7EB8B400BB8115 /* ViewController.m */,
 				0C1BFE3E1A88003500EC217F /* UserOptions.h */,
@@ -144,6 +155,8 @@
 				0C7538971AD5F9FE001ED545 /* NewCropValue.m */,
 				0C7538901AD5D3A0001ED545 /* TakeFieldSample.h */,
 				0C7538911AD5D3A0001ED545 /* TakeFieldSample.m */,
+				0C22809C1AF03B3900300648 /* NotesAndOtherPests.h */,
+				0C22809D1AF03B3900300648 /* NotesAndOtherPests.m */,
 				0C6972A11A8871CE00947D85 /* AddNewField.h */,
 				0C6972A21A8871CE00947D85 /* AddNewField.m */,
 				0C6972A41A895B3300947D85 /* FieldItem.h */,
@@ -269,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CDC4A301AF05C5300DC829E /* otherPest.txt in Resources */,
 				0C92C21E1A7EB8B400BB8115 /* Images.xcassets in Resources */,
 				0C69729A1A88231600947D85 /* Main.storyboard in Resources */,
 				0C75388C1AD5B9DB001ED545 /* MyFields logo.jpg in Resources */,
@@ -293,6 +307,7 @@
 				0C6972A61A895B3300947D85 /* FieldItem.m in Sources */,
 				0C5A43981AC9F40600C8FB67 /* NewPestSample.m in Sources */,
 				0C7538951AD5DD1C001ED545 /* NewControlCost.m in Sources */,
+				0C22809E1AF03B3900300648 /* NotesAndOtherPests.m in Sources */,
 				0C75388A1AD4AD03001ED545 /* Reachability.m in Sources */,
 				0C92C2161A7EB8B400BB8115 /* AppDelegate.m in Sources */,
 				0C92C2131A7EB8B400BB8115 /* main.m in Sources */,
@@ -305,6 +320,7 @@
 				0C75389E1AD61004001ED545 /* ViewFieldData.m in Sources */,
 				0C7538921AD5D3A0001ED545 /* TakeFieldSample.m in Sources */,
 				0C0BA9ED1ACB838E005A0226 /* PestItem.m in Sources */,
+				0C3ED30C1AEC3E0F0088C6BB /* SharedDataSingleton.m in Sources */,
 				0C69729C1A88605800947D85 /* MyFields.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

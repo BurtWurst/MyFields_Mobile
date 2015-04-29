@@ -8,13 +8,19 @@
 
 #import "FieldItem.h"
 
+/**
+ FieldItem implementation file.
+ */
 @interface FieldItem ()
 
 @end
 
 @implementation FieldItem
 
--(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSArray*) fPlantingList andFieldSamples: (NSArray *) fPestSamples{
+/**
+ Method for initializing all field items data fields. 
+ */
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSMutableArray*) fPlantingList andFieldSamples: (NSMutableArray *) fPestSamples{
     
     self = [super init];
     if (self){

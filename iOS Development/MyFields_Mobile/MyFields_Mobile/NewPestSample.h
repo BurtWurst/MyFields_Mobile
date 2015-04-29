@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ NewPestSample header file. 
+ */
 @interface NewPestSample: UITableViewController
 
 @end
