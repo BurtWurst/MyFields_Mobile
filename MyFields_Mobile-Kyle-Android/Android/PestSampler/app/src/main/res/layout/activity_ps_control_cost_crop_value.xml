@@ -22,7 +22,7 @@
 
     <Spinner
         android:id="@+id/control_cost_spinner"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textSize="18sp" />
 
@@ -36,7 +36,7 @@
 
     <Spinner
         android:id="@+id/crop_value_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textSize="18sp" />
     <TableRow
