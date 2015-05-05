@@ -9,10 +9,17 @@
 #import "NewPestSample.h"
 #import "PestItem.h"
 #import "NewControlCost.h"
+//#import "ControlCostCropValue.h"
+//#import "CropValueControlCost.h"
 
+/**
+ NewPestSample implementation file.
+ */
 @interface NewPestSample ()
 
 @property NSMutableArray *pestList;
+@property (nonatomic, assign) BOOL cellSelected;
+@property (nonatomic, assign) BOOL greenBugSelected;
 
 @end
 
@@ -34,6 +41,9 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
+/**
+ Load initial data. Creates PestItem values and puts them into the pestList.
+ */
 -(void)loadInitialData{
     
     self.pestList = [[NSMutableArray alloc] init];
@@ -71,6 +81,9 @@
     return [self.pestList count];
 }
 
+/**
+ Adds a label to a cell at the cell index that is equal to the string stored in the list at that index.
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PestListPrototypeCell" forIndexPath:indexPath];
     
@@ -80,7 +93,9 @@
     return cell;
 }
 
-
+/**
+ Pops up an alert for a certain cell when that cell is clicked.
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -94,10 +109,12 @@
     
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.cellSelected = true;
         // Reflect selection in data model
         
         if([pestItem.pestName isEqualToString:@"Glance N Go(Greenbug)"]){
             // Display Alert Message
+            self.greenBugSelected = true;
             [greenbugAlert show];
         }
         else if ([pestItem.pestName isEqualToString:@"Russian Wheat Aphid... Coming Soon!"]){
@@ -115,12 +132,31 @@
     }
     else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        self.cellSelected = false;
     }
 }
 
+/**
+ Next button action that goes to the next page which is NewControlCost.
+ */
 -(IBAction)nextButton:(UIBarButtonItem *)sender {
-    NewControlCost *ncc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewControlCostID"];
-    [self.navigationController pushViewController:ncc animated:YES];
+    
+    UIAlertView *noCellAlert = [[UIAlertView alloc]
+                                    initWithTitle:@"No Cell Selected!" message:@"Please select a cell. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    UIAlertView *notAvailableAlert = [[UIAlertView alloc]
+                                initWithTitle:@"Sampling method not available!" message:@"Sample method is coming soon. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+
+    if(self.cellSelected == true && self.greenBugSelected == true){
+        NewControlCost *ncc = [self.storyboard instantiateViewControllerWithIdentifier:@"NewControlCostID"];
+        [self.navigationController pushViewController:ncc animated:YES];
+    }
+    else if(self.cellSelected == true && self.greenBugSelected == false){
+        [notAvailableAlert show];
+    }
+    else{
+        [noCellAlert show];
+    }
     
 }
 

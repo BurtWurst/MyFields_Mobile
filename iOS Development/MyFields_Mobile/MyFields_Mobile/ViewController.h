@@ -6,6 +6,12 @@
 //  Copyright (c) 2015 MyFields Dev Team. All rights reserved.
 //
 
+
+/**
+ Initial View controller header file. Creates outlet fields for the username and password
+ text boxes. Creates an action method for pressing the login button as well as a method for 
+ converting passwords to SHA1 encryption.
+*/
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonDigest.h>
 

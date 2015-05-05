@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ TakeFieldSample header file. 
+ */
 @interface TakeFieldSample : UIViewController
 
+-(IBAction) onButtonClick:(id)sender;
 @end

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ User options header file. Creates an action for going back to the login page and logging the current
+ user out of the app.
+ */
 @interface UserOptions: UITableViewController
 
 - (IBAction)backToLogin;

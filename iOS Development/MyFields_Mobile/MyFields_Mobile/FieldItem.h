@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ FieldItem object. Creates string properties for the fields ID, name, location, size, soil type ,tillage, irrigation, planting list, pest samples.
+ */
 @interface FieldItem : NSObject
 
 @property NSString *iD;
@@ -18,11 +21,14 @@
 @property NSString *tillageSystem;
 @property NSString *irrigationSystem;
 //array
-@property NSArray *plantingList;
+@property NSMutableArray *plantingList;
 //array
-@property NSArray *pestSamples;
+@property NSMutableArray *pestSamples;
 
--(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSArray*) fPlantingList andFieldSamples:  (NSArray *) fPestSamples;
+/**
+ Creates a method for initializing all the fields that were created above. 
+ */
+-(id) initWithFieldName: (NSString *) fID andFieldName: (NSString *) fName andFieldLocation: (NSString *) fLocation andFieldSize: (NSString *) fSize andFieldSoil: (NSString *) fSoil andFieldTillage: (NSString *) fTillage andFieldIrrigation: (NSString *) fIrrigation andPlantingList:(NSMutableArray*) fPlantingList andFieldSamples:  (NSMutableArray *) fPestSamples;
 
 
 @end
