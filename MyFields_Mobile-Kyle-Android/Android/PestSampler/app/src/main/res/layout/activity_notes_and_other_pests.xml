@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chosen pests: "
+        android:text="No other pests selected."
         android:textSize="18sp"
         android:gravity="center"
         android:id="@+id/notes_and_other_pests_chosen_pests"
