@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ public class PS_Notes_and_Other_Pests extends Activity{
     Button helpButton;
     EditText editText;
     Spinner spinner;
+    TextView selectedPestsDisplay;
     Button cancelButton;
     Button backButton;
     Button finishButton;
@@ -52,6 +54,7 @@ public class PS_Notes_and_Other_Pests extends Activity{
 
         editText = (EditText)findViewById(R.id.notes_and_other_pests_editable_notes_textbox);
         spinner = (Spinner)findViewById(R.id.notes_and_other_pests_spinner);
+        selectedPestsDisplay = (TextView) findViewById(R.id.notes_and_other_pests_chosen_pests);
 
         helpButton = (Button)findViewById(R.id.notes_and_other_pests_help); //sets the textview from the xml file
         cancelButton = (Button)findViewById(R.id.notes_and_other_pests_cancel_button);
@@ -90,6 +93,17 @@ public class PS_Notes_and_Other_Pests extends Activity{
                     {
                         Globals.sampleToBuild.removeOtherPest(selectedPest);
                     }
+
+                    if(Globals.sampleToBuild.getOtherPests().length > 0)
+                    {
+                        selectedPestsDisplay.setText(TextUtils.join(", ", Globals.sampleToBuild.getOtherPests()));
+                    }
+                    else
+                    {
+                        selectedPestsDisplay.setText("No other pests selected.");
+                    }
+
+                    selectedPestsDisplay.invalidate();
                 }
             }
 
