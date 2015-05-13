@@ -20,6 +20,10 @@
 
 @implementation ViewController
 
+
+/**
+Needs to be redone with the correct method of logging in. Right now this is checking to see if the fieldData file exists on the phone and if it does then the app automatically logs in with that data. When keychain is implemented then this will no longer be necessary. Right now when a user logs out, the app logs right back in because the file still exists.
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

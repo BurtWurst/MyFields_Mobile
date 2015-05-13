@@ -25,6 +25,7 @@
 @property (nonatomic, assign) int greenBugThresholdHigh;
 @property (nonatomic, assign) int greenBugThresholdLow;
 @property (nonatomic, assign) int mummyThreshold;
+@property (nonatomic, assign) int stopCount;
 
 
 + (SharedDataSingleton*) sharedInstance;

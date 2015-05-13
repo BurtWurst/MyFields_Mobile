@@ -32,6 +32,7 @@
 
 /**
  Initializes the selectedFieldList array and sets multiple strings equal to the values stored in the field object.
+ This method needs to be finished to allow the field objects field plantings list and pest samples list to be displayed in new list views. 
  */
 - (void)loadInitialData{
     
