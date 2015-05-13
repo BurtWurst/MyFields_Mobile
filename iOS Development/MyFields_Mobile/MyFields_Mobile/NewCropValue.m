@@ -132,6 +132,7 @@
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         self.cellSelected = true;
         
+        
         sharedManager.cropValue = cropValueItem.cropValue;
         NSLog(@"Crop Value is %@", sharedManager.cropValue);
         // Reflect selection in data model

@@ -8,6 +8,10 @@
 
 #import "SharedDataSingleton.h"
 
+
+/**
+ Singleton that is used throughout the app to store data that is needed at different times but needs to always be there. Global variables that can be called anywhere in the app. 
+ */
 static SharedDataSingleton *_instance = nil;
 @implementation SharedDataSingleton
 
@@ -24,6 +28,7 @@ static SharedDataSingleton *_instance = nil;
 @synthesize greenBugThresholdHigh;
 @synthesize greenBugThresholdLow;
 @synthesize mummyThreshold;
+@synthesize stopCount;
 
 +(SharedDataSingleton*) sharedInstance{
     @synchronized(self){
@@ -49,6 +54,7 @@ static SharedDataSingleton *_instance = nil;
         greenBugThresholdHigh = 0;
         greenBugThresholdLow = 0;
         mummyThreshold = 0;
+        stopCount = 1;
         
     }
     return self;

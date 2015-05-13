@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *notes;
 @property (weak, nonatomic) IBOutlet UITableView *otherPests;
+@property (nonatomic, assign) BOOL cellSelected;
 @property NSArray *otherPestList;
 
 @end
@@ -34,6 +35,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+/**
+  Loads in the text file that stores the other pests list. Puts them into a local mutable array.
+ */
 -(void)loadInitialData{
     NSString* path = [[NSBundle mainBundle] pathForResource:@"otherPest"
                                                      ofType:@"txt"];
@@ -93,6 +97,30 @@
     return cell;
 }
 
+/**
+ Adds a checkmark to the cell that is selected.
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    NSUInteger rowIndex = [indexPath row];
+    cell.textLabel.text = [self.otherPestList objectAtIndex:rowIndex];
+    
+    if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.cellSelected = true;
+        // Reflect selection in data model
+        
+    }
+    else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        self.cellSelected = false;
+    }
+}
+
+/**
+ Finish button resets the navagation array to go back to the user options at the beginning. Also resets all the values for the sharedManager singleton. 
+ */
 -(IBAction)finishButton:(UIBarButtonItem *)sender {
     SharedDataSingleton *sharedManager = [SharedDataSingleton sharedInstance];
 
